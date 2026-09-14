@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Line-Following Maze Robot</title>
+  <meta name="description" content="A line-following robot programmed in assembly that navigates a taped maze. By Daniel Wang." />
+  <meta name="color-scheme" content="light dark" />
+  <meta property="og:title" content="Line-Following Maze Robot" />
+  <meta property="og:image" content="../assets/video/linefollower-poster.jpg" />
+  <link rel="preload" href="../assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="../styles.css" />
+  <script>
+    document.documentElement.classList.add('js');
+    try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="container nav__inner">
+    <a class="nav__brand" href="../index.html">Daniel Wang</a>
+    <nav class="nav__links" id="nav-links" aria-label="Primary">
+      <a href="../index.html#about" data-nav>About</a>
+      <a href="../index.html#projects" data-nav class="is-active">Projects</a>
+      <a href="../index.html#experience" data-nav>Experience</a>
+      <a href="../index.html#skills" data-nav>Skills</a>
+      <a href="../index.html#contact" data-nav>Contact</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="icon-btn" id="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+        <svg class="icon icon--sun" aria-hidden="true"><use href="../assets/icons.svg#i-sun"/></svg>
+        <svg class="icon icon--moon" aria-hidden="true"><use href="../assets/icons.svg#i-moon"/></svg>
+      </button>
+      <button class="icon-btn nav__menu" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <svg class="icon icon--open" aria-hidden="true"><use href="../assets/icons.svg#i-list"/></svg>
+        <svg class="icon icon--close" aria-hidden="true"><use href="../assets/icons.svg#i-x"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<aside class="rail" id="rail" aria-label="Section navigation">
+  <nav class="rail__links">
+    <a href="../index.html#about" data-nav>About</a>
+    <a href="../index.html#projects" data-nav>Projects</a>
+    <a href="../index.html#experience" data-nav>Experience</a>
+    <a href="../index.html#skills" data-nav>Skills</a>
+    <a href="../index.html#contact" data-nav>Contact</a>
+  </nav>
+  <button class="icon-btn rail__theme" type="button" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+    <svg class="icon icon--sun" aria-hidden="true"><use href="../assets/icons.svg#i-sun"/></svg>
+    <svg class="icon icon--moon" aria-hidden="true"><use href="../assets/icons.svg#i-moon"/></svg>
+  </button>
+</aside>
+
+<main id="main" class="page">
+  <div class="container">
+    <a class="back" href="../index.html#projects">
+      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-arrow-left"/></svg>
+      <span>All projects</span>
+    </a>
+
+    <header class="page__head">
+      <div>
+        <h1 class="page__title">Line-Following Maze Robot</h1>
+        <p class="page__summary">A wheeled robot that follows a taped line through a maze, handles the junctions, and reaches the end on its own. The control program is written in assembly.</p>
+      </div>
+      <dl class="meta">
+        <div class="meta__row"><dt class="meta__label">Role</dt><dd class="meta__value">Assembly programming, sensor calibration, testing on the course</dd></div>
+        <div class="meta__row"><dt class="meta__label">Stack</dt><dd class="meta__value">Assembly language, microcontroller robot platform, reflective line sensors, LCD readout</dd></div>
+      </dl>
+    </header>
+
+    <div class="page__layout">
+    <aside class="page__side">
+      <div class="page__video">
+        <video class="video" controls muted playsinline preload="metadata" poster="../assets/video/linefollower-poster.jpg">
+        <source src="../assets/video/linefollower.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+        <p class="video__caption">The robot running the maze from the start marker to the end.</p>
+      </div>
+      <div class="strip-wrap">
+        <div class="strip strip--side" data-gallery data-drag>
+        <figure class="strip__item">
+          <a href="../assets/img/robot-chassis.jpg" data-lb data-caption="Inside the chassis: the sensor and motor board with its header pinout.">
+            <picture><source srcset="../assets/img/robot-chassis-800.webp 800w, ../assets/img/robot-chassis.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/robot-chassis.jpg" srcset="../assets/img/robot-chassis-800.jpg 800w, ../assets/img/robot-chassis.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Inside the robot chassis showing the wiring header" loading="lazy" decoding="async" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap">Inside the chassis</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a href="../assets/img/robot-team.jpg" data-lb data-caption="Working through the control logic with the team before a run.">
+            <picture><source srcset="../assets/img/robot-team-800.webp 800w, ../assets/img/robot-team.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/robot-team.jpg" srcset="../assets/img/robot-team-800.jpg 800w, ../assets/img/robot-team.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Team working at a table with laptops and notes" loading="lazy" decoding="async" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap">Working session</figcaption>
+        </figure>
+        </div>
+        <div class="strip__nav">
+          <button class="icon-btn strip__btn" type="button" data-prev aria-label="Previous photo"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-caret-left"/></svg></button>
+          <span class="strip__count" aria-live="polite"></span>
+          <button class="icon-btn strip__btn" type="button" data-next aria-label="Next photo"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-caret-right"/></svg></button>
+        </div>
+      </div>
+    </aside>
+      <article class="prose">
+        <h2 id="the-task">The task</h2>
+        <p>The course is a maze of black tape on a white board with a marked start and finish. The robot reads the line with a row of reflective sensors underneath, steers to keep the line centred, and has to recognise junctions and dead ends rather than just wander. A small LCD on top shows the sensor state and what the program thinks it is doing, which was the main debugging tool.</p>
+        <div class="specs">
+          <div class="spec"><span class="spec__label">Sensing</span><span class="spec__value">Reflective line sensors read through the microcontroller's ADC</span></div>
+          <div class="spec"><span class="spec__label">Control</span><span class="spec__value">Steering from sensor readings, with states for straight, turning, and junction handling</span></div>
+          <div class="spec"><span class="spec__label">Feedback</span><span class="spec__value">LCD readout of sensor values and current state while running</span></div>
+          <div class="spec"><span class="spec__label">Result</span><span class="spec__value">Completes the maze from start to finish, shown in the video above</span></div>
+        </div>
+
+        <h2 id="writing-it-in-assembly">Writing it in assembly</h2>
+        <p>There is no compiler doing the housekeeping here. Reading a sensor means setting up the ADC, waiting for the conversion, and pulling the result out of a register. The main loop is a state machine written as branches and jumps, with subroutines for the motor commands and the display. Getting the timing right, especially how long to hold a turn before checking the sensors again, took the most iteration on the actual course.</p>
+        <p>It was also a good lesson in how much a high-level language hides. After this, reading a datasheet register map and knowing exactly what the hardware is doing on each instruction felt a lot less abstract.</p>
+      </article>
+    </div>
+
+    <div class="page__next">
+      <a class="next" href="custom-pc-builds.html">
+        <span>
+          <span class="next__label">Next project</span>
+          <span class="next__title">Custom PC Builds</span>
+        </span>
+        <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-arrow-right"/></svg>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>&copy; <span id="year">2026</span> Daniel Wang</p>
+    <p>Markham, Ontario</p>
+  </div>
+</footer>
+
+<script src="../main.js" defer></script>
+</body>
+</html>

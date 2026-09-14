@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daniel Wang</title>
+  <meta name="description" content="Daniel Wang is a Computer Engineering student at Toronto Metropolitan University working on FPGA design, embedded systems, and hardware/software integration." />
+  <meta name="color-scheme" content="light dark" />
+  <meta property="og:title" content="Daniel Wang" />
+  <meta property="og:description" content="Computer Engineering student. FPGA design, embedded systems, and the software that ties them together." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/img/esp32-featured.jpg" />
+  <link rel="preload" href="assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/img/avatar-800.webp" as="image" type="image/webp" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    document.documentElement.classList.add('js');
+    try {
+      var t = localStorage.getItem('theme');
+      if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  </script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="container nav__inner">
+    <a class="nav__brand" href="#top" aria-label="Daniel Wang, back to top">Daniel Wang</a>
+
+    <nav class="nav__links" id="nav-links" aria-label="Primary">
+      <a href="#about" data-nav>About</a>
+      <a href="#projects" data-nav>Projects</a>
+      <a href="#experience" data-nav>Experience</a>
+      <a href="#skills" data-nav>Skills</a>
+      <a href="#contact" data-nav>Contact</a>
+    </nav>
+
+    <div class="nav__actions">
+      <button class="icon-btn" id="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+        <svg class="icon icon--sun" aria-hidden="true"><use href="assets/icons.svg#i-sun"/></svg>
+        <svg class="icon icon--moon" aria-hidden="true"><use href="assets/icons.svg#i-moon"/></svg>
+      </button>
+      <button class="icon-btn nav__menu" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <svg class="icon icon--open" aria-hidden="true"><use href="assets/icons.svg#i-list"/></svg>
+        <svg class="icon icon--close" aria-hidden="true"><use href="assets/icons.svg#i-x"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<aside class="rail" id="rail" aria-label="Section navigation">
+  <nav class="rail__links">
+    <a href="#about" data-nav>About</a>
+    <a href="#projects" data-nav>Projects</a>
+    <a href="#experience" data-nav>Experience</a>
+    <a href="#skills" data-nav>Skills</a>
+    <a href="#contact" data-nav>Contact</a>
+  </nav>
+  <button class="icon-btn rail__theme" type="button" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+    <svg class="icon icon--sun" aria-hidden="true"><use href="assets/icons.svg#i-sun"/></svg>
+    <svg class="icon icon--moon" aria-hidden="true"><use href="assets/icons.svg#i-moon"/></svg>
+  </button>
+</aside>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="container hero__grid">
+      <div class="hero__copy">
+        <p class="eyebrow hero__eyebrow">Computer Engineering, Toronto Metropolitan University</p>
+        <h1 class="hero__title" id="hero-title">Building at the edge of hardware and software.</h1>
+        <p class="hero__sub">Third-year Computer Engineering student. I design digital logic for FPGAs, write firmware for microcontrollers, and debug the boundary between the two.</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="#projects" data-magnetic>
+            <span>See projects</span>
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-arrow-right"/></svg>
+          </a>
+          <a class="btn btn--ghost" href="uploads/resume.pdf" download="Daniel-Wang-Resume.pdf" data-magnetic>
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-download-simple"/></svg>
+            <span>Download resume</span>
+          </a>
+        </div>
+      </div>
+
+      <figure class="hero__photo">
+        <picture>
+          <source srcset="assets/img/avatar-800.webp 800w, assets/img/avatar.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" />
+          <img src="assets/img/avatar.jpg" srcset="assets/img/avatar-800.jpg 800w, assets/img/avatar.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="900" height="896" alt="Portrait of Daniel Wang" fetchpriority="high" />
+        </picture>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container about__grid">
+      <div class="about__main">
+        <h2 class="section__title" data-reveal>About</h2>
+        <p class="about__statement" id="about-statement" data-reveal>
+          I like working where circuits meet code. That means describing a processor in VHDL and watching it execute instructions on an FPGA, or wiring sensors to an ESP32 and getting clean data out of them over Wi-Fi.
+        </p>
+        <div class="about__body" data-reveal>
+          <p>
+            In my digital systems work I have designed and simulated finite state machines, registers, and ALUs in Quartus II, then implemented a small processor with an FSM controller, ALU, memory, and an instruction set on an Altera DE-series board. Writing the testbenches taught me more about timing than any lecture did.
+          </p>
+          <p>
+            On the embedded side I build things I can hold. My weather station runs eight-plus sensors off one ESP32 and streams to a live dashboard, with 3D-printed parts I modeled myself. Outside school I have built and tuned more than fifteen custom PCs, which is where I first learned to benchmark, diagnose, and fix hardware methodically.
+          </p>
+          <p>
+            Right now I am on the TMU Engineering Concrete Toboggan Team, programming a microcontroller-based interactive display for Canada's largest engineering competition.
+          </p>
+        </div>
+      </div>
+
+      <aside class="about__facts" data-reveal-group>
+        <div class="fact" data-reveal style="--i:0">
+          <span class="fact__label">Focus</span>
+          <span class="fact__value">Digital logic and FPGA design, microcontrollers and sensors, system-level hardware/software integration</span>
+        </div>
+        <div class="fact" data-reveal style="--i:1">
+          <span class="fact__label">Core knowledge</span>
+          <span class="fact__value">Digital and analog circuits, transistor behaviour, computer organization, FSMs and timing, system-level debugging</span>
+        </div>
+        <div class="fact" data-reveal style="--i:2">
+          <span class="fact__label">Studying</span>
+          <span class="fact__value">BEng Computer Engineering, Toronto Metropolitan University, 2022 to present</span>
+        </div>
+        <div class="fact" data-reveal style="--i:3">
+          <span class="fact__label">Based in</span>
+          <span class="fact__value">Markham, Ontario</span>
+        </div>
+        <div class="fact" data-reveal style="--i:4">
+          <span class="fact__label">Languages</span>
+          <span class="fact__value">English, native. Mandarin, conversational.</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="projects" id="projects">
+    <div class="container">
+      <h2 class="section__title" data-reveal>Projects</h2>
+
+      <!-- Featured: ESP32 weather station -->
+      <article class="project project--featured" data-reveal>
+        <div class="gallery" id="esp32-gallery">
+          <a class="gallery__link" href="projects/esp32-weather-station.html" aria-label="Open the ESP32 Weather Station write-up">
+          <div class="gallery__stage img-reveal">
+            <picture class="gallery__slide is-active" data-slide="0">
+              <source srcset="assets/img/esp32-featured-800.webp 800w, assets/img/esp32-featured.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" />
+              <img src="assets/img/esp32-featured.jpg" srcset="assets/img/esp32-featured-800.jpg 800w, assets/img/esp32-featured.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="1600" height="1200" alt="ESP32 on a breadboard wired to a row of hall effect modules and environmental sensors" loading="lazy" />
+            </picture>
+            <picture class="gallery__slide" data-slide="1">
+              <source srcset="assets/img/esp32-1-800.webp 800w, assets/img/esp32-1.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" />
+              <img src="assets/img/esp32-1.jpg" srcset="assets/img/esp32-1-800.jpg 800w, assets/img/esp32-1.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="1050" height="1400" alt="3D printed parts laid out: anemometer cups, wind vane, rain gauge funnel, radiation shield plates, and enclosure" loading="lazy" />
+            </picture>
+            <picture class="gallery__slide" data-slide="2">
+              <source srcset="assets/img/esp32-2-800.webp 800w, assets/img/esp32-2.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" />
+              <img src="assets/img/esp32-2.jpg" srcset="assets/img/esp32-2-800.jpg 800w, assets/img/esp32-2.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="1050" height="1400" alt="Assembled anemometer and stacked radiation shield" loading="lazy" />
+            </picture>
+            <picture class="gallery__slide" data-slide="3">
+              <source srcset="assets/img/esp32-3-800.webp 800w, assets/img/esp32-3.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" />
+              <img src="assets/img/esp32-3.jpg" srcset="assets/img/esp32-3-800.jpg 800w, assets/img/esp32-3.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="1600" height="1200" alt="ThingSpeak dashboard charting light, temperature, humidity, pressure, wind speed, and rainfall" loading="lazy" />
+            </picture>
+          </div>
+          </a>
+          <div class="gallery__thumbs" role="tablist" aria-label="Project photos">
+            <button class="gallery__thumb is-active" type="button" role="tab" aria-selected="true" data-thumb="0">
+              <picture><source srcset="assets/img/esp32-featured-800.webp 800w, assets/img/esp32-featured.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/esp32-featured.jpg" srcset="assets/img/esp32-featured-800.jpg 800w, assets/img/esp32-featured.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="" loading="lazy" /></picture>
+              <span>Electronics</span>
+            </button>
+            <button class="gallery__thumb" type="button" role="tab" aria-selected="false" data-thumb="1">
+              <picture><source srcset="assets/img/esp32-1-800.webp 800w, assets/img/esp32-1.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/esp32-1.jpg" srcset="assets/img/esp32-1-800.jpg 800w, assets/img/esp32-1.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="" loading="lazy" /></picture>
+              <span>Printed parts</span>
+            </button>
+            <button class="gallery__thumb" type="button" role="tab" aria-selected="false" data-thumb="2">
+              <picture><source srcset="assets/img/esp32-2-800.webp 800w, assets/img/esp32-2.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/esp32-2.jpg" srcset="assets/img/esp32-2-800.jpg 800w, assets/img/esp32-2.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="" loading="lazy" /></picture>
+              <span>Assembly</span>
+            </button>
+            <button class="gallery__thumb" type="button" role="tab" aria-selected="false" data-thumb="3">
+              <picture><source srcset="assets/img/esp32-3-800.webp 800w, assets/img/esp32-3.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/esp32-3.jpg" srcset="assets/img/esp32-3-800.jpg 800w, assets/img/esp32-3.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="" loading="lazy" /></picture>
+              <span>Dashboard</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="project__body">
+          <h3 class="project__title">ESP32 Weather Station</h3>
+          <p class="project__year">June 2025</p>
+          <p class="project__desc">
+            A self-built weather station. One ESP32 reads eight-plus sensors for temperature, humidity, pressure, light, wind speed, wind direction, and rainfall, then streams every reading to a ThingSpeak dashboard over Wi-Fi. The anemometer, wind vane, rain gauge, and radiation shield are parts I modeled in AutoCAD and 3D printed.
+          </p>
+          <ul class="tags" aria-label="Technologies">
+            <li>ESP32</li><li>C++</li><li>Hall effect sensors</li><li>ThingSpeak</li><li>AutoCAD</li><li>3D printing</li>
+          </ul>
+          <a class="more" href="projects/esp32-weather-station.html">
+            <span>Read the write-up</span>
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-arrow-right"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Second feature: FPGA processor (text left, visual right) -->
+      <article class="project project--featured project--flip" data-reveal>
+        <div class="project__body">
+          <h3 class="project__title">Processor on an FPGA</h3>
+          <p class="project__year">Sept to Nov 2024</p>
+          <p class="project__desc">
+            A small processor written in VHDL and run on an Altera DE-series board: an FSM control unit, an ALU, memory, and an instruction set that executes arithmetic and data movement. Built with one partner after designing and simulating the FSMs, registers, and ALU individually in Quartus II. The testbenches I wrote caught timing issues that simulation alone had missed.
+          </p>
+          <ul class="tags" aria-label="Technologies">
+            <li>VHDL</li><li>Quartus II</li><li>Altera DE series</li><li>FSM</li><li>ALU</li><li>Testbenches</li>
+          </ul>
+          <a class="more" href="projects/fpga-processor.html">
+            <span>Read the write-up</span>
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-arrow-right"/></svg>
+          </a>
+        </div>
+
+        <a class="project__panel img-reveal" href="projects/fpga-processor.html" aria-label="Open the Processor on an FPGA write-up">
+          <div class="panel__grid"></div>
+          <svg class="panel__icon"><use href="assets/icons.svg#i-cpu"/></svg>
+          <ul class="panel__blocks">
+            <li>FSM control</li><li>ALU</li><li>Register file</li><li>Memory</li><li>Instruction decode</li>
+          </ul>
+        </a>
+      </article>
+
+      <div class="projects__row">
+        <!-- Scoreboard -->
+        <a class="project project--card card-spot" href="projects/tech-display-scoreboard.html" data-reveal style="--i:0">
+          <div class="project__media img-reveal">
+            <picture>
+              <source srcset="assets/img/scoreboard-soldering-800.webp 800w, assets/img/scoreboard-soldering.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" />
+              <img src="assets/img/scoreboard-soldering.jpg" srcset="assets/img/scoreboard-soldering-800.jpg 800w, assets/img/scoreboard-soldering.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="1600" height="1200" alt="Soldering addressable LED strip segments into 3D printed seven-segment housings" loading="lazy" />
+            </picture>
+            <div class="card__panel" aria-hidden="true">
+              <ul class="card__facts"><li><span>Controller</span>Wemos D1 mini</li><li><span>Segments</span>Addressable LED strip</li><li><span>Housings</span>3D printed</li></ul>
+              <span class="card__go">Read the write-up <svg class="icon"><use href="assets/icons.svg#i-arrow-right"/></svg></span>
+            </div>
+          </div>
+          <div class="project__body">
+            <h3 class="project__title">Giant Seven-Segment Scoreboard</h3>
+            <p class="project__year">2025, TMU Concrete Toboggan Team</p>
+            <p class="project__desc">
+              A two-digit scoreboard for the team's tech display. Addressable LED strips cut into segments, 3D printed housings, and a Wemos D1 mini running Arduino C++ to drive the chain over Wi-Fi. Finished and counting, video on the project page.
+            </p>
+            <ul class="tags" aria-label="Technologies">
+              <li>ESP8266</li><li>Arduino C++</li><li>Addressable LEDs</li><li>3D printing</li><li>Soldering</li>
+            </ul>
+          </div>
+          <span class="card__arrow" aria-hidden="true"><svg class="icon"><use href="assets/icons.svg#i-arrow-up-right"/></svg></span>
+        </a>
+
+        <!-- Line follower -->
+        <a class="project project--card card-spot" href="projects/line-following-robot.html" data-reveal style="--i:1">
+          <div class="project__media img-reveal">
+            <picture>
+              <source srcset="assets/video/linefollower-poster-800.webp 800w, assets/video/linefollower-poster.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" />
+              <img src="assets/video/linefollower-poster.jpg" srcset="assets/video/linefollower-poster-800.jpg 800w, assets/video/linefollower-poster.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="1080" height="606" alt="Line-following robot on a taped maze board" loading="lazy" />
+            </picture>
+            <div class="card__panel" aria-hidden="true">
+              <ul class="card__facts"><li><span>Language</span>Assembly</li><li><span>Sensing</span>Reflective line sensors</li><li><span>Course</span>Taped maze, start to finish</li></ul>
+              <span class="card__go">Read the write-up <svg class="icon"><use href="assets/icons.svg#i-arrow-right"/></svg></span>
+            </div>
+          </div>
+          <div class="project__body">
+            <h3 class="project__title">Line-Following Maze Robot</h3>
+            <p class="project__year">Assembly language</p>
+            <p class="project__desc">
+              A wheeled robot that reads a taped line with reflective sensors, steers to stay on it, and handles junctions until it reaches the end of the maze. The whole control program is written in assembly. Video on the project page.
+            </p>
+            <ul class="tags" aria-label="Technologies">
+              <li>Assembly</li><li>Microcontroller</li><li>Line sensors</li><li>State machine</li>
+            </ul>
+          </div>
+          <span class="card__arrow" aria-hidden="true"><svg class="icon"><use href="assets/icons.svg#i-arrow-up-right"/></svg></span>
+        </a>
+
+        <!-- PC building -->
+        <a class="project project--card card-spot" href="projects/custom-pc-builds.html" data-reveal style="--i:2">
+          <div class="project__media img-reveal">
+            <picture>
+              <source srcset="assets/img/pc-white-1-800.webp 800w, assets/img/pc-white-1.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" />
+              <img src="assets/img/pc-white-1.jpg" srcset="assets/img/pc-white-1-800.jpg 800w, assets/img/pc-white-1.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="1600" height="1508" alt="White PC build with a liquid cooler, RTX graphics card, and sleeved cables" loading="lazy" />
+            </picture>
+            <div class="card__panel" aria-hidden="true">
+              <ul class="card__facts"><li><span>Builds</span>Fifteen-plus</li><li><span>Validation</span>CPU and GPU benchmarks</li><li><span>Setup</span>OS, drivers, BIOS</li></ul>
+              <span class="card__go">Read the write-up <svg class="icon"><use href="assets/icons.svg#i-arrow-right"/></svg></span>
+            </div>
+          </div>
+          <div class="project__body">
+            <h3 class="project__title">Custom PC Builds</h3>
+            <p class="project__year">2020 to present</p>
+            <p class="project__desc">
+              Fifteen-plus builds for gaming and workstation use. Each one gets a clean OS and driver setup, CPU and GPU benchmarking to find bottlenecks, and a written troubleshooting procedure when something misbehaves.
+            </p>
+            <ul class="tags" aria-label="Skills">
+              <li>Hardware</li><li>Benchmarking</li><li>Diagnostics</li>
+            </ul>
+          </div>
+          <span class="card__arrow" aria-hidden="true"><svg class="icon"><use href="assets/icons.svg#i-arrow-up-right"/></svg></span>
+        </a>
+
+        <!-- Book store app -->
+        <a class="project project--card project--tinted card-spot" href="projects/book-store-app.html" data-reveal style="--i:3">
+          <div class="project__stat" aria-hidden="true">
+            <span class="project__stat-num">94<span class="project__stat-unit">%</span></span>
+            <span class="project__stat-label">final grade</span>
+            <div class="card__panel" aria-hidden="true">
+              <ul class="card__facts"><li><span>Pattern</span>State</li><li><span>Interface</span>JavaFX</li><li><span>Team</span>Three people</li></ul>
+              <span class="card__go">Read the write-up <svg class="icon"><use href="assets/icons.svg#i-arrow-right"/></svg></span>
+            </div>
+          </div>
+          <div class="project__body">
+            <h3 class="project__title">Book Store Application</h3>
+            <p class="project__year">May to June 2024</p>
+            <p class="project__desc">
+              A three-person Java project designed from use cases and UML first, then implemented in NetBeans with a JavaFX interface. Customer tiers are handled with the State pattern.
+            </p>
+            <ul class="tags" aria-label="Technologies">
+              <li>Java</li><li>JavaFX</li><li>UML</li><li>State pattern</li>
+            </ul>
+          </div>
+          <span class="card__arrow" aria-hidden="true"><svg class="icon"><use href="assets/icons.svg#i-arrow-up-right"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE + EDUCATION -->
+  <section class="timeline-section" id="experience">
+    <div class="container timeline__grid">
+      <div class="timeline__head">
+        <h2 class="section__title" data-reveal>Experience and education</h2>
+        <p class="timeline__intro" data-reveal>Team roles, coursework that turned into real hardware, and the volunteer work where I first learned to keep a live system running.</p>
+      </div>
+
+      <ol class="timeline" id="timeline">
+        <li class="timeline__item" data-reveal style="--i:0">
+          <p class="timeline__date">May 2025 to present</p>
+          <h3 class="timeline__title">Tech Display Member</h3>
+          <p class="timeline__org"><a href="https://www.torontomu.ca/" target="_blank" rel="noopener">TMU Engineering Concrete Toboggan Team</a></p>
+          <p class="timeline__desc">Programming and integrating a microcontroller-based interactive display in Arduino and C++ for Canada's largest and oldest engineering competition. Small team, shared deadlines, and a display that has to work on competition day.</p>
+        </li>
+        <li class="timeline__item" data-reveal style="--i:1">
+          <p class="timeline__date">Sept 2024 to Nov 2024</p>
+          <h3 class="timeline__title">Digital Logic Design, Quartus II</h3>
+          <p class="timeline__org">Toronto Metropolitan University</p>
+          <p class="timeline__desc">Designed and simulated FSMs, registers, and ALUs, then implemented a processor in VHDL on an FPGA. Wrote testbenches that improved timing verification and confirmed reliable instruction execution on hardware.</p>
+        </li>
+        <li class="timeline__item" data-reveal style="--i:2">
+          <p class="timeline__date">Sept 2022 to present</p>
+          <h3 class="timeline__title">BEng, Computer Engineering</h3>
+          <p class="timeline__org"><a href="https://www.torontomu.ca/" target="_blank" rel="noopener">Toronto Metropolitan University</a></p>
+          <p class="timeline__desc">Relevant courses: Digital Systems, Software Systems, Electronic Circuits I, Engineering Algorithms and Data Structures.</p>
+        </li>
+        <li class="timeline__item" data-reveal style="--i:3">
+          <p class="timeline__date">May 2020 to Mar 2024</p>
+          <h3 class="timeline__title">Media and Technical Support, Volunteer</h3>
+          <p class="timeline__org">Chinese Martyrs Catholic Church, Markham</p>
+          <p class="timeline__desc">Operated live-streaming equipment to broadcast weekly services and major events, starting during the pandemic. Resolved technical issues during live productions and kept every streaming and upload schedule.</p>
+        </li>
+        <li class="timeline__item" data-reveal style="--i:4">
+          <p class="timeline__date">2018 to 2022</p>
+          <h3 class="timeline__title">High School Diploma</h3>
+          <p class="timeline__org">St. Augustine Catholic High School</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- LAB WORK -->
+  <section class="lab" id="lab">
+    <div class="container">
+      <h2 class="section__title" data-reveal>Lab work and other bits</h2>
+      <p class="lab__intro" data-reveal>Coursework that put instruments in my hands: characterising circuits on the bench for Signals and Systems, and taking an ALU from VHDL to a running FPGA board for Digital Systems. Plus a couple of things from the bench that did not fit anywhere else.</p>
+      <div class="strip-wrap" data-reveal>
+      <div class="strip" data-gallery data-drag>
+        <figure class="strip__item">
+          <a href="assets/img/lab-step-response.jpg" data-lb data-caption="Step response of a second-order circuit on the oscilloscope: overshoot and ringing settling to the final value.">
+            <picture><source srcset="assets/img/lab-step-response-800.webp 800w, assets/img/lab-step-response.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/lab-step-response.jpg" srcset="assets/img/lab-step-response-800.jpg 800w, assets/img/lab-step-response.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Oscilloscope showing a step response with overshoot and ringing" loading="lazy" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap"><strong>Step response</strong>Second-order circuit ringing on a Keysight scope</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a href="assets/img/lab-phase.jpg" data-lb data-caption="Two channels on the scope, measuring the phase shift between input and output of a filter.">
+            <picture><source srcset="assets/img/lab-phase-800.webp 800w, assets/img/lab-phase.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/lab-phase.jpg" srcset="assets/img/lab-phase-800.jpg 800w, assets/img/lab-phase.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Oscilloscope showing two sine waves with a phase shift" loading="lazy" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap"><strong>Phase measurement</strong>Input and output of a filter on two channels</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a href="assets/img/lab-circuit.jpg" data-lb data-caption="Bench setup with a current source and two multimeters measuring a circuit under test.">
+            <picture><source srcset="assets/img/lab-circuit-800.webp 800w, assets/img/lab-circuit.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/lab-circuit.jpg" srcset="assets/img/lab-circuit-800.jpg 800w, assets/img/lab-circuit.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Bench with a current source and two multimeters connected to a circuit" loading="lazy" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap"><strong>DC measurements</strong>Current source and multimeters on the bench</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a href="assets/img/lab-bench.jpg" data-lb data-caption="Full bench: function generator, scope, and the circuit under test.">
+            <picture><source srcset="assets/img/lab-bench-800.webp 800w, assets/img/lab-bench.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/lab-bench.jpg" srcset="assets/img/lab-bench-800.jpg 800w, assets/img/lab-bench.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Lab bench with a function generator, oscilloscope, and breadboard circuit" loading="lazy" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap"><strong>Signals bench</strong>Function generator driving a circuit into the scope</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a href="assets/img/alu-board.jpg" data-lb data-caption="The ALU running on an Altera DE-series board, inputs on the switches and result on the seven-segment displays.">
+            <picture><source srcset="assets/img/alu-board-800.webp 800w, assets/img/alu-board.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/alu-board.jpg" srcset="assets/img/alu-board-800.jpg 800w, assets/img/alu-board.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Altera DE-series FPGA board with the ALU result on seven-segment displays" loading="lazy" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap"><strong>ALU on the DE board</strong>Switch inputs, seven-segment output</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a href="assets/img/alu-rtl.jpg" data-lb data-caption="RTL schematic generated by Quartus from the HDL source.">
+            <picture><source srcset="assets/img/alu-rtl-800.webp 800w, assets/img/alu-rtl.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/alu-rtl.jpg" srcset="assets/img/alu-rtl-800.jpg 800w, assets/img/alu-rtl.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Quartus RTL viewer showing the synthesized design" loading="lazy" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap"><strong>RTL view</strong>What Quartus synthesized from the VHDL</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a href="assets/img/gears.jpg" data-lb data-caption="A set of 3D printed gears fresh off the print bed.">
+            <picture><source srcset="assets/img/gears-800.webp 800w, assets/img/gears.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/gears.jpg" srcset="assets/img/gears-800.jpg 800w, assets/img/gears.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="3D printed gears of several sizes on a printer bed" loading="lazy" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap"><strong>Printed gears</strong>A gear set straight off the print bed</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a href="assets/img/robot-pi.jpg" data-lb data-caption="Raspberry Pi with a GPIO ribbon cable and Ethernet attached.">
+            <picture><source srcset="assets/img/robot-pi-800.webp 800w, assets/img/robot-pi.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/robot-pi.jpg" srcset="assets/img/robot-pi-800.jpg 800w, assets/img/robot-pi.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Raspberry Pi with a ribbon cable on the GPIO header" loading="lazy" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap"><strong>Raspberry Pi</strong>Wired up over the GPIO header</figcaption>
+        </figure>
+      </div>
+      <div class="strip__nav">
+        <button class="icon-btn strip__btn" type="button" data-prev aria-label="Previous photo"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-caret-left"/></svg></button>
+        <span class="strip__count" aria-live="polite"></span>
+        <button class="icon-btn strip__btn" type="button" data-next aria-label="Next photo"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-caret-right"/></svg></button>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="skills" id="skills">
+    <div class="container">
+      <h2 class="section__title" data-reveal>Skills</h2>
+      <div class="skills__rows">
+        <div class="skills__row" data-reveal>
+          <h3 class="skills__group">Hardware and design</h3>
+          <ul class="chips">
+            <li style="--i:0">VHDL</li>
+            <li style="--i:1">Quartus II</li>
+            <li style="--i:2">FPGA (Altera DE series)</li>
+            <li style="--i:3">Logic design: FSM, ALU, memory</li>
+            <li style="--i:4">Arduino</li>
+            <li style="--i:5">ESP32</li>
+            <li style="--i:6">Soldering</li>
+          </ul>
+        </div>
+        <div class="skills__row" data-reveal>
+          <h3 class="skills__group">Programming</h3>
+          <ul class="chips">
+            <li style="--i:0">C</li>
+            <li style="--i:1">C++</li>
+            <li style="--i:2">Python</li>
+            <li style="--i:3">Java</li>
+          </ul>
+        </div>
+        <div class="skills__row" data-reveal>
+          <h3 class="skills__group">Tools and systems</h3>
+          <ul class="chips">
+            <li style="--i:0">Linux</li>
+            <li style="--i:1">Windows</li>
+            <li style="--i:2">Git</li>
+            <li style="--i:3">MATLAB</li>
+            <li style="--i:4">Multisim</li>
+            <li style="--i:5">Oscilloscope</li>
+            <li style="--i:6">Autodesk</li>
+          </ul>
+        </div>
+        <div class="skills__row" data-reveal>
+          <h3 class="skills__group">Core knowledge</h3>
+          <ul class="chips">
+            <li style="--i:0">Digital and analog circuits</li>
+            <li style="--i:1">Transistor behaviour</li>
+            <li style="--i:2">Computer organization</li>
+            <li style="--i:3">Timing analysis</li>
+            <li style="--i:4">System-level debugging</li>
+            <li style="--i:5">OS and driver setup</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2 class="contact__title" data-reveal>Get in touch</h2>
+      <p class="contact__sub" data-reveal>Open to internships and co-op roles in embedded systems, FPGA, and hardware/software integration.</p>
+
+      <div class="contact__actions" data-reveal>
+        <a class="btn btn--primary btn--lg" href="mailto:Daniel.Wang5421@gmail.com" data-magnetic>
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-envelope-simple"/></svg>
+          <span>Email me</span>
+        </a>
+        <button class="btn btn--ghost btn--lg copy-btn" id="copy-email" type="button" data-email="Daniel.Wang5421@gmail.com" data-magnetic>
+          <span class="copy-btn__face copy-btn__face--idle">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-copy"/></svg>
+            <span>Copy address</span>
+          </span>
+          <span class="copy-btn__face copy-btn__face--done" aria-hidden="true">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg>
+            <span>Copied</span>
+          </span>
+        </button>
+      </div>
+
+      <ul class="socials" data-reveal>
+        <li>
+          <a class="social" href="https://github.com/DanielWang5421" target="_blank" rel="noopener">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-github-logo"/></svg>
+            <span>GitHub</span>
+            <svg class="icon icon--ext" aria-hidden="true"><use href="assets/icons.svg#i-arrow-up-right"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="social" href="https://www.linkedin.com/in/daniel-wang-296387235/" target="_blank" rel="noopener">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-linkedin-logo"/></svg>
+            <span>LinkedIn</span>
+            <svg class="icon icon--ext" aria-hidden="true"><use href="assets/icons.svg#i-arrow-up-right"/></svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>&copy; <span id="year">2026</span> Daniel Wang</p>
+    <p>Markham, Ontario</p>
+  </div>
+</footer>
+
+<script src="main.js" defer></script>
+</body>
+</html>

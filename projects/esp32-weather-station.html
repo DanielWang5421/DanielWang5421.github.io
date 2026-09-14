@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ESP32 Weather Station</title>
+  <meta name="description" content="An ESP32 weather station with eight-plus sensors, 3D printed instruments, and a live ThingSpeak dashboard. Built by Daniel Wang." />
+  <meta name="color-scheme" content="light dark" />
+  <meta property="og:title" content="ESP32 Weather Station" />
+  <meta property="og:image" content="../assets/img/esp32-featured.jpg" />
+  <link rel="preload" href="../assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="../styles.css" />
+  <script>
+    document.documentElement.classList.add('js');
+    try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="container nav__inner">
+    <a class="nav__brand" href="../index.html">Daniel Wang</a>
+    <nav class="nav__links" id="nav-links" aria-label="Primary">
+      <a href="../index.html#about" data-nav>About</a>
+      <a href="../index.html#projects" data-nav class="is-active">Projects</a>
+      <a href="../index.html#experience" data-nav>Experience</a>
+      <a href="../index.html#skills" data-nav>Skills</a>
+      <a href="../index.html#contact" data-nav>Contact</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="icon-btn" id="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+        <svg class="icon icon--sun" aria-hidden="true"><use href="../assets/icons.svg#i-sun"/></svg>
+        <svg class="icon icon--moon" aria-hidden="true"><use href="../assets/icons.svg#i-moon"/></svg>
+      </button>
+      <button class="icon-btn nav__menu" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <svg class="icon icon--open" aria-hidden="true"><use href="../assets/icons.svg#i-list"/></svg>
+        <svg class="icon icon--close" aria-hidden="true"><use href="../assets/icons.svg#i-x"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<aside class="rail" id="rail" aria-label="Section navigation">
+  <nav class="rail__links">
+    <a href="../index.html#about" data-nav>About</a>
+    <a href="../index.html#projects" data-nav>Projects</a>
+    <a href="../index.html#experience" data-nav>Experience</a>
+    <a href="../index.html#skills" data-nav>Skills</a>
+    <a href="../index.html#contact" data-nav>Contact</a>
+  </nav>
+  <button class="icon-btn rail__theme" type="button" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+    <svg class="icon icon--sun" aria-hidden="true"><use href="../assets/icons.svg#i-sun"/></svg>
+    <svg class="icon icon--moon" aria-hidden="true"><use href="../assets/icons.svg#i-moon"/></svg>
+  </button>
+</aside>
+
+<main id="main" class="page">
+  <div class="container">
+    <a class="back" href="../index.html#projects">
+      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-arrow-left"/></svg>
+      <span>All projects</span>
+    </a>
+
+    <header class="page__head">
+      <div>
+        <h1 class="page__title">ESP32 Weather Station</h1>
+        <p class="page__summary">A weather station I designed, printed, wired, and programmed end to end. One ESP32 reads eight-plus sensors and streams the readings to a live dashboard over Wi-Fi.</p>
+      </div>
+      <dl class="meta">
+        <div class="meta__row"><dt class="meta__label">When</dt><dd class="meta__value">June 2025</dd></div>
+        <div class="meta__row"><dt class="meta__label">Role</dt><dd class="meta__value">Solo: mechanical, electronics, firmware</dd></div>
+        <div class="meta__row"><dt class="meta__label">Stack</dt><dd class="meta__value">ESP32, C++ (Arduino), ThingSpeak, AutoCAD, FDM 3D printing</dd></div>
+      </dl>
+    </header>
+
+    <div class="page__layout">
+    <aside class="page__side">
+      <div class="strip-wrap">
+        <div class="strip strip--side" data-gallery data-drag>
+        <figure class="strip__item">
+          <a href="../assets/img/esp32-featured.jpg" data-lb data-caption="ESP32 on the breadboard with the hall effect array along the bottom edge.">
+            <picture><source srcset="../assets/img/esp32-featured-800.webp 800w, ../assets/img/esp32-featured.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/esp32-featured.jpg" srcset="../assets/img/esp32-featured-800.jpg 800w, ../assets/img/esp32-featured.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="ESP32 and sensors on a breadboard" loading="lazy" decoding="async" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap">Electronics on the breadboard</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a href="../assets/img/esp32-1.jpg" data-lb data-caption="Every printed part laid out: cups, vane, funnel, shield plates, enclosure, and brackets.">
+            <picture><source srcset="../assets/img/esp32-1-800.webp 800w, ../assets/img/esp32-1.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/esp32-1.jpg" srcset="../assets/img/esp32-1-800.jpg 800w, ../assets/img/esp32-1.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="3D printed parts laid out on a table" loading="lazy" decoding="async" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap">Printed parts before assembly</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a href="../assets/img/esp32-2.jpg" data-lb data-caption="Anemometer assembled, with the radiation shield stack and rain funnel beside it.">
+            <picture><source srcset="../assets/img/esp32-2-800.webp 800w, ../assets/img/esp32-2.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/esp32-2.jpg" srcset="../assets/img/esp32-2-800.jpg 800w, ../assets/img/esp32-2.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Assembled anemometer and radiation shield" loading="lazy" decoding="async" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap">Anemometer and shield assembled</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a href="../assets/img/esp32-3.jpg" data-lb data-caption="ThingSpeak channel with light, temperature, humidity, pressure, wind speed, rainfall, and wind direction fields.">
+            <picture><source srcset="../assets/img/esp32-3-800.webp 800w, ../assets/img/esp32-3.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/esp32-3.jpg" srcset="../assets/img/esp32-3-800.jpg 800w, ../assets/img/esp32-3.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="ThingSpeak dashboard with seven charts" loading="lazy" decoding="async" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap">Live dashboard</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a href="../assets/img/esp32-4.jpg" data-lb data-caption="The full breadboard: ESP32 in the centre, hall effect modules down the left, power module at the bottom.">
+            <picture><source srcset="../assets/img/esp32-4-800.webp 800w, ../assets/img/esp32-4.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/esp32-4.jpg" srcset="../assets/img/esp32-4-800.jpg 800w, ../assets/img/esp32-4.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="ESP32 breadboard from above with hall effect modules and power module" loading="lazy" decoding="async" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap">Breadboard from above</figcaption>
+        </figure>
+        </div>
+        <div class="strip__nav">
+          <button class="icon-btn strip__btn" type="button" data-prev aria-label="Previous photo"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-caret-left"/></svg></button>
+          <span class="strip__count" aria-live="polite"></span>
+          <button class="icon-btn strip__btn" type="button" data-next aria-label="Next photo"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-caret-right"/></svg></button>
+        </div>
+      </div>
+    </aside>
+      <article class="prose">
+        <h2 id="goal">Goal</h2>
+        <p>I wanted a station that measured real weather, not just a temperature sensor on a desk. That meant wind speed and direction, rainfall, and pressure alongside the usual temperature, humidity, and light. It also meant the parts that touch the weather had to be designed and made by me.</p>
+
+        <h2 id="sensing">Sensing</h2>
+        <p>Every instrument feeds a single ESP32. The environmental sensors are read directly. The moving instruments use hall effect sensors and small magnets so nothing mechanical has to touch a switch.</p>
+        <div class="specs">
+          <div class="spec"><span class="spec__label">Temperature and humidity</span><span class="spec__value">Digital sensor, polled on a fixed interval</span></div>
+          <div class="spec"><span class="spec__label">Atmospheric pressure</span><span class="spec__value">Barometric pressure sensor</span></div>
+          <div class="spec"><span class="spec__label">Light</span><span class="spec__value">Light sensor, charted as a raw level</span></div>
+          <div class="spec"><span class="spec__label">Wind speed</span><span class="spec__value">Cup anemometer, hall effect pulse counting</span></div>
+          <div class="spec"><span class="spec__label">Wind direction</span><span class="spec__value">Vane over an array of hall effect sensors, reported as N, E, S, W</span></div>
+          <div class="spec"><span class="spec__label">Rainfall</span><span class="spec__value">Printed funnel gauge, hall effect counting, reported in mm</span></div>
+        </div>
+
+        <h2 id="mechanical">Mechanical</h2>
+        <p>The anemometer cups, wind vane, rain funnel, stacked radiation shield, and the electronics enclosure were all modeled in AutoCAD and printed on an FDM printer. The radiation shield is a stack of louvred plates so the temperature sensor reads air, not sunlight. Several parts took more than one revision before they fit and moved freely.</p>
+
+        <h2 id="firmware">Firmware and dashboard</h2>
+        <p>The firmware is C++ written in the Arduino framework. It samples each sensor, converts raw values to units, and posts the set of fields to a ThingSpeak channel over Wi-Fi. ThingSpeak charts each field live, so I can watch a pressure drop or a gust from anywhere with a browser. Over a test window the collected data matched reference readings with better than 95 percent accuracy.</p>
+
+        <h2 id="debugging">Debugging</h2>
+        <p>The hardest part was not any single sensor but getting all of them to behave on one board at the same time. I chased dropped readings and transmission errors back to power and wiring issues on the breadboard, and to timing between sensor polls and Wi-Fi posts. Fixing those reduced transmission errors noticeably and is where I learned the most about hardware and software communication.</p>
+      </article>
+    </div>
+
+    <div class="page__next">
+      <a class="next" href="fpga-processor.html">
+        <span>
+          <span class="next__label">Next project</span>
+          <span class="next__title">Processor on an FPGA</span>
+        </span>
+        <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-arrow-right"/></svg>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>&copy; <span id="year">2026</span> Daniel Wang</p>
+    <p>Markham, Ontario</p>
+  </div>
+</footer>
+
+<script src="../main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book Store Application</title>
+  <meta name="description" content="A three-person Java and JavaFX application designed from UML first, built in NetBeans. By Daniel Wang." />
+  <meta name="color-scheme" content="light dark" />
+  <meta property="og:title" content="Book Store Application" />
+  <link rel="preload" href="../assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="../styles.css" />
+  <script>
+    document.documentElement.classList.add('js');
+    try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="container nav__inner">
+    <a class="nav__brand" href="../index.html">Daniel Wang</a>
+    <nav class="nav__links" id="nav-links" aria-label="Primary">
+      <a href="../index.html#about" data-nav>About</a>
+      <a href="../index.html#projects" data-nav class="is-active">Projects</a>
+      <a href="../index.html#experience" data-nav>Experience</a>
+      <a href="../index.html#skills" data-nav>Skills</a>
+      <a href="../index.html#contact" data-nav>Contact</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="icon-btn" id="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+        <svg class="icon icon--sun" aria-hidden="true"><use href="../assets/icons.svg#i-sun"/></svg>
+        <svg class="icon icon--moon" aria-hidden="true"><use href="../assets/icons.svg#i-moon"/></svg>
+      </button>
+      <button class="icon-btn nav__menu" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <svg class="icon icon--open" aria-hidden="true"><use href="../assets/icons.svg#i-list"/></svg>
+        <svg class="icon icon--close" aria-hidden="true"><use href="../assets/icons.svg#i-x"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<aside class="rail" id="rail" aria-label="Section navigation">
+  <nav class="rail__links">
+    <a href="../index.html#about" data-nav>About</a>
+    <a href="../index.html#projects" data-nav>Projects</a>
+    <a href="../index.html#experience" data-nav>Experience</a>
+    <a href="../index.html#skills" data-nav>Skills</a>
+    <a href="../index.html#contact" data-nav>Contact</a>
+  </nav>
+  <button class="icon-btn rail__theme" type="button" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+    <svg class="icon icon--sun" aria-hidden="true"><use href="../assets/icons.svg#i-sun"/></svg>
+    <svg class="icon icon--moon" aria-hidden="true"><use href="../assets/icons.svg#i-moon"/></svg>
+  </button>
+</aside>
+
+<main id="main" class="page">
+  <div class="container">
+    <a class="back" href="../index.html#projects">
+      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-arrow-left"/></svg>
+      <span>All projects</span>
+    </a>
+
+    <header class="page__head">
+      <div>
+        <h1 class="page__title">Book Store Application</h1>
+        <p class="page__summary">A desktop book store app built by a team of three in Java. We designed the class structure in UML first, then implemented it in NetBeans with a JavaFX interface. Final grade: 94 percent.</p>
+      </div>
+      <dl class="meta">
+        <div class="meta__row"><dt class="meta__label">When</dt><dd class="meta__value">May to June 2024</dd></div>
+        <div class="meta__row"><dt class="meta__label">Role</dt><dd class="meta__value">Three-person team: design, implementation, coordination</dd></div>
+        <div class="meta__row"><dt class="meta__label">Stack</dt><dd class="meta__value">Java, JavaFX, UML, NetBeans 8.2</dd></div>
+      </dl>
+    </header>
+
+    <div class="page__layout page__layout--single">
+      <article class="prose">
+        <h2 id="design-first">Design first</h2>
+        <p>The brief was an object-oriented book store: customers, books, orders, and the state that ties them together. Before writing code we drew the class diagram and worked out which design patterns fit. That upfront design meant the three of us could implement separate classes and have them fit together, because the interfaces were already agreed.</p>
+        <div class="specs">
+          <div class="spec"><span class="spec__label">Modelling</span><span class="spec__value">UML class diagrams and design patterns before implementation</span></div>
+          <div class="spec"><span class="spec__label">Language</span><span class="spec__value">Java in NetBeans IDE 8.2</span></div>
+          <div class="spec"><span class="spec__label">Interface</span><span class="spec__value">JavaFX user interface on top of the model</span></div>
+          <div class="spec"><span class="spec__label">Result</span><span class="spec__value">Fully functional submission, 94 percent</span></div>
+        </div>
+
+        <h2 id="use-cases">Use cases</h2>
+        <p>We wrote the use cases before the class diagram. There are two actors, and each one has a small, well-defined set of things they can do.</p>
+        <div class="specs">
+          <div class="spec"><span class="spec__label">Owner: login</span><span class="spec__value">Credentials checked against the stored owner account before the dashboard opens</span></div>
+          <div class="spec"><span class="spec__label">Owner: add book</span><span class="spec__value">Enter a name and price. Missing fields prompt again, a non-numeric price shows an error</span></div>
+          <div class="spec"><span class="spec__label">Owner: add customer</span><span class="spec__value">Enter a username and password. Empty fields prompt again, a duplicate username is rejected</span></div>
+          <div class="spec"><span class="spec__label">Customer: login</span><span class="spec__value">Credentials checked against stored customer accounts</span></div>
+          <div class="spec"><span class="spec__label">Customer: view books</span><span class="spec__value">Every book in the inventory listed with a checkbox. Selections build the cost screen</span></div>
+          <div class="spec"><span class="spec__label">Customer: buy</span><span class="spec__value">Pay in full, or redeem points first and pay the remainder. Points and status update after each purchase</span></div>
+        </div>
+
+        <h2 id="state-pattern">State pattern</h2>
+        <p>Customers have a status, silver or gold, decided by the points they have accumulated and the money they have spent. Purchasing behaves differently depending on that status, and the status changes at run time, so this is the textbook case for the State pattern.</p>
+        <p>Each status is its own state class with the purchasing behaviour for that tier inside it. The customer holds a reference to its current state and delegates to it, which removes the conditional logic that would otherwise be scattered through the customer class. When a customer reaches 1,000 points the state object swaps itself for gold, and the customer class does not change at all.</p>
+        <p>The other reason we chose it is that it scales. Adding a bronze or platinum tier later means writing one new state class, not editing every place that checks status. That costs a few more classes than a flag would, but the code is easier to read and safer to extend.</p>
+
+        <h2 id="implementation">Implementation</h2>
+        <p>The core model is plain Java classes that follow the UML. The JavaFX layer sits on top and talks to the model through its public interface, so the UI could change without touching the business logic. Login, the owner dashboard, the book list, and the cost screen are separate JavaFX views.</p>
+
+        <h2 id="working-as-a-team">Working as a team</h2>
+        <p>Most of the grade came from the app working, but a lot of the work was coordination. We split the class diagram into ownership areas, agreed on method signatures early, and integrated often so merge problems stayed small. That habit of agreeing on interfaces first is one I have carried into hardware projects, where the interface is a wiring diagram instead of a method signature.</p>
+      </article>
+    </div>
+
+    <div class="page__next">
+      <a class="next" href="esp32-weather-station.html">
+        <span>
+          <span class="next__label">Next project</span>
+          <span class="next__title">ESP32 Weather Station</span>
+        </span>
+        <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-arrow-right"/></svg>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>&copy; <span id="year">2026</span> Daniel Wang</p>
+    <p>Markham, Ontario</p>
+  </div>
+</footer>
+
+<script src="../main.js" defer></script>
+</body>
+</html>

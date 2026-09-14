@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Custom PC Builds</title>
+  <meta name="description" content="Fifteen-plus custom PC builds for gaming and workstation use, with benchmarking and structured troubleshooting. By Daniel Wang." />
+  <meta name="color-scheme" content="light dark" />
+  <meta property="og:title" content="Custom PC Builds" />
+  <meta property="og:image" content="../assets/img/pc-build.jpg" />
+  <link rel="preload" href="../assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="../styles.css" />
+  <script>
+    document.documentElement.classList.add('js');
+    try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="container nav__inner">
+    <a class="nav__brand" href="../index.html">Daniel Wang</a>
+    <nav class="nav__links" id="nav-links" aria-label="Primary">
+      <a href="../index.html#about" data-nav>About</a>
+      <a href="../index.html#projects" data-nav class="is-active">Projects</a>
+      <a href="../index.html#experience" data-nav>Experience</a>
+      <a href="../index.html#skills" data-nav>Skills</a>
+      <a href="../index.html#contact" data-nav>Contact</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="icon-btn" id="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+        <svg class="icon icon--sun" aria-hidden="true"><use href="../assets/icons.svg#i-sun"/></svg>
+        <svg class="icon icon--moon" aria-hidden="true"><use href="../assets/icons.svg#i-moon"/></svg>
+      </button>
+      <button class="icon-btn nav__menu" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <svg class="icon icon--open" aria-hidden="true"><use href="../assets/icons.svg#i-list"/></svg>
+        <svg class="icon icon--close" aria-hidden="true"><use href="../assets/icons.svg#i-x"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<aside class="rail" id="rail" aria-label="Section navigation">
+  <nav class="rail__links">
+    <a href="../index.html#about" data-nav>About</a>
+    <a href="../index.html#projects" data-nav>Projects</a>
+    <a href="../index.html#experience" data-nav>Experience</a>
+    <a href="../index.html#skills" data-nav>Skills</a>
+    <a href="../index.html#contact" data-nav>Contact</a>
+  </nav>
+  <button class="icon-btn rail__theme" type="button" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+    <svg class="icon icon--sun" aria-hidden="true"><use href="../assets/icons.svg#i-sun"/></svg>
+    <svg class="icon icon--moon" aria-hidden="true"><use href="../assets/icons.svg#i-moon"/></svg>
+  </button>
+</aside>
+
+<main id="main" class="page">
+  <div class="container">
+    <a class="back" href="../index.html#projects">
+      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-arrow-left"/></svg>
+      <span>All projects</span>
+    </a>
+
+    <header class="page__head">
+      <div>
+        <h1 class="page__title">Custom PC Builds</h1>
+        <p class="page__summary">More than fifteen machines built and tuned since 2020, for gaming and for workstation loads. This is where I learned to diagnose hardware methodically instead of guessing.</p>
+      </div>
+      <dl class="meta">
+        <div class="meta__row"><dt class="meta__label">When</dt><dd class="meta__value">2020 to present</dd></div>
+        <div class="meta__row"><dt class="meta__label">Role</dt><dd class="meta__value">Part selection, assembly, OS and driver setup, benchmarking, support</dd></div>
+        <div class="meta__row"><dt class="meta__label">Tools</dt><dd class="meta__value">Windows and Linux installs, CPU and GPU benchmarks, thermal and stability testing</dd></div>
+      </dl>
+    </header>
+
+    <div class="page__layout">
+    <aside class="page__side">
+      <div class="strip-wrap">
+        <div class="strip strip--side" data-gallery data-drag>
+        <figure class="strip__item">
+          <a href="../assets/img/pc-white-1.jpg" data-lb data-caption="All-white build: liquid cooler up top, RTX card on a vertical bracket, sleeved cable extensions.">
+            <picture><source srcset="../assets/img/pc-white-1-800.webp 800w, ../assets/img/pc-white-1.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/pc-white-1.jpg" srcset="../assets/img/pc-white-1-800.jpg 800w, ../assets/img/pc-white-1.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="White PC build with a 360 mm liquid cooler, RTX graphics card, and white sleeved cables" loading="lazy" decoding="async" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap">White build, front</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a href="../assets/img/pc-white-2.jpg" data-lb data-caption="Side view of the white build showing the cooler tubing and fan layout.">
+            <picture><source srcset="../assets/img/pc-white-2-800.webp 800w, ../assets/img/pc-white-2.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/pc-white-2.jpg" srcset="../assets/img/pc-white-2-800.jpg 800w, ../assets/img/pc-white-2.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Side view of the white PC build showing the cooling loop and fans" loading="lazy" decoding="async" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap">White build, side</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a href="../assets/img/pc-purple.jpg" data-lb data-caption="A compact build lit in purple.">
+            <picture><source srcset="../assets/img/pc-purple-800.webp 800w, ../assets/img/pc-purple.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/pc-purple.jpg" srcset="../assets/img/pc-purple-800.jpg 800w, ../assets/img/pc-purple.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="PC build lit in purple viewed from the top" loading="lazy" decoding="async" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap">Purple build</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a href="../assets/img/pc-cpu.jpg" data-lb data-caption="Ryzen 7 5800X going into an AM4 board before the cooler goes on.">
+            <picture><source srcset="../assets/img/pc-cpu-800.webp 800w, ../assets/img/pc-cpu.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/pc-cpu.jpg" srcset="../assets/img/pc-cpu-800.jpg 800w, ../assets/img/pc-cpu.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="AMD Ryzen 5800X seated in an AM4 socket" loading="lazy" decoding="async" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap">Ryzen 5800X in the socket</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a href="../assets/img/pc-bench-1.jpg" data-lb data-caption="Test boot outside the case: TUF board, Gigabyte card, and an SSD, before anything is mounted.">
+            <picture><source srcset="../assets/img/pc-bench-1-800.webp 800w, ../assets/img/pc-bench-1.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/pc-bench-1.jpg" srcset="../assets/img/pc-bench-1-800.jpg 800w, ../assets/img/pc-bench-1.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Motherboard, graphics card, and SSD laid out on the floor for a test boot" loading="lazy" decoding="async" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap">Test boot on the bench</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a href="../assets/img/pc-bench-2.jpg" data-lb data-caption="Mid-assembly with the power supply out of the box and cables being routed.">
+            <picture><source srcset="../assets/img/pc-bench-2-800.webp 800w, ../assets/img/pc-bench-2.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/pc-bench-2.jpg" srcset="../assets/img/pc-bench-2-800.jpg 800w, ../assets/img/pc-bench-2.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Components mid-assembly with a power supply box and cables" loading="lazy" decoding="async" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap">Mid-assembly</figcaption>
+        </figure>
+        </div>
+        <div class="strip__nav">
+          <button class="icon-btn strip__btn" type="button" data-prev aria-label="Previous photo"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-caret-left"/></svg></button>
+          <span class="strip__count" aria-live="polite"></span>
+          <button class="icon-btn strip__btn" type="button" data-next aria-label="Next photo"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-caret-right"/></svg></button>
+        </div>
+      </div>
+    </aside>
+      <article class="prose">
+        <h2 id="the-process">The process</h2>
+        <p>Each build starts with what the machine is for. A gaming PC and a workstation want different balances of CPU, GPU, memory, and storage, and the budget decides where compromises go. From there it is part compatibility, assembly with attention to airflow and cable routing, then a clean operating system and driver install before anything else goes on.</p>
+        <div class="specs">
+          <div class="spec"><span class="spec__label">Builds</span><span class="spec__value">Fifteen-plus, gaming and workstation</span></div>
+          <div class="spec"><span class="spec__label">Setup</span><span class="spec__value">Optimized OS, drivers, BIOS, and memory profiles</span></div>
+          <div class="spec"><span class="spec__label">Validation</span><span class="spec__value">CPU and GPU benchmarks, thermals, stability under load</span></div>
+          <div class="spec"><span class="spec__label">Support</span><span class="spec__value">Written troubleshooting steps for each machine</span></div>
+        </div>
+
+        <h2 id="benchmarking">Benchmarking</h2>
+        <p>Every machine gets benchmarked before it is handed over. CPU and GPU tests establish a baseline, and thermals and clocks are logged under sustained load. The point is to find bottlenecks while the parts are still easy to swap. Measuring first means the fix is usually a setting or a single part, not a rebuild.</p>
+
+        <h2 id="troubleshooting">Troubleshooting</h2>
+        <p>When a machine misbehaves I work through a written procedure instead of poking at it: isolate power, then memory, then storage, then GPU, checking one variable at a time. Keeping those steps documented cut the time it takes to resolve problems and built up a reference of which parts and settings tend to conflict. It is the same habit I now use when debugging embedded hardware.</p>
+      </article>
+    </div>
+
+    <div class="page__next">
+      <a class="next" href="book-store-app.html">
+        <span>
+          <span class="next__label">Next project</span>
+          <span class="next__title">Book Store Application</span>
+        </span>
+        <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-arrow-right"/></svg>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>&copy; <span id="year">2026</span> Daniel Wang</p>
+    <p>Markham, Ontario</p>
+  </div>
+</footer>
+
+<script src="../main.js" defer></script>
+</body>
+</html>

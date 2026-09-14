@@ -1,0 +1,6 @@
+.DS_Store
+Thumbs.db
+node_modules/
+.claude/
+skills-lock.json
+_*.html
