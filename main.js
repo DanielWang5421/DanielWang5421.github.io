@@ -111,8 +111,10 @@
     if (!nav.classList.contains('menu-open')) {
       const goingDown = y > lastY && y > 120;
       const goingUp = y < lastY - 4;
-      if (goingDown) { nav.classList.add('is-hidden'); if (rail) rail.classList.add('is-visible'); }
-      else if (goingUp) { nav.classList.remove('is-hidden'); if (rail) rail.classList.remove('is-visible'); }
+      if (goingDown) nav.classList.add('is-hidden');
+      else if (goingUp) nav.classList.remove('is-hidden');
+      // the rail stays out once you are past the top of the page
+      if (rail) rail.classList.toggle('is-visible', y > 120);
     }
     lastY = y;
     ticking = false;
@@ -261,12 +263,11 @@
     strip.addEventListener('pointerdown', (e) => {
       if (e.pointerType !== 'mouse' || e.button !== 0) return;
       down = true; moved = false; startX = e.clientX; startLeft = strip.scrollLeft;
-      strip.setPointerCapture(e.pointerId);
     });
     strip.addEventListener('pointermove', (e) => {
       if (!down) return;
       const dx = e.clientX - startX;
-      if (!moved && Math.abs(dx) > 4) { moved = true; strip.classList.add('is-dragging'); }
+      if (!moved && Math.abs(dx) > 4) { moved = true; strip.classList.add('is-dragging'); try { strip.setPointerCapture(e.pointerId); } catch (err) {} }
       if (moved) strip.scrollLeft = startLeft - dx;
     });
     const end = (e) => {
@@ -308,6 +309,7 @@
     body.appendChild(dlg);
 
     const img = dlg.querySelector('.lb__img');
+    img.classList.add('is-loaded'); // created after the page-load fade pass
     const cap = dlg.querySelector('.lb__caption');
     const count = dlg.querySelector('.lb__count');
     let items = [];
@@ -397,6 +399,165 @@
 
   /* ---------- escape closes menu ---------- */
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+
+  /* ---------- 1. page transitions: name the media that morphs between pages ---------- */
+  const nativeVT = 'PageSwapEvent' in window;
+  if (!nativeVT) root.classList.add('no-vt');
+  window.addEventListener('pageshow', (e) => { if (e.persisted) root.classList.remove('is-leaving'); });
+  if (!nativeVT && !reduceMotion.matches) {
+    // fallback: fade the page out before navigating, fade the next one in on load
+    document.querySelectorAll('a[href]').forEach((a) => {
+      const url = new URL(a.href, location.href);
+      if (url.origin !== location.origin || a.target === '_blank' || a.hasAttribute('download')) return;
+      if (url.pathname === location.pathname && url.hash) return; // in-page anchors
+      a.addEventListener('click', (e) => {
+        if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        e.preventDefault();
+        const media = (a.closest('.project') || a).querySelector('.gallery__stage, .project__media, .project__panel, .project__stat');
+        if (media) media.classList.add('vt-leaving');
+        root.classList.add('is-leaving');
+        setTimeout(() => { location.href = a.href; }, 250);
+      });
+    });
+  }
+  const mediaFor = (link) => {
+    const card = link.closest('.project') || link;
+    return card.querySelector('.gallery__stage, .project__media, .project__panel, .project__stat') || (link.matches('.gallery__link') ? link.querySelector('.gallery__stage') : null);
+  };
+  const projectLinks = [...document.querySelectorAll('a[href*="projects/"]')];
+  window.addEventListener('pageswap', (e) => {
+    if (!e.viewTransition || !e.activation) return;
+    const to = e.activation.entry?.url;
+    const link = projectLinks.find((a) => a.href === to);
+    const el = link && mediaFor(link);
+    if (el) el.style.viewTransitionName = 'project-media';
+  });
+  window.addEventListener('pagereveal', (e) => {
+    if (!e.viewTransition || !window.navigation?.activation?.from) return;
+    const from = navigation.activation.from.url;
+    const link = projectLinks.find((a) => a.href === from);
+    const el = link && mediaFor(link);
+    if (el) {
+      el.style.viewTransitionName = 'project-media';
+      e.viewTransition.finished.finally(() => { el.style.viewTransitionName = ''; });
+    }
+  });
+
+  /* ---------- pill that rises from the bottom of hovered media ---------- */
+  if (finePointer.matches) {
+    const iconBase = iconPath();
+    document.querySelectorAll('[data-cursor]').forEach((el) => {
+      const host = el.querySelector('.gallery__stage') || el;
+      const pill = document.createElement('span');
+      pill.className = 'media-pill'; pill.setAttribute('aria-hidden', 'true');
+      pill.innerHTML = `<span>${el.dataset.cursor}</span><svg class="icon"><use href="${iconBase}#i-${el.dataset.cursor === 'Enlarge' ? 'magnifying-glass-plus' : 'arrow-right'}"/></svg>`;
+      host.appendChild(pill);
+    });
+  }
+
+  /* ---------- 2. colour tone follows the section in view ---------- */
+  const toned = [...document.querySelectorAll('[data-tone]')];
+  if (toned.length && 'IntersectionObserver' in window) {
+    let toneTimer = null;
+    const setTone = (tone) => {
+      if (body.dataset.tone === tone) return;
+      root.classList.add('is-toning');
+      if (tone) body.dataset.tone = tone; else delete body.dataset.tone;
+      clearTimeout(toneTimer);
+      toneTimer = setTimeout(() => root.classList.remove('is-toning'), 760);
+    };
+    // a section owns the tone while it covers the middle of the viewport
+    const toneSpy = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) setTone(entry.target.dataset.tone);
+        else if (body.dataset.tone === entry.target.dataset.tone) {
+          // left the middle band: fall back to the default tone
+          setTone('');
+        }
+      });
+    }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
+    toned.forEach((s) => toneSpy.observe(s));
+  }
+
+  /* ---------- 3. hero dot field ---------- */
+  const heroCanvas = document.querySelector('.hero__bg');
+  if (heroCanvas && heroCanvas.getContext) {
+    const ctx = heroCanvas.getContext('2d');
+    const hero = heroCanvas.parentElement;
+    const gap = 26, radius = 220, pull = 16;
+    let dots = [], w = 0, h = 0, dpr = 1;
+    let px = -9999, py = -9999, t = 0, raf = null, visible = true;
+    const color = () => {
+      const c = getComputedStyle(body).color; // current --fg
+      return c.replace('rgb(', 'rgba(').replace(')', ', 0.14)');
+    };
+    const size = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const r = hero.getBoundingClientRect();
+      w = r.width; h = r.height;
+      heroCanvas.width = Math.round(w * dpr); heroCanvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      dots = [];
+      for (let y = gap / 2; y < h; y += gap) for (let x = gap / 2; x < w; x += gap) dots.push({ x, y, ox: x, oy: y });
+      draw(true);
+    };
+    const draw = (still) => {
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = color();
+      const anim = !still && !reduceMotion.matches;
+      for (const d of dots) {
+        let tx = d.ox, ty = d.oy, r = 1.3;
+        if (anim) {
+          // slow drift so the field never sits perfectly still
+          tx += Math.sin(t * 0.0007 + d.oy * 0.02) * 1.6;
+          ty += Math.cos(t * 0.0006 + d.ox * 0.02) * 1.6;
+          const dx = px - d.ox, dy = py - d.oy, dist = Math.hypot(dx, dy);
+          if (dist < radius) {
+            const k = (1 - dist / radius);
+            const f = k * k * pull;
+            tx += (dx / (dist || 1)) * f; ty += (dy / (dist || 1)) * f;
+            r += k * 1.4;
+          }
+        }
+        d.x += (tx - d.x) * 0.12; d.y += (ty - d.y) * 0.12;
+        ctx.beginPath(); ctx.arc(d.x, d.y, r, 0, Math.PI * 2); ctx.fill();
+      }
+    };
+    const loop = (now) => { t = now; if (visible) draw(false); raf = requestAnimationFrame(loop); };
+    size();
+    window.addEventListener('resize', size);
+    if (!reduceMotion.matches) {
+      if (finePointer.matches) {
+        hero.addEventListener('pointermove', (e) => { const r = hero.getBoundingClientRect(); px = e.clientX - r.left; py = e.clientY - r.top; });
+        hero.addEventListener('pointerleave', () => { px = -9999; py = -9999; });
+      }
+      if ('IntersectionObserver' in window) new IntersectionObserver(([en]) => { visible = en.isIntersecting; }).observe(hero);
+      raf = requestAnimationFrame(loop);
+    }
+  }
+
+  /* ---------- 4. scroll storyboard ---------- */
+  document.querySelectorAll('.story').forEach((story) => {
+    const slides = [...story.querySelectorAll('.story__slide')];
+    const steps = [...story.querySelectorAll('.story__step')];
+    const cap = story.querySelector('.story__cap');
+    const count = story.querySelector('.story__count');
+    const bar = story.querySelector('.story__progress i');
+    if (!slides.length || !steps.length) return;
+    const show = (i) => {
+      slides.forEach((s, j) => s.classList.toggle('is-active', j === i));
+      steps.forEach((s, j) => s.classList.toggle('is-active', j === i));
+      if (cap) cap.textContent = slides[i].dataset.caption || '';
+      if (count) count.textContent = `${i + 1} / ${slides.length}`;
+      if (bar) bar.style.width = `${((i + 1) / slides.length) * 100}%`;
+    };
+    show(0);
+    if (!('IntersectionObserver' in window)) return;
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach((en) => { if (en.isIntersecting) show(steps.indexOf(en.target)); });
+    }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+    steps.forEach((st) => spy.observe(st));
+  });
 
   /* ---------- footer year ---------- */
   const year = document.getElementById('year');

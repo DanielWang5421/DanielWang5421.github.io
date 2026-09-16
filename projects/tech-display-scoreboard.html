@@ -9,6 +9,7 @@
   <meta property="og:title" content="Giant Seven-Segment Scoreboard" />
   <meta property="og:image" content="../assets/img/scoreboard-soldering.jpg" />
   <link rel="preload" href="../assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
   <link rel="stylesheet" href="../styles.css" />
   <script>
     document.documentElement.classList.add('js');
@@ -21,7 +22,7 @@
 
 <header class="nav" id="nav">
   <div class="container nav__inner">
-    <a class="nav__brand" href="../index.html">Daniel Wang</a>
+    <a class="nav__brand" href="../index.html" aria-label="Daniel Wang, home">DW</a>
     <nav class="nav__links" id="nav-links" aria-label="Primary">
       <a href="../index.html#about" data-nav>About</a>
       <a href="../index.html#projects" data-nav class="is-active">Projects</a>
@@ -78,7 +79,7 @@
     <div class="page__layout">
     <aside class="page__side">
       <div class="page__video">
-        <video class="video" controls muted playsinline preload="metadata" poster="../assets/video/scoreboard-poster.jpg">
+        <video class="video vt-media" controls muted playsinline preload="metadata" poster="../assets/video/scoreboard-poster.jpg">
           <source src="../assets/video/scoreboard.mp4" type="video/mp4" />
         </video>
         <p class="video__caption">The finished display counting up. Each digit is seven LED strip segments in printed housings.</p>
@@ -86,28 +87,28 @@
       <div class="strip-wrap">
         <div class="strip strip--side" data-gallery data-drag>
         <figure class="strip__item">
-          <a href="../assets/img/scoreboard-soldering.jpg" data-lb data-caption="Soldering LED strip segments into their printed housings.">
+          <a data-cursor="Enlarge" href="../assets/img/scoreboard-soldering.jpg" data-lb data-caption="Soldering LED strip segments into their printed housings.">
             <picture><source srcset="../assets/img/scoreboard-soldering-800.webp 800w, ../assets/img/scoreboard-soldering.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/scoreboard-soldering.jpg" srcset="../assets/img/scoreboard-soldering-800.jpg 800w, ../assets/img/scoreboard-soldering.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Soldering station with LED strip segments in printed housings" loading="lazy" decoding="async" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>
           <figcaption class="strip__cap">Soldering the segment chains</figcaption>
         </figure>
         <figure class="strip__item">
-          <a href="../assets/img/scoreboard-controller.jpg" data-lb data-caption="Wemos D1 mini on the driver board inside the printed enclosure, with the power terminal and digit connectors.">
+          <a data-cursor="Enlarge" href="../assets/img/scoreboard-controller.jpg" data-lb data-caption="Wemos D1 mini on the driver board inside the printed enclosure, with the power terminal and digit connectors.">
             <picture><source srcset="../assets/img/scoreboard-controller-800.webp 800w, ../assets/img/scoreboard-controller.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/scoreboard-controller.jpg" srcset="../assets/img/scoreboard-controller-800.jpg 800w, ../assets/img/scoreboard-controller.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Controller board inside a 3D printed enclosure" loading="lazy" decoding="async" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>
           <figcaption class="strip__cap">Controller in its enclosure</figcaption>
         </figure>
         <figure class="strip__item">
-          <a href="../assets/img/scoreboard-printing.jpg" data-lb data-caption="A batch of segment housings on the printer bed.">
+          <a data-cursor="Enlarge" href="../assets/img/scoreboard-printing.jpg" data-lb data-caption="A batch of segment housings on the printer bed.">
             <picture><source srcset="../assets/img/scoreboard-printing-800.webp 800w, ../assets/img/scoreboard-printing.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/scoreboard-printing.jpg" srcset="../assets/img/scoreboard-printing-800.jpg 800w, ../assets/img/scoreboard-printing.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="3D printer printing a batch of segment housings" loading="lazy" decoding="async" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>
           <figcaption class="strip__cap">Printing segment housings</figcaption>
         </figure>
         <figure class="strip__item">
-          <a href="../assets/img/scoreboard-parts.jpg" data-lb data-caption="Cut LED strip segments and pre-stripped jumper wires ready for assembly.">
+          <a data-cursor="Enlarge" href="../assets/img/scoreboard-parts.jpg" data-lb data-caption="Cut LED strip segments and pre-stripped jumper wires ready for assembly.">
             <picture><source srcset="../assets/img/scoreboard-parts-800.webp 800w, ../assets/img/scoreboard-parts.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/scoreboard-parts.jpg" srcset="../assets/img/scoreboard-parts-800.jpg 800w, ../assets/img/scoreboard-parts.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Cut LED strip segments and jumper wires" loading="lazy" decoding="async" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>

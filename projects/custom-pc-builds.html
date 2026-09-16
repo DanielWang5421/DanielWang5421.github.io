@@ -9,6 +9,7 @@
   <meta property="og:title" content="Custom PC Builds" />
   <meta property="og:image" content="../assets/img/pc-build.jpg" />
   <link rel="preload" href="../assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
   <link rel="stylesheet" href="../styles.css" />
   <script>
     document.documentElement.classList.add('js');
@@ -21,7 +22,7 @@
 
 <header class="nav" id="nav">
   <div class="container nav__inner">
-    <a class="nav__brand" href="../index.html">Daniel Wang</a>
+    <a class="nav__brand" href="../index.html" aria-label="Daniel Wang, home">DW</a>
     <nav class="nav__links" id="nav-links" aria-label="Primary">
       <a href="../index.html#about" data-nav>About</a>
       <a href="../index.html#projects" data-nav class="is-active">Projects</a>
@@ -80,42 +81,42 @@
       <div class="strip-wrap">
         <div class="strip strip--side" data-gallery data-drag>
         <figure class="strip__item">
-          <a href="../assets/img/pc-white-1.jpg" data-lb data-caption="All-white build: liquid cooler up top, RTX card on a vertical bracket, sleeved cable extensions.">
-            <picture><source srcset="../assets/img/pc-white-1-800.webp 800w, ../assets/img/pc-white-1.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/pc-white-1.jpg" srcset="../assets/img/pc-white-1-800.jpg 800w, ../assets/img/pc-white-1.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="White PC build with a 360 mm liquid cooler, RTX graphics card, and white sleeved cables" loading="lazy" decoding="async" /></picture>
+          <a data-cursor="Enlarge" href="../assets/img/pc-white-1.jpg" data-lb data-caption="All-white build: liquid cooler up top, RTX card on a vertical bracket, sleeved cable extensions.">
+            <picture><source srcset="../assets/img/pc-white-1-800.webp 800w, ../assets/img/pc-white-1.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img class="vt-media" fetchpriority="high" src="../assets/img/pc-white-1.jpg" srcset="../assets/img/pc-white-1-800.jpg 800w, ../assets/img/pc-white-1.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="White PC build with a 360 mm liquid cooler, RTX graphics card, and white sleeved cables" loading="eager" decoding="async" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>
           <figcaption class="strip__cap">White build, front</figcaption>
         </figure>
         <figure class="strip__item">
-          <a href="../assets/img/pc-white-2.jpg" data-lb data-caption="Side view of the white build showing the cooler tubing and fan layout.">
+          <a data-cursor="Enlarge" href="../assets/img/pc-white-2.jpg" data-lb data-caption="Side view of the white build showing the cooler tubing and fan layout.">
             <picture><source srcset="../assets/img/pc-white-2-800.webp 800w, ../assets/img/pc-white-2.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/pc-white-2.jpg" srcset="../assets/img/pc-white-2-800.jpg 800w, ../assets/img/pc-white-2.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Side view of the white PC build showing the cooling loop and fans" loading="lazy" decoding="async" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>
           <figcaption class="strip__cap">White build, side</figcaption>
         </figure>
         <figure class="strip__item">
-          <a href="../assets/img/pc-purple.jpg" data-lb data-caption="A compact build lit in purple.">
+          <a data-cursor="Enlarge" href="../assets/img/pc-purple.jpg" data-lb data-caption="A compact build lit in purple.">
             <picture><source srcset="../assets/img/pc-purple-800.webp 800w, ../assets/img/pc-purple.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/pc-purple.jpg" srcset="../assets/img/pc-purple-800.jpg 800w, ../assets/img/pc-purple.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="PC build lit in purple viewed from the top" loading="lazy" decoding="async" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>
           <figcaption class="strip__cap">Purple build</figcaption>
         </figure>
         <figure class="strip__item">
-          <a href="../assets/img/pc-cpu.jpg" data-lb data-caption="Ryzen 7 5800X going into an AM4 board before the cooler goes on.">
+          <a data-cursor="Enlarge" href="../assets/img/pc-cpu.jpg" data-lb data-caption="Ryzen 7 5800X going into an AM4 board before the cooler goes on.">
             <picture><source srcset="../assets/img/pc-cpu-800.webp 800w, ../assets/img/pc-cpu.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/pc-cpu.jpg" srcset="../assets/img/pc-cpu-800.jpg 800w, ../assets/img/pc-cpu.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="AMD Ryzen 5800X seated in an AM4 socket" loading="lazy" decoding="async" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>
           <figcaption class="strip__cap">Ryzen 5800X in the socket</figcaption>
         </figure>
         <figure class="strip__item">
-          <a href="../assets/img/pc-bench-1.jpg" data-lb data-caption="Test boot outside the case: TUF board, Gigabyte card, and an SSD, before anything is mounted.">
+          <a data-cursor="Enlarge" href="../assets/img/pc-bench-1.jpg" data-lb data-caption="Test boot outside the case: TUF board, Gigabyte card, and an SSD, before anything is mounted.">
             <picture><source srcset="../assets/img/pc-bench-1-800.webp 800w, ../assets/img/pc-bench-1.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/pc-bench-1.jpg" srcset="../assets/img/pc-bench-1-800.jpg 800w, ../assets/img/pc-bench-1.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Motherboard, graphics card, and SSD laid out on the floor for a test boot" loading="lazy" decoding="async" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>
           <figcaption class="strip__cap">Test boot on the bench</figcaption>
         </figure>
         <figure class="strip__item">
-          <a href="../assets/img/pc-bench-2.jpg" data-lb data-caption="Mid-assembly with the power supply out of the box and cables being routed.">
+          <a data-cursor="Enlarge" href="../assets/img/pc-bench-2.jpg" data-lb data-caption="Mid-assembly with the power supply out of the box and cables being routed.">
             <picture><source srcset="../assets/img/pc-bench-2-800.webp 800w, ../assets/img/pc-bench-2.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/pc-bench-2.jpg" srcset="../assets/img/pc-bench-2-800.jpg 800w, ../assets/img/pc-bench-2.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Components mid-assembly with a power supply box and cables" loading="lazy" decoding="async" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>
@@ -146,6 +147,55 @@
         <p>When a machine misbehaves I work through a written procedure instead of poking at it: isolate power, then memory, then storage, then GPU, checking one variable at a time. Keeping those steps documented cut the time it takes to resolve problems and built up a reference of which parts and settings tend to conflict. It is the same habit I now use when debugging embedded hardware.</p>
       </article>
     </div>
+
+
+    <section class="page__gallery">
+      <h2 class="section__title">Builds</h2>
+      <div class="masonry masonry--wide" data-gallery>
+          <figure>
+            <a href="../assets/img/pc-white-1.jpg" data-lb data-cursor="Enlarge" data-caption="All-white build: liquid cooler up top, RTX card on a vertical bracket, sleeved cable extensions.">
+              <picture><source srcset="../assets/img/pc-white-1-800.webp 800w, ../assets/img/pc-white-1.webp 1600w" sizes="(min-width: 768px) 50vw, 100vw" type="image/webp" /><img src="../assets/img/pc-white-1.jpg" srcset="../assets/img/pc-white-1-800.jpg 800w, ../assets/img/pc-white-1.jpg 1600w" sizes="(min-width: 768px) 50vw, 100vw" width="1600" height="1508" alt="White PC build with a liquid cooler, RTX graphics card, and white sleeved cables" loading="lazy" decoding="async" /></picture>
+            </a>
+            <figcaption>White build, front</figcaption>
+          </figure>
+          <figure>
+            <a href="../assets/img/pc-white-2.jpg" data-lb data-cursor="Enlarge" data-caption="Side view of the white build showing the cooler tubing and fan layout.">
+              <picture><source srcset="../assets/img/pc-white-2-800.webp 800w, ../assets/img/pc-white-2.webp 1600w" sizes="(min-width: 768px) 50vw, 100vw" type="image/webp" /><img src="../assets/img/pc-white-2.jpg" srcset="../assets/img/pc-white-2-800.jpg 800w, ../assets/img/pc-white-2.jpg 1600w" sizes="(min-width: 768px) 50vw, 100vw" width="1227" height="1600" alt="Side view of the white PC build showing the cooling loop and fans" loading="lazy" decoding="async" /></picture>
+            </a>
+            <figcaption>White build, side</figcaption>
+          </figure>
+          <figure>
+            <a href="../assets/img/pc-build.jpg" data-lb data-cursor="Enlarge" data-caption="A build in an NZXT case with an AMD Wraith Prism cooler and RGB memory.">
+              <picture><source srcset="../assets/img/pc-build-800.webp 800w, ../assets/img/pc-build.webp 1600w" sizes="(min-width: 768px) 50vw, 100vw" type="image/webp" /><img src="../assets/img/pc-build.jpg" srcset="../assets/img/pc-build-800.jpg 800w, ../assets/img/pc-build.jpg 1600w" sizes="(min-width: 768px) 50vw, 100vw" width="1050" height="1400" alt="Custom PC build in an NZXT case with RGB cooling" loading="lazy" decoding="async" /></picture>
+            </a>
+            <figcaption>NZXT build with Wraith Prism cooler</figcaption>
+          </figure>
+          <figure>
+            <a href="../assets/img/pc-purple.jpg" data-lb data-cursor="Enlarge" data-caption="A compact build lit in purple.">
+              <picture><source srcset="../assets/img/pc-purple-800.webp 800w, ../assets/img/pc-purple.webp 1600w" sizes="(min-width: 768px) 50vw, 100vw" type="image/webp" /><img src="../assets/img/pc-purple.jpg" srcset="../assets/img/pc-purple-800.jpg 800w, ../assets/img/pc-purple.jpg 1600w" sizes="(min-width: 768px) 50vw, 100vw" width="1200" height="1600" alt="PC build lit in purple viewed from the top" loading="lazy" decoding="async" /></picture>
+            </a>
+            <figcaption>Purple build</figcaption>
+          </figure>
+          <figure>
+            <a href="../assets/img/pc-cpu.jpg" data-lb data-cursor="Enlarge" data-caption="Ryzen 7 5800X going into an AM4 board before the cooler goes on.">
+              <picture><source srcset="../assets/img/pc-cpu-800.webp 800w, ../assets/img/pc-cpu.webp 1600w" sizes="(min-width: 768px) 50vw, 100vw" type="image/webp" /><img src="../assets/img/pc-cpu.jpg" srcset="../assets/img/pc-cpu-800.jpg 800w, ../assets/img/pc-cpu.jpg 1600w" sizes="(min-width: 768px) 50vw, 100vw" width="1200" height="1600" alt="AMD Ryzen 5800X seated in an AM4 socket" loading="lazy" decoding="async" /></picture>
+            </a>
+            <figcaption>Ryzen 5800X in the socket</figcaption>
+          </figure>
+          <figure>
+            <a href="../assets/img/pc-bench-1.jpg" data-lb data-cursor="Enlarge" data-caption="Test boot outside the case: TUF board, Gigabyte card, and an SSD, before anything is mounted.">
+              <picture><source srcset="../assets/img/pc-bench-1-800.webp 800w, ../assets/img/pc-bench-1.webp 1600w" sizes="(min-width: 768px) 50vw, 100vw" type="image/webp" /><img src="../assets/img/pc-bench-1.jpg" srcset="../assets/img/pc-bench-1-800.jpg 800w, ../assets/img/pc-bench-1.jpg 1600w" sizes="(min-width: 768px) 50vw, 100vw" width="1200" height="1600" alt="Motherboard, graphics card, and SSD laid out for a test boot" loading="lazy" decoding="async" /></picture>
+            </a>
+            <figcaption>Test boot on the bench</figcaption>
+          </figure>
+          <figure>
+            <a href="../assets/img/pc-bench-2.jpg" data-lb data-cursor="Enlarge" data-caption="Mid-assembly with the power supply out of the box and cables being routed.">
+              <picture><source srcset="../assets/img/pc-bench-2-800.webp 800w, ../assets/img/pc-bench-2.webp 1600w" sizes="(min-width: 768px) 50vw, 100vw" type="image/webp" /><img src="../assets/img/pc-bench-2.jpg" srcset="../assets/img/pc-bench-2-800.jpg 800w, ../assets/img/pc-bench-2.jpg 1600w" sizes="(min-width: 768px) 50vw, 100vw" width="1200" height="1600" alt="Components mid-assembly with a power supply box and cables" loading="lazy" decoding="async" /></picture>
+            </a>
+            <figcaption>Mid-assembly</figcaption>
+          </figure>
+      </div>
+    </section>
 
     <div class="page__next">
       <a class="next" href="book-store-app.html">

@@ -9,6 +9,7 @@
   <meta property="og:title" content="ESP32 Weather Station" />
   <meta property="og:image" content="../assets/img/esp32-featured.jpg" />
   <link rel="preload" href="../assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
   <link rel="stylesheet" href="../styles.css" />
   <script>
     document.documentElement.classList.add('js');
@@ -21,7 +22,7 @@
 
 <header class="nav" id="nav">
   <div class="container nav__inner">
-    <a class="nav__brand" href="../index.html">Daniel Wang</a>
+    <a class="nav__brand" href="../index.html" aria-label="Daniel Wang, home">DW</a>
     <nav class="nav__links" id="nav-links" aria-label="Primary">
       <a href="../index.html#about" data-nav>About</a>
       <a href="../index.html#projects" data-nav class="is-active">Projects</a>
@@ -75,59 +76,61 @@
       </dl>
     </header>
 
-    <div class="page__layout">
-    <aside class="page__side">
-      <div class="strip-wrap">
-        <div class="strip strip--side" data-gallery data-drag>
-        <figure class="strip__item">
-          <a href="../assets/img/esp32-featured.jpg" data-lb data-caption="ESP32 on the breadboard with the hall effect array along the bottom edge.">
-            <picture><source srcset="../assets/img/esp32-featured-800.webp 800w, ../assets/img/esp32-featured.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/esp32-featured.jpg" srcset="../assets/img/esp32-featured-800.jpg 800w, ../assets/img/esp32-featured.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="ESP32 and sensors on a breadboard" loading="lazy" decoding="async" /></picture>
-            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
-          </a>
-          <figcaption class="strip__cap">Electronics on the breadboard</figcaption>
-        </figure>
-        <figure class="strip__item">
-          <a href="../assets/img/esp32-1.jpg" data-lb data-caption="Every printed part laid out: cups, vane, funnel, shield plates, enclosure, and brackets.">
-            <picture><source srcset="../assets/img/esp32-1-800.webp 800w, ../assets/img/esp32-1.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/esp32-1.jpg" srcset="../assets/img/esp32-1-800.jpg 800w, ../assets/img/esp32-1.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="3D printed parts laid out on a table" loading="lazy" decoding="async" /></picture>
-            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
-          </a>
-          <figcaption class="strip__cap">Printed parts before assembly</figcaption>
-        </figure>
-        <figure class="strip__item">
-          <a href="../assets/img/esp32-2.jpg" data-lb data-caption="Anemometer assembled, with the radiation shield stack and rain funnel beside it.">
-            <picture><source srcset="../assets/img/esp32-2-800.webp 800w, ../assets/img/esp32-2.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/esp32-2.jpg" srcset="../assets/img/esp32-2-800.jpg 800w, ../assets/img/esp32-2.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Assembled anemometer and radiation shield" loading="lazy" decoding="async" /></picture>
-            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
-          </a>
-          <figcaption class="strip__cap">Anemometer and shield assembled</figcaption>
-        </figure>
-        <figure class="strip__item">
-          <a href="../assets/img/esp32-3.jpg" data-lb data-caption="ThingSpeak channel with light, temperature, humidity, pressure, wind speed, rainfall, and wind direction fields.">
-            <picture><source srcset="../assets/img/esp32-3-800.webp 800w, ../assets/img/esp32-3.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/esp32-3.jpg" srcset="../assets/img/esp32-3-800.jpg 800w, ../assets/img/esp32-3.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="ThingSpeak dashboard with seven charts" loading="lazy" decoding="async" /></picture>
-            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
-          </a>
-          <figcaption class="strip__cap">Live dashboard</figcaption>
-        </figure>
-        <figure class="strip__item">
-          <a href="../assets/img/esp32-4.jpg" data-lb data-caption="The full breadboard: ESP32 in the centre, hall effect modules down the left, power module at the bottom.">
-            <picture><source srcset="../assets/img/esp32-4-800.webp 800w, ../assets/img/esp32-4.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/esp32-4.jpg" srcset="../assets/img/esp32-4-800.jpg 800w, ../assets/img/esp32-4.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="ESP32 breadboard from above with hall effect modules and power module" loading="lazy" decoding="async" /></picture>
-            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
-          </a>
-          <figcaption class="strip__cap">Breadboard from above</figcaption>
-        </figure>
+    <section class="story" aria-label="How the weather station was built">
+      <div class="story__media">
+        <div class="story__stage">
+          <picture class="story__slide is-active" data-caption="The ESP32 and every sensor on one breadboard.">
+            <source srcset="../assets/img/esp32-featured-800.webp 800w, ../assets/img/esp32-featured.webp 1600w" sizes="(min-width: 768px) 50vw, 100vw" type="image/webp" />
+            <img class="vt-media" fetchpriority="high" src="../assets/img/esp32-featured.jpg" srcset="../assets/img/esp32-featured-800.jpg 800w, ../assets/img/esp32-featured.jpg 1600w" sizes="(min-width: 768px) 50vw, 100vw" alt="ESP32 on a breadboard wired to a row of hall effect modules and environmental sensors" loading="eager" decoding="async" />
+          </picture>
+          <picture class="story__slide" data-caption="Every printed part, laid out before assembly.">
+            <source srcset="../assets/img/esp32-1-800.webp 800w, ../assets/img/esp32-1.webp 1600w" sizes="(min-width: 768px) 50vw, 100vw" type="image/webp" />
+            <img src="../assets/img/esp32-1.jpg" srcset="../assets/img/esp32-1-800.jpg 800w, ../assets/img/esp32-1.jpg 1600w" sizes="(min-width: 768px) 50vw, 100vw" alt="Every 3D printed part laid out: cups, vane, funnel, shield plates, enclosure" loading="lazy" decoding="async" />
+          </picture>
+          <picture class="story__slide" data-caption="Anemometer assembled, shield stack and funnel beside it.">
+            <source srcset="../assets/img/esp32-2-800.webp 800w, ../assets/img/esp32-2.webp 1600w" sizes="(min-width: 768px) 50vw, 100vw" type="image/webp" />
+            <img src="../assets/img/esp32-2.jpg" srcset="../assets/img/esp32-2-800.jpg 800w, ../assets/img/esp32-2.jpg 1600w" sizes="(min-width: 768px) 50vw, 100vw" alt="Assembled anemometer beside the stacked radiation shield and rain funnel" loading="lazy" decoding="async" />
+          </picture>
+          <picture class="story__slide" data-caption="Seven live fields on the ThingSpeak dashboard.">
+            <source srcset="../assets/img/esp32-3-800.webp 800w, ../assets/img/esp32-3.webp 1600w" sizes="(min-width: 768px) 50vw, 100vw" type="image/webp" />
+            <img src="../assets/img/esp32-3.jpg" srcset="../assets/img/esp32-3-800.jpg 800w, ../assets/img/esp32-3.jpg 1600w" sizes="(min-width: 768px) 50vw, 100vw" alt="ThingSpeak dashboard charting seven live fields" loading="lazy" decoding="async" />
+          </picture>
+          <picture class="story__slide" data-caption="The breadboard from above: hall effect array on the left, power at the bottom.">
+            <source srcset="../assets/img/esp32-4-800.webp 800w, ../assets/img/esp32-4.webp 1600w" sizes="(min-width: 768px) 50vw, 100vw" type="image/webp" />
+            <img src="../assets/img/esp32-4.jpg" srcset="../assets/img/esp32-4-800.jpg 800w, ../assets/img/esp32-4.jpg 1600w" sizes="(min-width: 768px) 50vw, 100vw" alt="The full breadboard from above with the hall effect array and power module" loading="lazy" decoding="async" />
+          </picture>
+          <div class="story__progress" aria-hidden="true"><i></i></div>
         </div>
-        <div class="strip__nav">
-          <button class="icon-btn strip__btn" type="button" data-prev aria-label="Previous photo"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-caret-left"/></svg></button>
-          <span class="strip__count" aria-live="polite"></span>
-          <button class="icon-btn strip__btn" type="button" data-next aria-label="Next photo"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-caret-right"/></svg></button>
-        </div>
+        <div class="story__meta"><p class="story__cap"></p><span class="story__count" aria-live="polite"></span></div>
       </div>
-    </aside>
-      <article class="prose">
-        <h2 id="goal">Goal</h2>
-        <p>I wanted a station that measured real weather, not just a temperature sensor on a desk. That meant wind speed and direction, rainfall, and pressure alongside the usual temperature, humidity, and light. It also meant the parts that touch the weather had to be designed and made by me.</p>
 
-        <h2 id="sensing">Sensing</h2>
-        <p>Every instrument feeds a single ESP32. The environmental sensors are read directly. The moving instruments use hall effect sensors and small magnets so nothing mechanical has to touch a switch.</p>
+      <ol class="story__steps">
+        <li class="story__step is-active">
+          <h2>Start with real weather</h2>
+          <p>I wanted a station that measured real weather, not just a temperature sensor on a desk. That meant wind speed and direction, rainfall, and pressure alongside the usual temperature, humidity, and light. Every instrument feeds a single ESP32. The moving ones use hall effect sensors and small magnets so nothing mechanical has to touch a switch.</p>
+        </li>
+        <li class="story__step">
+          <h2>Design the parts that touch the weather</h2>
+          <p>The anemometer cups, wind vane, rain funnel, stacked radiation shield, and the electronics enclosure were all modeled in AutoCAD and printed on an FDM printer. The shield is a stack of louvred plates so the temperature sensor reads air, not sunlight.</p>
+        </li>
+        <li class="story__step">
+          <h2>Assemble and revise</h2>
+          <p>Several parts took more than one revision before they fit and moved freely. The cups have to spin on the lightest breeze, the vane has to settle on a heading, and the funnel has to tip cleanly with a known volume of water.</p>
+        </li>
+        <li class="story__step">
+          <h2>Stream it to a dashboard</h2>
+          <p>The firmware is C++ in the Arduino framework. It samples each sensor, converts raw values to units, and posts the set of fields to a ThingSpeak channel over Wi-Fi. ThingSpeak charts each field live, so I can watch a pressure drop or a gust from anywhere with a browser. Over a test window the data matched reference readings with better than 95 percent accuracy.</p>
+        </li>
+        <li class="story__step">
+          <h2>Debug the whole system</h2>
+          <p>The hardest part was not any single sensor but getting all of them to behave on one board at the same time. I chased dropped readings and transmission errors back to power and wiring on the breadboard, and to timing between sensor polls and Wi-Fi posts. Fixing those is where I learned the most about hardware and software communication.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="story__tail">
+      <article class="prose">
+        <h2 id="sensing">What each instrument measures</h2>
         <div class="specs">
           <div class="spec"><span class="spec__label">Temperature and humidity</span><span class="spec__value">Digital sensor, polled on a fixed interval</span></div>
           <div class="spec"><span class="spec__label">Atmospheric pressure</span><span class="spec__value">Barometric pressure sensor</span></div>
@@ -136,17 +139,8 @@
           <div class="spec"><span class="spec__label">Wind direction</span><span class="spec__value">Vane over an array of hall effect sensors, reported as N, E, S, W</span></div>
           <div class="spec"><span class="spec__label">Rainfall</span><span class="spec__value">Printed funnel gauge, hall effect counting, reported in mm</span></div>
         </div>
-
-        <h2 id="mechanical">Mechanical</h2>
-        <p>The anemometer cups, wind vane, rain funnel, stacked radiation shield, and the electronics enclosure were all modeled in AutoCAD and printed on an FDM printer. The radiation shield is a stack of louvred plates so the temperature sensor reads air, not sunlight. Several parts took more than one revision before they fit and moved freely.</p>
-
-        <h2 id="firmware">Firmware and dashboard</h2>
-        <p>The firmware is C++ written in the Arduino framework. It samples each sensor, converts raw values to units, and posts the set of fields to a ThingSpeak channel over Wi-Fi. ThingSpeak charts each field live, so I can watch a pressure drop or a gust from anywhere with a browser. Over a test window the collected data matched reference readings with better than 95 percent accuracy.</p>
-
-        <h2 id="debugging">Debugging</h2>
-        <p>The hardest part was not any single sensor but getting all of them to behave on one board at the same time. I chased dropped readings and transmission errors back to power and wiring issues on the breadboard, and to timing between sensor polls and Wi-Fi posts. Fixing those reduced transmission errors noticeably and is where I learned the most about hardware and software communication.</p>
       </article>
-    </div>
+    </section>
 
     <div class="page__next">
       <a class="next" href="fpga-processor.html">

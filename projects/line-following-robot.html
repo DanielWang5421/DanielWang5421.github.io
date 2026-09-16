@@ -9,6 +9,7 @@
   <meta property="og:title" content="Line-Following Maze Robot" />
   <meta property="og:image" content="../assets/video/linefollower-poster.jpg" />
   <link rel="preload" href="../assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
   <link rel="stylesheet" href="../styles.css" />
   <script>
     document.documentElement.classList.add('js');
@@ -21,7 +22,7 @@
 
 <header class="nav" id="nav">
   <div class="container nav__inner">
-    <a class="nav__brand" href="../index.html">Daniel Wang</a>
+    <a class="nav__brand" href="../index.html" aria-label="Daniel Wang, home">DW</a>
     <nav class="nav__links" id="nav-links" aria-label="Primary">
       <a href="../index.html#about" data-nav>About</a>
       <a href="../index.html#projects" data-nav class="is-active">Projects</a>
@@ -77,7 +78,7 @@
     <div class="page__layout">
     <aside class="page__side">
       <div class="page__video">
-        <video class="video" controls muted playsinline preload="metadata" poster="../assets/video/linefollower-poster.jpg">
+        <video class="video vt-media" controls muted playsinline preload="metadata" poster="../assets/video/linefollower-poster.jpg">
         <source src="../assets/video/linefollower.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
@@ -86,14 +87,14 @@
       <div class="strip-wrap">
         <div class="strip strip--side" data-gallery data-drag>
         <figure class="strip__item">
-          <a href="../assets/img/robot-chassis.jpg" data-lb data-caption="Inside the chassis: the sensor and motor board with its header pinout.">
+          <a data-cursor="Enlarge" href="../assets/img/robot-chassis.jpg" data-lb data-caption="Inside the chassis: the sensor and motor board with its header pinout.">
             <picture><source srcset="../assets/img/robot-chassis-800.webp 800w, ../assets/img/robot-chassis.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/robot-chassis.jpg" srcset="../assets/img/robot-chassis-800.jpg 800w, ../assets/img/robot-chassis.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Inside the robot chassis showing the wiring header" loading="lazy" decoding="async" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>
           <figcaption class="strip__cap">Inside the chassis</figcaption>
         </figure>
         <figure class="strip__item">
-          <a href="../assets/img/robot-team.jpg" data-lb data-caption="Working through the control logic with the team before a run.">
+          <a data-cursor="Enlarge" href="../assets/img/robot-team.jpg" data-lb data-caption="Working through the control logic with the team before a run.">
             <picture><source srcset="../assets/img/robot-team-800.webp 800w, ../assets/img/robot-team.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/robot-team.jpg" srcset="../assets/img/robot-team-800.jpg 800w, ../assets/img/robot-team.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Team working at a table with laptops and notes" loading="lazy" decoding="async" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>

@@ -12,6 +12,7 @@
   <meta property="og:image" content="assets/img/esp32-featured.jpg" />
   <link rel="preload" href="assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/img/avatar-800.webp" as="image" type="image/webp" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="stylesheet" href="styles.css" />
   <script>
     document.documentElement.classList.add('js');
@@ -27,7 +28,7 @@
 
 <header class="nav" id="nav">
   <div class="container nav__inner">
-    <a class="nav__brand" href="#top" aria-label="Daniel Wang, back to top">Daniel Wang</a>
+    <a class="nav__brand" href="#top" aria-label="Daniel Wang, home">DW</a>
 
     <nav class="nav__links" id="nav-links" aria-label="Primary">
       <a href="#about" data-nav>About</a>
@@ -68,6 +69,7 @@
 
   <!-- HERO -->
   <section class="hero" id="top">
+    <canvas class="hero__bg" aria-hidden="true"></canvas>
     <div class="container hero__grid">
       <div class="hero__copy">
         <p class="eyebrow hero__eyebrow">Computer Engineering, Toronto Metropolitan University</p>
@@ -141,14 +143,14 @@
   </section>
 
   <!-- PROJECTS -->
-  <section class="projects" id="projects">
+  <section class="projects" id="projects" data-tone="cool">
     <div class="container">
       <h2 class="section__title" data-reveal>Projects</h2>
 
       <!-- Featured: ESP32 weather station -->
       <article class="project project--featured" data-reveal>
         <div class="gallery" id="esp32-gallery">
-          <a class="gallery__link" href="projects/esp32-weather-station.html" aria-label="Open the ESP32 Weather Station write-up">
+          <a class="gallery__link" href="projects/esp32-weather-station.html" data-cursor="Open write-up" aria-label="Open the ESP32 Weather Station write-up">
           <div class="gallery__stage img-reveal">
             <picture class="gallery__slide is-active" data-slide="0">
               <source srcset="assets/img/esp32-featured-800.webp 800w, assets/img/esp32-featured.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" />
@@ -221,12 +223,8 @@
           </a>
         </div>
 
-        <a class="project__panel img-reveal" href="projects/fpga-processor.html" aria-label="Open the Processor on an FPGA write-up">
-          <div class="panel__grid"></div>
-          <svg class="panel__icon"><use href="assets/icons.svg#i-cpu"/></svg>
-          <ul class="panel__blocks">
-            <li>FSM control</li><li>ALU</li><li>Register file</li><li>Memory</li><li>Instruction decode</li>
-          </ul>
+        <a class="project__panel project__panel--photo img-reveal" href="projects/fpga-processor.html" data-cursor="Open write-up" aria-label="Open the Processor on an FPGA write-up">
+          <picture><source srcset="assets/img/de2-115-800.webp 800w, assets/img/de2-115.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/de2-115.jpg" srcset="assets/img/de2-115-800.jpg 800w, assets/img/de2-115.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Altera DE2-115 development board with the Cyclone IV FPGA, switches, LEDs, and seven-segment displays" loading="lazy" decoding="async" /></picture>
         </a>
       </article>
 
@@ -382,56 +380,56 @@
       <div class="strip-wrap" data-reveal>
       <div class="strip" data-gallery data-drag>
         <figure class="strip__item">
-          <a href="assets/img/lab-step-response.jpg" data-lb data-caption="Step response of a second-order circuit on the oscilloscope: overshoot and ringing settling to the final value.">
+          <a data-cursor="Enlarge" href="assets/img/lab-step-response.jpg" data-lb data-caption="Step response of a second-order circuit on the oscilloscope: overshoot and ringing settling to the final value.">
             <picture><source srcset="assets/img/lab-step-response-800.webp 800w, assets/img/lab-step-response.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/lab-step-response.jpg" srcset="assets/img/lab-step-response-800.jpg 800w, assets/img/lab-step-response.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Oscilloscope showing a step response with overshoot and ringing" loading="lazy" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>
           <figcaption class="strip__cap"><strong>Step response</strong>Second-order circuit ringing on a Keysight scope</figcaption>
         </figure>
         <figure class="strip__item">
-          <a href="assets/img/lab-phase.jpg" data-lb data-caption="Two channels on the scope, measuring the phase shift between input and output of a filter.">
+          <a data-cursor="Enlarge" href="assets/img/lab-phase.jpg" data-lb data-caption="Two channels on the scope, measuring the phase shift between input and output of a filter.">
             <picture><source srcset="assets/img/lab-phase-800.webp 800w, assets/img/lab-phase.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/lab-phase.jpg" srcset="assets/img/lab-phase-800.jpg 800w, assets/img/lab-phase.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Oscilloscope showing two sine waves with a phase shift" loading="lazy" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>
           <figcaption class="strip__cap"><strong>Phase measurement</strong>Input and output of a filter on two channels</figcaption>
         </figure>
         <figure class="strip__item">
-          <a href="assets/img/lab-circuit.jpg" data-lb data-caption="Bench setup with a current source and two multimeters measuring a circuit under test.">
+          <a data-cursor="Enlarge" href="assets/img/lab-circuit.jpg" data-lb data-caption="Bench setup with a current source and two multimeters measuring a circuit under test.">
             <picture><source srcset="assets/img/lab-circuit-800.webp 800w, assets/img/lab-circuit.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/lab-circuit.jpg" srcset="assets/img/lab-circuit-800.jpg 800w, assets/img/lab-circuit.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Bench with a current source and two multimeters connected to a circuit" loading="lazy" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>
           <figcaption class="strip__cap"><strong>DC measurements</strong>Current source and multimeters on the bench</figcaption>
         </figure>
         <figure class="strip__item">
-          <a href="assets/img/lab-bench.jpg" data-lb data-caption="Full bench: function generator, scope, and the circuit under test.">
+          <a data-cursor="Enlarge" href="assets/img/lab-bench.jpg" data-lb data-caption="Full bench: function generator, scope, and the circuit under test.">
             <picture><source srcset="assets/img/lab-bench-800.webp 800w, assets/img/lab-bench.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/lab-bench.jpg" srcset="assets/img/lab-bench-800.jpg 800w, assets/img/lab-bench.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Lab bench with a function generator, oscilloscope, and breadboard circuit" loading="lazy" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>
           <figcaption class="strip__cap"><strong>Signals bench</strong>Function generator driving a circuit into the scope</figcaption>
         </figure>
         <figure class="strip__item">
-          <a href="assets/img/alu-board.jpg" data-lb data-caption="The ALU running on an Altera DE-series board, inputs on the switches and result on the seven-segment displays.">
+          <a data-cursor="Enlarge" href="assets/img/alu-board.jpg" data-lb data-caption="The ALU running on an Altera DE-series board, inputs on the switches and result on the seven-segment displays.">
             <picture><source srcset="assets/img/alu-board-800.webp 800w, assets/img/alu-board.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/alu-board.jpg" srcset="assets/img/alu-board-800.jpg 800w, assets/img/alu-board.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Altera DE-series FPGA board with the ALU result on seven-segment displays" loading="lazy" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>
           <figcaption class="strip__cap"><strong>ALU on the DE board</strong>Switch inputs, seven-segment output</figcaption>
         </figure>
         <figure class="strip__item">
-          <a href="assets/img/alu-rtl.jpg" data-lb data-caption="RTL schematic generated by Quartus from the HDL source.">
+          <a data-cursor="Enlarge" href="assets/img/alu-rtl.jpg" data-lb data-caption="RTL schematic generated by Quartus from the HDL source.">
             <picture><source srcset="assets/img/alu-rtl-800.webp 800w, assets/img/alu-rtl.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/alu-rtl.jpg" srcset="assets/img/alu-rtl-800.jpg 800w, assets/img/alu-rtl.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Quartus RTL viewer showing the synthesized design" loading="lazy" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>
           <figcaption class="strip__cap"><strong>RTL view</strong>What Quartus synthesized from the VHDL</figcaption>
         </figure>
         <figure class="strip__item">
-          <a href="assets/img/gears.jpg" data-lb data-caption="A set of 3D printed gears fresh off the print bed.">
+          <a data-cursor="Enlarge" href="assets/img/gears.jpg" data-lb data-caption="A set of 3D printed gears fresh off the print bed.">
             <picture><source srcset="assets/img/gears-800.webp 800w, assets/img/gears.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/gears.jpg" srcset="assets/img/gears-800.jpg 800w, assets/img/gears.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="3D printed gears of several sizes on a printer bed" loading="lazy" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>
           <figcaption class="strip__cap"><strong>Printed gears</strong>A gear set straight off the print bed</figcaption>
         </figure>
         <figure class="strip__item">
-          <a href="assets/img/robot-pi.jpg" data-lb data-caption="Raspberry Pi with a GPIO ribbon cable and Ethernet attached.">
+          <a data-cursor="Enlarge" href="assets/img/robot-pi.jpg" data-lb data-caption="Raspberry Pi with a GPIO ribbon cable and Ethernet attached.">
             <picture><source srcset="assets/img/robot-pi-800.webp 800w, assets/img/robot-pi.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/robot-pi.jpg" srcset="assets/img/robot-pi-800.jpg 800w, assets/img/robot-pi.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Raspberry Pi with a ribbon cable on the GPIO header" loading="lazy" /></picture>
             <span class="zoom"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
           </a>
@@ -501,7 +499,7 @@
   </section>
 
   <!-- CONTACT -->
-  <section class="contact" id="contact">
+  <section class="contact" id="contact" data-tone="accent">
     <div class="container">
       <h2 class="contact__title" data-reveal>Get in touch</h2>
       <p class="contact__sub" data-reveal>Open to internships and co-op roles in embedded systems, FPGA, and hardware/software integration.</p>
