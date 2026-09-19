@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OSD32MP15x Carrier</title>
+  <meta name="description" content="A custom four-layer Linux single-board computer around the Octavo OSD32MP157C system-in-package, designed in KiCad 10. By Daniel Wang." />
+  <meta name="color-scheme" content="light dark" />
+  <meta property="og:title" content="OSD32MP15x Carrier" />
+  <meta property="og:image" content="../assets/img/pcb-3d-top.jpg" />
+  <link rel="preload" href="../assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script>
+    document.documentElement.classList.add('js');
+    try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="container nav__inner">
+    <a class="nav__brand" href="../index.html" aria-label="Daniel Wang, home">DW</a>
+    <nav class="nav__links" id="nav-links" aria-label="Primary">
+      <a href="../index.html#about" data-nav>About</a>
+      <a href="../index.html#projects" data-nav class="is-active">Projects</a>
+      <a href="../index.html#experience" data-nav>Experience</a>
+      <a href="../index.html#skills" data-nav>Skills</a>
+      <a href="../index.html#contact" data-nav>Contact</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="icon-btn" id="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+        <svg class="icon icon--sun" aria-hidden="true"><use href="../assets/icons.svg#i-sun"/></svg>
+        <svg class="icon icon--moon" aria-hidden="true"><use href="../assets/icons.svg#i-moon"/></svg>
+      </button>
+      <button class="icon-btn nav__menu" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <svg class="icon icon--open" aria-hidden="true"><use href="../assets/icons.svg#i-list"/></svg>
+        <svg class="icon icon--close" aria-hidden="true"><use href="../assets/icons.svg#i-x"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<aside class="rail" id="rail" aria-label="Section navigation">
+  <nav class="rail__links">
+    <a href="../index.html#about" data-nav>About</a>
+    <a href="../index.html#projects" data-nav>Projects</a>
+    <a href="../index.html#experience" data-nav>Experience</a>
+    <a href="../index.html#skills" data-nav>Skills</a>
+    <a href="../index.html#contact" data-nav>Contact</a>
+  </nav>
+  <button class="icon-btn rail__theme" type="button" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+    <svg class="icon icon--sun" aria-hidden="true"><use href="../assets/icons.svg#i-sun"/></svg>
+    <svg class="icon icon--moon" aria-hidden="true"><use href="../assets/icons.svg#i-moon"/></svg>
+  </button>
+</aside>
+
+<main id="main" class="page">
+  <div class="container">
+    <a class="back" href="../index.html#projects">
+      <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-arrow-left"/></svg>
+      <span>All projects</span>
+    </a>
+
+    <header class="page__head">
+      <div>
+        <h1 class="page__title">OSD32MP15x Carrier</h1>
+        <p class="page__summary">A custom four-layer Linux single-board computer built around the Octavo Systems OSD32MP157C system-in-package. Derived from the vendor reference design and reduced to a targeted feature set on a 134.6 by 76.2 mm board, designed in KiCad 10.</p>
+      </div>
+      <dl class="meta">
+        <div class="meta__row"><dt class="meta__label">When</dt><dd class="meta__value">2026, routed and rule-checked</dd></div>
+        <div class="meta__row"><dt class="meta__label">Role</dt><dd class="meta__value">Solo: schematic reduction, placement, routing, design rules</dd></div>
+        <div class="meta__row"><dt class="meta__label">Stack</dt><dd class="meta__value">KiCad 10, Octavo OSD32MP157C (STM32MP157C, 512 MB DDR3, STPMIC1)</dd></div>
+      </dl>
+    </header>
+
+    <div class="page__layout">
+    <aside class="page__side">
+      <div class="strip-wrap">
+        <div class="strip strip--side" data-gallery data-drag>
+        <figure class="strip__item">
+          <a data-cursor="Enlarge" href="../assets/img/pcb-3d-top.jpg" data-lb data-caption="Top side render: the 324-ball SiP footprint in the centre, connectors along the edges, decoupling around the package.">
+            <picture><source srcset="../assets/img/pcb-3d-top-800.webp 800w, ../assets/img/pcb-3d-top.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img class="vt-media" fetchpriority="high" src="../assets/img/pcb-3d-top.jpg" srcset="../assets/img/pcb-3d-top-800.jpg 800w, ../assets/img/pcb-3d-top.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="998" height="563" alt="3D render of the top of the carrier board showing the SiP footprint, connectors, and passives" loading="eager" decoding="async" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap">Top side, 3D render</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a data-cursor="Enlarge" href="../assets/img/pcb-3d-bottom.jpg" data-lb data-caption="Bottom side: 129 of the 295 components live here, including the microSD slot and the eMMC support parts.">
+            <picture><source srcset="../assets/img/pcb-3d-bottom-800.webp 800w, ../assets/img/pcb-3d-bottom.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/pcb-3d-bottom.jpg" srcset="../assets/img/pcb-3d-bottom-800.jpg 800w, ../assets/img/pcb-3d-bottom.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="955" height="555" alt="3D render of the bottom of the carrier board with the microSD slot and back-side components" loading="lazy" decoding="async" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap">Bottom side, 3D render</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a data-cursor="Enlarge" href="../assets/img/pcb-layout.jpg" data-lb data-caption="All four copper layers in the KiCad editor: 413 nets, 7,105 track segments, 981 vias, and 50 copper pours.">
+            <picture><source srcset="../assets/img/pcb-layout-800.webp 800w, ../assets/img/pcb-layout.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/pcb-layout.jpg" srcset="../assets/img/pcb-layout-800.jpg 800w, ../assets/img/pcb-layout.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="1882" height="1093" alt="KiCad PCB editor view of the four-layer layout with all copper layers visible" loading="lazy" decoding="async" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap">Layout, all layers</figcaption>
+        </figure>
+        <figure class="strip__item">
+          <a data-cursor="Enlarge" href="../assets/img/pcb-schematic.jpg" data-lb data-caption="Four of the schematic sheets: USB-C with the PD controller, HDMI transmitter, the Wi-Fi and Bluetooth module, and Ethernet.">
+            <picture><source srcset="../assets/img/pcb-schematic-800.webp 800w, ../assets/img/pcb-schematic.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="../assets/img/pcb-schematic.jpg" srcset="../assets/img/pcb-schematic-800.jpg 800w, ../assets/img/pcb-schematic.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="1210" height="918" alt="Four KiCad schematic sheets: USB-C connector, HDMI, wireless module, and Ethernet" loading="lazy" decoding="async" /></picture>
+            <span class="zoom"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-magnifying-glass-plus"/></svg></span>
+          </a>
+          <figcaption class="strip__cap">Schematic sheets</figcaption>
+        </figure>
+        </div>
+        <div class="strip__nav">
+          <button class="icon-btn strip__btn" type="button" data-prev aria-label="Previous image"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-caret-left"/></svg></button>
+          <span class="strip__count" aria-live="polite"></span>
+          <button class="icon-btn strip__btn" type="button" data-next aria-label="Next image"><svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-caret-right"/></svg></button>
+        </div>
+      </div>
+    </aside>
+      <article class="prose">
+        <h2 id="the-part">Why a system-in-package</h2>
+        <p>The OSD32MP157C is a 324-ball package that combines an STM32MP157C, with its dual Arm Cortex-A7 cores and a Cortex-M4, together with 512 MB of DDR3 and an STPMIC1 power management IC. Putting the memory inside the package removes length-matched DDR3 routing from the carrier entirely. That is what makes a four-layer board viable at this density: the hardest routing problem on a Linux SBC is already solved before the first track is drawn.</p>
+
+        <h2 id="reduction">Reduced, not redrawn</h2>
+        <p>The design began as the Octavo OSD32MP1-RED reference and was cut down rather than drawn from scratch. The three-phase motor-control interface, DCMI camera port, MIPI-DSI channel, and expansion headers all came out, along with the level shifters, analog sense chains, and pull-ups that existed only to serve them.</p>
+        <p>The careful part was verifying that nothing retained depended on what was removed. Several SiP pins are muxed between the motor bank and the display bus, so each deletion meant checking the pin table again before the net could go.</p>
+
+        <h2 id="board">The board</h2>
+        <div class="specs">
+          <div class="spec"><span class="spec__label">Board</span><span class="spec__value">134.6 by 76.2 mm, four-layer FR4</span></div>
+          <div class="spec"><span class="spec__label">Stack</span><span class="spec__value">Signal, ground plane, 3V3 plane, signal</span></div>
+          <div class="spec"><span class="spec__label">Components</span><span class="spec__value">295 placed, 129 of them on the back face</span></div>
+          <div class="spec"><span class="spec__label">Routing</span><span class="spec__value">413 nets, 7,105 segments, 981 vias, 50 copper pours</span></div>
+          <div class="spec"><span class="spec__label">Design rules</span><span class="spec__value">5 mil clearance and track width, 18/10 mil vias</span></div>
+          <div class="spec"><span class="spec__label">Process</span><span class="spec__value">No via-in-pad, no blind or buried vias. Standard fab capability</span></div>
+        </div>
+
+        <h2 id="interfaces">Interfaces</h2>
+        <ul class="chips chips--static">
+          <li>HDMI, SiI9022</li>
+          <li>10/100 Ethernet, KSZ8051 with magjack</li>
+          <li>Wi-Fi and Bluetooth, Murata LBEE5KL1DX</li>
+          <li>USB-C with STUSB1600 PD controller</li>
+          <li>USB 2.0</li>
+          <li>CAN, TJA1441</li>
+          <li>4 GB eMMC</li>
+          <li>microSD</li>
+          <li>Tag-Connect SWD/JTAG</li>
+          <li>Buffered UART console</li>
+        </ul>
+
+        <h2 id="status">Status</h2>
+        <p>Routed and rule-checked. Stackup finalisation and differential-pair impedance tuning are pending before fabrication.</p>
+        <p class="attribution">Placement and routing derived from the Octavo Systems OSD32MP1-RED reference design.</p>
+      </article>
+    </div>
+
+    <div class="page__next">
+      <a class="next" href="esp32-weather-station.html">
+        <span>
+          <span class="next__label">Next project</span>
+          <span class="next__title">ESP32 Weather Station</span>
+        </span>
+        <svg class="icon" aria-hidden="true"><use href="../assets/icons.svg#i-arrow-right"/></svg>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <a class="nav__brand" href="../index.html" aria-label="Daniel Wang, home">DW</a>
+      <p class="footer__name">Daniel Wang</p>
+      <p class="footer__line">Computer Engineering student, Toronto Metropolitan University. Markham, Ontario.</p>
+    </div>
+    <nav class="footer__col" aria-label="Pages">
+      <h2 class="footer__label">Pages</h2>
+      <a href="../index.html#about">About</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#experience">Experience</a>
+      <a href="../index.html#skills">Skills</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+    <div class="footer__col">
+      <h2 class="footer__label">Contact</h2>
+      <a href="mailto:Daniel.Wang5421@gmail.com">Daniel.Wang5421@gmail.com</a>
+      <a href="https://github.com/DanielWang5421" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/daniel-wang-296387235/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="../uploads/resume.pdf" download="Daniel-Wang-Resume.pdf">Resume (PDF)</a>
+    </div>
+  </div>
+  <div class="container footer__bar">
+    <p>&copy; <span id="year">2026</span> Daniel Wang</p>
+    <p>Built by hand. No framework, no tracking.</p>
+  </div>
+</footer>
+
+<script src="../main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Page not found</title>
+  <meta name="description" content="That page does not exist." />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="robots" content="noindex" />
+  <link rel="preload" href="/assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script>
+    document.documentElement.classList.add('js');
+    try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+  </script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="container nav__inner">
+    <a class="nav__brand" href="/index.html" aria-label="Daniel Wang, home">DW</a>
+    <nav class="nav__links" id="nav-links" aria-label="Primary">
+      <a href="/index.html#about" data-nav>About</a>
+      <a href="/index.html#projects" data-nav>Projects</a>
+      <a href="/index.html#experience" data-nav>Experience</a>
+      <a href="/index.html#skills" data-nav>Skills</a>
+      <a href="/index.html#contact" data-nav>Contact</a>
+    </nav>
+    <div class="nav__actions">
+      <button class="icon-btn" id="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+        <svg class="icon icon--sun" aria-hidden="true"><use href="/assets/icons.svg#i-sun"/></svg>
+        <svg class="icon icon--moon" aria-hidden="true"><use href="/assets/icons.svg#i-moon"/></svg>
+      </button>
+      <button class="icon-btn nav__menu" id="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <svg class="icon icon--open" aria-hidden="true"><use href="/assets/icons.svg#i-list"/></svg>
+        <svg class="icon icon--close" aria-hidden="true"><use href="/assets/icons.svg#i-x"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<aside class="rail" id="rail" aria-label="Section navigation">
+  <nav class="rail__links">
+    <a href="/index.html#about" data-nav>About</a>
+    <a href="/index.html#projects" data-nav>Projects</a>
+    <a href="/index.html#experience" data-nav>Experience</a>
+    <a href="/index.html#skills" data-nav>Skills</a>
+    <a href="/index.html#contact" data-nav>Contact</a>
+  </nav>
+  <button class="icon-btn rail__theme" type="button" data-theme-toggle aria-label="Toggle dark mode" aria-pressed="false">
+    <svg class="icon icon--sun" aria-hidden="true"><use href="/assets/icons.svg#i-sun"/></svg>
+    <svg class="icon icon--moon" aria-hidden="true"><use href="/assets/icons.svg#i-moon"/></svg>
+  </button>
+</aside>
+
+<main id="main" class="page notfound">
+  <div class="container">
+    <p class="eyebrow">404</p>
+    <h1 class="notfound__title">That page is not routed.</h1>
+    <p class="notfound__sub">The address may have changed, or the link was wrong. The projects are still where they should be.</p>
+    <div class="hero__cta">
+      <a class="btn btn--primary" href="/index.html" data-magnetic>
+        <svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#i-arrow-left"/></svg>
+        <span>Back to home</span>
+      </a>
+      <a class="btn btn--ghost" href="/index.html#projects" data-magnetic>
+        <span>See projects</span>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <a class="nav__brand" href="/index.html" aria-label="Daniel Wang, home">DW</a>
+      <p class="footer__name">Daniel Wang</p>
+      <p class="footer__line">Computer Engineering student, Toronto Metropolitan University. Markham, Ontario.</p>
+    </div>
+    <nav class="footer__col" aria-label="Pages">
+      <h2 class="footer__label">Pages</h2>
+      <a href="/index.html#about">About</a>
+      <a href="/index.html#projects">Projects</a>
+      <a href="/index.html#experience">Experience</a>
+      <a href="/index.html#skills">Skills</a>
+      <a href="/index.html#contact">Contact</a>
+    </nav>
+    <div class="footer__col">
+      <h2 class="footer__label">Contact</h2>
+      <a href="mailto:Daniel.Wang5421@gmail.com">Daniel.Wang5421@gmail.com</a>
+      <a href="https://github.com/DanielWang5421" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/daniel-wang-296387235/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="/uploads/resume.pdf" download="Daniel-Wang-Resume.pdf">Resume (PDF)</a>
+    </div>
+  </div>
+  <div class="container footer__bar">
+    <p>&copy; <span id="year">2026</span> Daniel Wang</p>
+    <p>Built by hand. No framework, no tracking.</p>
+  </div>
+</footer>
+
+<script src="/main.js" defer></script>
+</body>
+</html>

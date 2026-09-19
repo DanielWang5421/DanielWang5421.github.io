@@ -12,8 +12,10 @@ Personal portfolio. Plain HTML, CSS, and JavaScript with no build step.
 Deploys to GitHub Pages on every push to `main` via `.github/workflows/deploy.yml`.
 In the repo settings, Pages source must be set to **GitHub Actions**.
 
-To preview locally, open `index.html` in a browser or run any static server, for example:
+To preview locally with the custom 404 page working like GitHub Pages:
 
 ```
-python -m http.server 8000
+python serve.py
 ```
+
+then open http://127.0.0.1:8765/.

@@ -69,7 +69,11 @@
 
   <!-- HERO -->
   <section class="hero" id="top">
-    <canvas class="hero__bg" aria-hidden="true"></canvas>
+    <div class="hero__paper" aria-hidden="true">
+      <span class="paper__grid" data-depth="0.025"></span>
+      <span class="paper__ruler paper__ruler--top"></span>
+      <span class="paper__ruler paper__ruler--left"></span>
+    </div>
     <div class="container hero__grid">
       <div class="hero__copy">
         <p class="eyebrow hero__eyebrow">Computer Engineering, Toronto Metropolitan University</p>
@@ -87,7 +91,8 @@
         </div>
       </div>
 
-      <figure class="hero__photo">
+      <figure class="hero__photo" data-depth="-0.04" data-tilt>
+        <span class="mark mark--tl"></span><span class="mark mark--tr"></span><span class="mark mark--bl"></span><span class="mark mark--br"></span>
         <picture>
           <source srcset="assets/img/avatar-800.webp 800w, assets/img/avatar.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" />
           <img src="assets/img/avatar.jpg" srcset="assets/img/avatar-800.jpg 800w, assets/img/avatar.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="900" height="896" alt="Portrait of Daniel Wang" fetchpriority="high" />
@@ -147,8 +152,47 @@
     <div class="container">
       <h2 class="section__title" data-reveal>Projects</h2>
 
-      <!-- Featured: ESP32 weather station -->
+      <!-- Featured: OSD32MP15x carrier -->
       <article class="project project--featured" data-reveal>
+        <a class="gallery__link" href="projects/osd32mp15x-carrier.html" data-cursor="Open write-up" aria-label="Open the OSD32MP15x Carrier write-up">
+          <div class="gallery__stage img-reveal">
+            <picture><source srcset="assets/img/pcb-3d-top-800.webp 800w, assets/img/pcb-3d-top.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/pcb-3d-top.jpg" srcset="assets/img/pcb-3d-top-800.jpg 800w, assets/img/pcb-3d-top.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="998" height="563" alt="3D render of the OSD32MP15x carrier board" loading="lazy" decoding="async" /></picture>
+          </div>
+        </a>
+
+        <div class="project__body">
+          <h3 class="project__title">OSD32MP15x Carrier</h3>
+          <p class="project__year">2026, routed and rule-checked</p>
+          <p class="project__desc">
+            A custom four-layer Linux single-board computer built around the Octavo OSD32MP157C system-in-package. Derived from the vendor reference design and reduced to a targeted feature set: HDMI, Ethernet, Wi-Fi and Bluetooth, USB-C, CAN, eMMC, and microSD on a 134.6 by 76.2 mm board. Designed in KiCad 10.
+          </p>
+          <ul class="tags" aria-label="Technologies">
+            <li>KiCad 10</li><li>STM32MP157C</li><li>4-layer</li><li>USB-C PD</li><li>HDMI</li><li>Ethernet</li><li>CAN</li>
+          </ul>
+          <a class="more" href="projects/osd32mp15x-carrier.html">
+            <span>Read the write-up</span>
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-arrow-right"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Featured: ESP32 weather station -->
+      <article class="project project--featured project--flip" data-reveal>
+        <div class="project__body">
+          <h3 class="project__title">ESP32 Weather Station</h3>
+          <p class="project__year">June 2025</p>
+          <p class="project__desc">
+            A self-built weather station. One ESP32 reads eight-plus sensors for temperature, humidity, pressure, light, wind speed, wind direction, and rainfall, then streams every reading to a ThingSpeak dashboard over Wi-Fi. The anemometer, wind vane, rain gauge, and radiation shield are parts I modeled in AutoCAD and 3D printed.
+          </p>
+          <ul class="tags" aria-label="Technologies">
+            <li>ESP32</li><li>C++</li><li>Hall effect sensors</li><li>ThingSpeak</li><li>AutoCAD</li><li>3D printing</li>
+          </ul>
+          <a class="more" href="projects/esp32-weather-station.html">
+            <span>Read the write-up</span>
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-arrow-right"/></svg>
+          </a>
+        </div>
+
         <div class="gallery" id="esp32-gallery">
           <a class="gallery__link" href="projects/esp32-weather-station.html" data-cursor="Open write-up" aria-label="Open the ESP32 Weather Station write-up">
           <div class="gallery__stage img-reveal">
@@ -189,46 +233,31 @@
             </button>
           </div>
         </div>
-
-        <div class="project__body">
-          <h3 class="project__title">ESP32 Weather Station</h3>
-          <p class="project__year">June 2025</p>
-          <p class="project__desc">
-            A self-built weather station. One ESP32 reads eight-plus sensors for temperature, humidity, pressure, light, wind speed, wind direction, and rainfall, then streams every reading to a ThingSpeak dashboard over Wi-Fi. The anemometer, wind vane, rain gauge, and radiation shield are parts I modeled in AutoCAD and 3D printed.
-          </p>
-          <ul class="tags" aria-label="Technologies">
-            <li>ESP32</li><li>C++</li><li>Hall effect sensors</li><li>ThingSpeak</li><li>AutoCAD</li><li>3D printing</li>
-          </ul>
-          <a class="more" href="projects/esp32-weather-station.html">
-            <span>Read the write-up</span>
-            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-arrow-right"/></svg>
-          </a>
-        </div>
-      </article>
-
-      <!-- Second feature: FPGA processor (text left, visual right) -->
-      <article class="project project--featured project--flip" data-reveal>
-        <div class="project__body">
-          <h3 class="project__title">Processor on an FPGA</h3>
-          <p class="project__year">Sept to Nov 2024</p>
-          <p class="project__desc">
-            A small processor written in VHDL and run on an Altera DE-series board: an FSM control unit, an ALU, memory, and an instruction set that executes arithmetic and data movement. Built with one partner after designing and simulating the FSMs, registers, and ALU individually in Quartus II. The testbenches I wrote caught timing issues that simulation alone had missed.
-          </p>
-          <ul class="tags" aria-label="Technologies">
-            <li>VHDL</li><li>Quartus II</li><li>Altera DE series</li><li>FSM</li><li>ALU</li><li>Testbenches</li>
-          </ul>
-          <a class="more" href="projects/fpga-processor.html">
-            <span>Read the write-up</span>
-            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-arrow-right"/></svg>
-          </a>
-        </div>
-
-        <a class="project__panel project__panel--photo img-reveal" href="projects/fpga-processor.html" data-cursor="Open write-up" aria-label="Open the Processor on an FPGA write-up">
-          <picture><source srcset="assets/img/de2-115-800.webp 800w, assets/img/de2-115.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/de2-115.jpg" srcset="assets/img/de2-115-800.jpg 800w, assets/img/de2-115.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" alt="Altera DE2-115 development board with the Cyclone IV FPGA, switches, LEDs, and seven-segment displays" loading="lazy" decoding="async" /></picture>
-        </a>
       </article>
 
       <div class="projects__row">
+        <!-- FPGA processor -->
+        <a class="project project--card card-spot" href="projects/fpga-processor.html" data-reveal style="--i:0">
+          <div class="project__media img-reveal">
+            <picture><source srcset="assets/img/de2-115-800.webp 800w, assets/img/de2-115.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/de2-115.jpg" srcset="assets/img/de2-115-800.jpg 800w, assets/img/de2-115.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="704" height="521" alt="Altera DE2-115 development board" loading="lazy" decoding="async" /></picture>
+            <div class="card__panel" aria-hidden="true">
+              <ul class="card__facts"><li><span>Language</span>VHDL</li><li><span>Board</span>Altera DE2-115</li><li><span>Blocks</span>FSM, ALU, memory</li></ul>
+              <span class="card__go">Read the write-up <svg class="icon"><use href="assets/icons.svg#i-arrow-right"/></svg></span>
+            </div>
+          </div>
+          <div class="project__body">
+            <h3 class="project__title">Processor on an FPGA</h3>
+            <p class="project__year">Sept to Nov 2024</p>
+            <p class="project__desc">
+              A small processor written in VHDL and run on an Altera DE-series board: an FSM control unit, an ALU, memory, and an instruction set. Built with one partner after designing and simulating each block in Quartus II.
+            </p>
+            <ul class="tags" aria-label="Technologies">
+              <li>VHDL</li><li>Quartus II</li><li>FSM</li><li>ALU</li>
+            </ul>
+          </div>
+          <span class="card__arrow" aria-hidden="true"><svg class="icon"><use href="assets/icons.svg#i-arrow-up-right"/></svg></span>
+        </a>
+
         <!-- Scoreboard -->
         <a class="project project--card card-spot" href="projects/tech-display-scoreboard.html" data-reveal style="--i:0">
           <div class="project__media img-reveal">
@@ -305,7 +334,7 @@
         </a>
 
         <!-- Book store app -->
-        <a class="project project--card project--tinted card-spot" href="projects/book-store-app.html" data-reveal style="--i:3">
+        <a class="project project--card project--tinted project--card-wide card-spot" href="projects/book-store-app.html" data-reveal style="--i:3">
           <div class="project__stat" aria-hidden="true">
             <span class="project__stat-num">94<span class="project__stat-unit">%</span></span>
             <span class="project__stat-label">final grade</span>
@@ -542,9 +571,31 @@
 </main>
 
 <footer class="footer">
-  <div class="container footer__inner">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <a class="nav__brand" href="index.html" aria-label="Daniel Wang, home">DW</a>
+      <p class="footer__name">Daniel Wang</p>
+      <p class="footer__line">Computer Engineering student, Toronto Metropolitan University. Markham, Ontario.</p>
+    </div>
+    <nav class="footer__col" aria-label="Pages">
+      <h2 class="footer__label">Pages</h2>
+      <a href="index.html#about">About</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#skills">Skills</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="footer__col">
+      <h2 class="footer__label">Contact</h2>
+      <a href="mailto:Daniel.Wang5421@gmail.com">Daniel.Wang5421@gmail.com</a>
+      <a href="https://github.com/DanielWang5421" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/daniel-wang-296387235/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="uploads/resume.pdf" download="Daniel-Wang-Resume.pdf">Resume (PDF)</a>
+    </div>
+  </div>
+  <div class="container footer__bar">
     <p>&copy; <span id="year">2026</span> Daniel Wang</p>
-    <p>Markham, Ontario</p>
+    <p>Built by hand. No framework, no tracking.</p>
   </div>
 </footer>
 

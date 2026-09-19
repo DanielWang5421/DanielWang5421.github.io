@@ -84,6 +84,19 @@
     });
   }
 
+  /* ---------- preload: start fetching images two screens early ---------- */
+  const lazyImgs = [...document.querySelectorAll('img[loading="lazy"]')];
+  if (lazyImgs.length && 'IntersectionObserver' in window) {
+    const warm = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        en.target.loading = 'eager';
+        warm.unobserve(en.target);
+      });
+    }, { rootMargin: '200% 0px 200% 0px' });
+    lazyImgs.forEach((img) => warm.observe(img));
+  }
+
   /* ---------- scroll reveal ---------- */
   const revealEls = document.querySelectorAll('[data-reveal], .img-reveal');
   if (reduceMotion.matches || !('IntersectionObserver' in window)) {
@@ -397,6 +410,28 @@
     });
   }
 
+  /* ---------- mailto fallback: if no mail app takes the click, copy the address instead ---------- */
+  document.querySelectorAll('a[href^="mailto:"]').forEach((a) => {
+    const label = a.querySelector('span:last-child') || a;
+    const original = label.textContent;
+    let timer = null;
+    const cancel = () => { clearTimeout(timer); timer = null; };
+    a.addEventListener('click', () => {
+      cancel();
+      timer = setTimeout(async () => {
+        // still here and still visible: nothing handled the mailto
+        if (document.visibilityState !== 'visible') return;
+        const email = a.getAttribute('href').replace(/^mailto:/, '').split('?')[0];
+        try { await navigator.clipboard.writeText(email); } catch (e) { return; }
+        label.textContent = 'No mail app. Address copied';
+        a.classList.add('is-copied');
+        setTimeout(() => { label.textContent = original; a.classList.remove('is-copied'); }, 2400);
+      }, 1200);
+    });
+    window.addEventListener('blur', cancel);
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') cancel(); });
+  });
+
   /* ---------- escape closes menu ---------- */
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
 
@@ -479,61 +514,35 @@
     toned.forEach((s) => toneSpy.observe(s));
   }
 
-  /* ---------- 3. hero dot field ---------- */
-  const heroCanvas = document.querySelector('.hero__bg');
-  if (heroCanvas && heroCanvas.getContext) {
-    const ctx = heroCanvas.getContext('2d');
-    const hero = heroCanvas.parentElement;
-    const gap = 26, radius = 220, pull = 16;
-    let dots = [], w = 0, h = 0, dpr = 1;
-    let px = -9999, py = -9999, t = 0, raf = null, visible = true;
-    const color = () => {
-      const c = getComputedStyle(body).color; // current --fg
-      return c.replace('rgb(', 'rgba(').replace(')', ', 0.14)');
+  /* ---------- 3. hero depth field: orbs and the portrait shift with cursor and scroll ---------- */
+  const heroEl = document.querySelector('.hero');
+  const depthEls = heroEl ? [...heroEl.querySelectorAll('[data-depth]')] : [];
+  const tiltEl = heroEl ? heroEl.querySelector('[data-tilt]') : null;
+  if (heroEl && depthEls.length && !reduceMotion.matches) {
+    let mx = 0, my = 0, tx = 0, ty = 0, sy = 0, raf = null, inView = true;
+    const apply = () => {
+      mx += (tx - mx) * 0.08; my += (ty - my) * 0.08;
+      depthEls.forEach((el) => {
+        const d = parseFloat(el.dataset.depth) || 0;
+        const x = mx * d * 600, y = my * d * 600 + sy * d * 4;
+        el.style.transform = el === tiltEl
+          ? `translate3d(${x}px, ${y}px, 0) rotateX(${-my * 6}deg) rotateY(${mx * 8}deg)`
+          : `translate3d(${x}px, ${y}px, 0)`;
+      });
+      if (inView && (Math.abs(tx - mx) > 0.001 || Math.abs(ty - my) > 0.001)) raf = requestAnimationFrame(apply); else raf = null;
     };
-    const size = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const r = hero.getBoundingClientRect();
-      w = r.width; h = r.height;
-      heroCanvas.width = Math.round(w * dpr); heroCanvas.height = Math.round(h * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      dots = [];
-      for (let y = gap / 2; y < h; y += gap) for (let x = gap / 2; x < w; x += gap) dots.push({ x, y, ox: x, oy: y });
-      draw(true);
-    };
-    const draw = (still) => {
-      ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = color();
-      const anim = !still && !reduceMotion.matches;
-      for (const d of dots) {
-        let tx = d.ox, ty = d.oy, r = 1.3;
-        if (anim) {
-          // slow drift so the field never sits perfectly still
-          tx += Math.sin(t * 0.0007 + d.oy * 0.02) * 1.6;
-          ty += Math.cos(t * 0.0006 + d.ox * 0.02) * 1.6;
-          const dx = px - d.ox, dy = py - d.oy, dist = Math.hypot(dx, dy);
-          if (dist < radius) {
-            const k = (1 - dist / radius);
-            const f = k * k * pull;
-            tx += (dx / (dist || 1)) * f; ty += (dy / (dist || 1)) * f;
-            r += k * 1.4;
-          }
-        }
-        d.x += (tx - d.x) * 0.12; d.y += (ty - d.y) * 0.12;
-        ctx.beginPath(); ctx.arc(d.x, d.y, r, 0, Math.PI * 2); ctx.fill();
-      }
-    };
-    const loop = (now) => { t = now; if (visible) draw(false); raf = requestAnimationFrame(loop); };
-    size();
-    window.addEventListener('resize', size);
-    if (!reduceMotion.matches) {
-      if (finePointer.matches) {
-        hero.addEventListener('pointermove', (e) => { const r = hero.getBoundingClientRect(); px = e.clientX - r.left; py = e.clientY - r.top; });
-        hero.addEventListener('pointerleave', () => { px = -9999; py = -9999; });
-      }
-      if ('IntersectionObserver' in window) new IntersectionObserver(([en]) => { visible = en.isIntersecting; }).observe(hero);
-      raf = requestAnimationFrame(loop);
+    const kick = () => { if (!raf) raf = requestAnimationFrame(apply); };
+    if (finePointer.matches) {
+      heroEl.addEventListener('pointermove', (e) => {
+        const r = heroEl.getBoundingClientRect();
+        tx = (e.clientX - r.left) / r.width - 0.5; ty = (e.clientY - r.top) / r.height - 0.5;
+        if (tiltEl) tiltEl.classList.add('is-tilting');
+        kick();
+      });
+      heroEl.addEventListener('pointerleave', () => { tx = 0; ty = 0; if (tiltEl) tiltEl.classList.remove('is-tilting'); kick(); });
     }
+    window.addEventListener('scroll', () => { sy = Math.min(window.scrollY, 900); kick(); }, { passive: true });
+    if ('IntersectionObserver' in window) new IntersectionObserver(([en]) => { inView = en.isIntersecting; if (inView) kick(); }).observe(heroEl);
   }
 
   /* ---------- 4. scroll storyboard ---------- */
