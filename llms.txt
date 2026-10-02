@@ -1,0 +1,28 @@
+# Daniel Wang
+
+> Third-year Computer Engineering student at Toronto Metropolitan University in Toronto, Canada. Works on FPGA and digital logic design in VHDL, embedded systems on the ESP32 and Arduino, and PCB design in KiCad. Open to internships and co-op roles in embedded systems, FPGA, and hardware/software integration.
+
+Contact: Daniel.Wang5421@gmail.com
+GitHub: https://github.com/DanielWang5421
+LinkedIn: https://www.linkedin.com/in/daniel-wang-296387235/
+
+## Projects
+
+- [OSD32MP15x Carrier](https://danielwang5421.github.io/projects/osd32mp15x-carrier.html): Four-layer Linux single-board computer around the Octavo OSD32MP157C system-in-package, designed in KiCad 10. Routed and rule-checked.
+- [ESP32 Weather Station](https://danielwang5421.github.io/projects/esp32-weather-station.html): One ESP32 reading eight-plus sensors, with a 3D printed anemometer, wind vane, rain gauge, and radiation shield, streaming to a ThingSpeak dashboard.
+- [Processor on an FPGA](https://danielwang5421.github.io/projects/fpga-processor.html): Small processor written in VHDL on an Altera DE2-115 board: FSM control unit, ALU, memory, and testbenches in Quartus II.
+- [Giant Seven-Segment Scoreboard](https://danielwang5421.github.io/projects/tech-display-scoreboard.html): Two-digit addressable LED scoreboard for the TMU Engineering Concrete Toboggan Team, driven by a Wemos D1 mini in Arduino C++.
+- [Line-Following Maze Robot](https://danielwang5421.github.io/projects/line-following-robot.html): Line-following robot that solves a taped maze, with its control program written in assembly.
+- [Custom PC Builds](https://danielwang5421.github.io/projects/custom-pc-builds.html): Fifteen-plus custom builds since 2020, with benchmarking and a structured troubleshooting process.
+- [Book Store Application](https://danielwang5421.github.io/projects/book-store-app.html): Three-person Java and JavaFX application designed from use cases and UML, using the State pattern for customer tiers. Final grade 94 percent.
+
+## Experience
+
+- Tech Display Member, TMU Engineering Concrete Toboggan Team, May 2025 to present
+- BEng Computer Engineering, Toronto Metropolitan University, 2022 to present
+- Media and Technical Support volunteer, Chinese Martyrs Catholic Church, Markham, 2020 to 2024
+
+## Optional
+
+- [Resume (PDF)](https://danielwang5421.github.io/uploads/resume.pdf)
+- [Home page](https://danielwang5421.github.io/)

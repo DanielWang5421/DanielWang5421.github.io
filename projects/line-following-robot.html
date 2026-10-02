@@ -6,13 +6,19 @@
   <title>Line-Following Maze Robot</title>
   <meta name="description" content="A line-following robot programmed in assembly that navigates a taped maze. By Daniel Wang." />
   <meta name="color-scheme" content="light dark" />
+  <link rel="canonical" href="https://danielwang5421.github.io/projects/line-following-robot.html" />
+  <meta property="og:url" content="https://danielwang5421.github.io/projects/line-following-robot.html" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta property="og:title" content="Line-Following Maze Robot" />
-  <meta property="og:image" content="../assets/video/linefollower-poster.jpg" />
+  <meta property="og:image" content="https://danielwang5421.github.io/assets/video/linefollower-poster.jpg" />
   <link rel="preload" href="../assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="../assets/fonts/Archivo-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <link rel="stylesheet" href="../assets/vendor/lenis.css" />
   <link rel="stylesheet" href="../styles.css" />
   <script>
     document.documentElement.classList.add('js');
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('lines-on');
     try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
   </script>
 </head>
@@ -161,10 +167,14 @@
   </div>
   <div class="container footer__bar">
     <p>&copy; <span id="year">2026</span> Daniel Wang</p>
-    <p>Built by hand. No framework, no tracking.</p>
+    <p>Built by me, no tracking.</p>
   </div>
 </footer>
 
+<script src="../assets/vendor/lenis.min.js" defer></script>
+<script src="../assets/vendor/gsap.min.js" defer></script>
+<script src="../assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="../assets/vendor/SplitText.min.js" defer></script>
 <script src="../main.js" defer></script>
 </body>
 </html>

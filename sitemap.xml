@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://danielwang5421.github.io/</loc><lastmod>2026-10-02</lastmod><priority>1.0</priority></url>
+  <url><loc>https://danielwang5421.github.io/projects/book-store-app.html</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority></url>
+  <url><loc>https://danielwang5421.github.io/projects/custom-pc-builds.html</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority></url>
+  <url><loc>https://danielwang5421.github.io/projects/esp32-weather-station.html</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority></url>
+  <url><loc>https://danielwang5421.github.io/projects/fpga-processor.html</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority></url>
+  <url><loc>https://danielwang5421.github.io/projects/line-following-robot.html</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority></url>
+  <url><loc>https://danielwang5421.github.io/projects/osd32mp15x-carrier.html</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority></url>
+  <url><loc>https://danielwang5421.github.io/projects/tech-display-scoreboard.html</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority></url>
+</urlset>

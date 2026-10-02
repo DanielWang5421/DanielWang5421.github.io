@@ -6,13 +6,19 @@
   <title>OSD32MP15x Carrier</title>
   <meta name="description" content="A custom four-layer Linux single-board computer around the Octavo OSD32MP157C system-in-package, designed in KiCad 10. By Daniel Wang." />
   <meta name="color-scheme" content="light dark" />
+  <link rel="canonical" href="https://danielwang5421.github.io/projects/osd32mp15x-carrier.html" />
+  <meta property="og:url" content="https://danielwang5421.github.io/projects/osd32mp15x-carrier.html" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta property="og:title" content="OSD32MP15x Carrier" />
-  <meta property="og:image" content="../assets/img/pcb-3d-top.jpg" />
+  <meta property="og:image" content="https://danielwang5421.github.io/assets/img/pcb-3d-top.jpg" />
   <link rel="preload" href="../assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="../assets/fonts/Archivo-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <link rel="stylesheet" href="../assets/vendor/lenis.css" />
   <link rel="stylesheet" href="../styles.css" />
   <script>
     document.documentElement.classList.add('js');
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('lines-on');
     try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
   </script>
 </head>
@@ -76,6 +82,15 @@
       </dl>
     </header>
 
+    <dl class="figs" aria-label="Board figures">
+      <div class="fig"><dt>Components</dt><dd data-count="295">295</dd></div>
+      <div class="fig"><dt>Nets</dt><dd data-count="413">413</dd></div>
+      <div class="fig"><dt>Vias</dt><dd data-count="981">981</dd></div>
+      <div class="fig"><dt>Track segments</dt><dd data-count="7105">7,105</dd></div>
+      <div class="fig"><dt>On the back face</dt><dd data-count="129">129</dd></div>
+      <div class="fig"><dt>Copper pours</dt><dd data-count="50">50</dd></div>
+    </dl>
+
     <div class="page__layout">
     <aside class="page__side">
       <div class="strip-wrap">
@@ -118,41 +133,111 @@
     </aside>
       <article class="prose">
         <h2 id="the-part">Why a system-in-package</h2>
-        <p>The OSD32MP157C is a 324-ball package that combines an STM32MP157C, with its dual Arm Cortex-A7 cores and a Cortex-M4, together with 512 MB of DDR3 and an STPMIC1 power management IC. Putting the memory inside the package removes length-matched DDR3 routing from the carrier entirely. That is what makes a four-layer board viable at this density: the hardest routing problem on a Linux SBC is already solved before the first track is drawn.</p>
+        <div class="part-card" data-reveal>
+          <div class="part-card__id">
+            <span class="part-card__pn">OSD32MP157C-512M-BAA</span>
+            <span class="part-card__mfr">Octavo Systems. 324-ball BGA, 1.0 mm pitch, 18 by 18 mm</span>
+          </div>
+          <ul class="part-card__list">
+            <li>STM32MP157C: dual Arm Cortex-A7 plus a Cortex-M4 coprocessor</li>
+            <li>512 MB DDR3 SDRAM, routed inside the package</li>
+            <li>STPMIC1 power management and its passives, all integrated</li>
+            <li>302 of the 324 balls are used on this board</li>
+          </ul>
+        </div>
+        <p>Putting the DDR3 inside the package removes the hardest part of an STM32MP1 design from the carrier entirely: length-matched, impedance-controlled memory routing. What remains is a peripheral and power design, which is what made a four-layer board feasible at this density.</p>
 
         <h2 id="reduction">Reduced, not redrawn</h2>
-        <p>The design began as the Octavo OSD32MP1-RED reference and was cut down rather than drawn from scratch. The three-phase motor-control interface, DCMI camera port, MIPI-DSI channel, and expansion headers all came out, along with the level shifters, analog sense chains, and pull-ups that existed only to serve them.</p>
-        <p>The careful part was verifying that nothing retained depended on what was removed. Several SiP pins are muxed between the motor bank and the display bus, so each deletion meant checking the pin table again before the net could go.</p>
-
-        <h2 id="board">The board</h2>
-        <div class="specs">
-          <div class="spec"><span class="spec__label">Board</span><span class="spec__value">134.6 by 76.2 mm, four-layer FR4</span></div>
-          <div class="spec"><span class="spec__label">Stack</span><span class="spec__value">Signal, ground plane, 3V3 plane, signal</span></div>
-          <div class="spec"><span class="spec__label">Components</span><span class="spec__value">295 placed, 129 of them on the back face</span></div>
-          <div class="spec"><span class="spec__label">Routing</span><span class="spec__value">413 nets, 7,105 segments, 981 vias, 50 copper pours</span></div>
-          <div class="spec"><span class="spec__label">Design rules</span><span class="spec__value">5 mil clearance and track width, 18/10 mil vias</span></div>
-          <div class="spec"><span class="spec__label">Process</span><span class="spec__value">No via-in-pad, no blind or buried vias. Standard fab capability</span></div>
-        </div>
-
-        <h2 id="interfaces">Interfaces</h2>
-        <ul class="chips chips--static">
-          <li>HDMI, SiI9022</li>
-          <li>10/100 Ethernet, KSZ8051 with magjack</li>
-          <li>Wi-Fi and Bluetooth, Murata LBEE5KL1DX</li>
-          <li>USB-C with STUSB1600 PD controller</li>
-          <li>USB 2.0</li>
-          <li>CAN, TJA1441</li>
-          <li>4 GB eMMC</li>
-          <li>microSD</li>
-          <li>Tag-Connect SWD/JTAG</li>
-          <li>Buffered UART console</li>
-        </ul>
-
-        <h2 id="status">Status</h2>
-        <p>Routed and rule-checked. Stackup finalisation and differential-pair impedance tuning are pending before fabrication.</p>
-        <p class="attribution">Placement and routing derived from the Octavo Systems OSD32MP1-RED reference design.</p>
+        <p>The board began as the Octavo OSD32MP1-RED reference design and was cut down rather than drawn from scratch. Four subsystems came out: the three-phase motor-control interface with its two TXB0108 level-shifter banks, the DCMI camera port, the MIPI-DSI display channel, and the mikroBUS Click and 40-pin expansion headers. That took 19 components off the board, along with the analog sense chains and pull-ups that existed only to serve them.</p>
+        <p>Doing that carefully is most of the work. Level shifters had to be checked channel by channel, because the same SiP pins are muxed between the motor bank and the display bus, and deleting the wrong pair would have silently killed HDMI. The jumper that selects between those two banks had to stay, with its default position corrected, since a pulldown leaves the display path disabled unless it is fitted.</p>
+        <aside class="provenance" data-reveal>
+          <span class="provenance__label">Provenance</span>
+          <p>Component placement and routing are derived from the Octavo reference design, which is published for this purpose. The engineering here is in the reduction: deciding what could be removed, verifying that nothing left behind depends on it, and confirming the result still routes and passes rules.</p>
+        </aside>
       </article>
     </div>
+
+
+    <section class="dossier" aria-labelledby="subsystems">
+      <h2 class="dossier__title" id="subsystems">Subsystems</h2>
+      <div class="table-wrap" data-reveal>
+        <table class="parts">
+          <thead><tr><th>Function</th><th>Part</th><th>Ref</th><th>Notes</th></tr></thead>
+          <tbody>
+              <tr><td class="t-fn">eMMC storage</td><td class="t-pn">EMMC04G-S100-B08U12</td><td class="t-ref">U23</td><td>4 GB, 153-ball BGA at 0.5 mm pitch, on SDMMC2</td></tr>
+              <tr><td class="t-fn">microSD</td><td class="t-pn">Molex 5027740891</td><td class="t-ref">X5</td><td>Push-pull socket with card detect, on SDMMC1</td></tr>
+              <tr><td class="t-fn">HDMI</td><td class="t-pn">SiI9022</td><td class="t-ref">U3</td><td>RGB-to-TMDS transmitter driven from the LTDC parallel bus</td></tr>
+              <tr><td class="t-fn">HDMI connector</td><td class="t-pn">10118241-001RLF</td><td class="t-ref">X6</td><td>Type-A, with TPD4E05U06 ESD arrays on the TMDS pairs</td></tr>
+              <tr><td class="t-fn">Ethernet PHY</td><td class="t-pn">KSZ8051RNL</td><td class="t-ref">U10</td><td>10/100 Mbit, RMII to the SiP</td></tr>
+              <tr><td class="t-fn">RJ45 magjack</td><td class="t-pn">SI-51005-F</td><td class="t-ref">X4</td><td>Integrated magnetics and link LEDs</td></tr>
+              <tr><td class="t-fn">Wi-Fi and Bluetooth</td><td class="t-pn">LBEE5KL1DX</td><td class="t-ref">U13</td><td>Murata module, SDIO plus UART, U.FL antenna feed</td></tr>
+              <tr><td class="t-fn">USB-C</td><td class="t-pn">10137062-00021LF</td><td class="t-ref">J2</td><td>With an STUSB1600 Type-C controller for CC negotiation</td></tr>
+              <tr><td class="t-fn">USB 2.0</td><td class="t-pn">TE 292303-1</td><td class="t-ref">X2</td><td>Second port, ESD-protected through a TPD4S012</td></tr>
+              <tr><td class="t-fn">CAN</td><td class="t-pn">TJA1441BTK</td><td class="t-ref">U20</td><td>Transceiver reached through an NTB0104 level translator</td></tr>
+              <tr><td class="t-fn">Power path</td><td class="t-pn">TPS2121</td><td class="t-ref">U2</td><td>Priority mux between barrel jack and USB-C, with P-FET switching</td></tr>
+              <tr><td class="t-fn">Debug</td><td class="t-pn">TC2050-IDC-NL</td><td class="t-ref">TC1</td><td>Tag-Connect SWD/JTAG, plus a separate buffered UART console</td></tr>
+              <tr><td class="t-fn">Boot select</td><td class="t-pn">BD03 6-position</td><td class="t-ref">BOOTSW1</td><td>DIP switch on BOOT0 to BOOT2</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="dossier dossier--stack" aria-labelledby="stackup">
+      <div class="dossier__intro">
+        <h2 class="dossier__title" id="stackup">Layer stack</h2>
+        <p>Signals run almost entirely on the outer layers, 7,040 of 7,105 track segments, which keeps both inner layers intact as reference planes. A solid ground plane sits directly beneath the BGA on In1, so every escaped signal has a continuous return path.</p>
+        <p>Putting the 4.7 &micro;F and 100 nF decoupling on the back face, directly under the matching power balls, is what lets 129 of the 295 components live on the bottom side and keeps the top surface open for escape routing.</p>
+      </div>
+      <figure class="stackup" data-reveal>
+        <div class="stackup__rows" role="img" aria-label="Four-layer stackup, 1.6 mm total: front mask, front copper, 0.1 mm prepreg, In1 ground plane, 1.24 mm core, In2 3V3 plane, 0.1 mm prepreg, back copper, back mask.">
+          <div class="layer layer--mask" style="--i:0"><span class="layer__nm">F.Mask</span><span class="layer__bar" style="--h:6px"></span><span class="layer__th">0.010</span></div>
+          <div class="layer layer--f" style="--i:1"><span class="layer__nm">F.Cu</span><span class="layer__bar" style="--h:10px"></span><span class="layer__th">0.035</span></div>
+          <div class="layer layer--diel" style="--i:2"><span class="layer__nm">Prepreg</span><span class="layer__bar" style="--h:14px"></span><span class="layer__th">0.100</span></div>
+          <div class="layer layer--in1" style="--i:3"><span class="layer__nm">In1.Cu, GND</span><span class="layer__bar" style="--h:10px"></span><span class="layer__th">0.035</span></div>
+          <div class="layer layer--diel" style="--i:4"><span class="layer__nm">Core</span><span class="layer__bar" style="--h:42px"></span><span class="layer__th">1.240</span></div>
+          <div class="layer layer--in2" style="--i:5"><span class="layer__nm">In2.Cu, 3V3</span><span class="layer__bar" style="--h:10px"></span><span class="layer__th">0.035</span></div>
+          <div class="layer layer--diel" style="--i:6"><span class="layer__nm">Prepreg</span><span class="layer__bar" style="--h:14px"></span><span class="layer__th">0.100</span></div>
+          <div class="layer layer--b" style="--i:7"><span class="layer__nm">B.Cu</span><span class="layer__bar" style="--h:10px"></span><span class="layer__th">0.035</span></div>
+          <div class="layer layer--mask" style="--i:8"><span class="layer__nm">B.Mask</span><span class="layer__bar" style="--h:6px"></span><span class="layer__th">0.010</span></div>
+        </div>
+        <div class="stackup__total" aria-hidden="true"><span class="stackup__dim"></span><span>Total 1.600 mm</span></div>
+        <figcaption class="stackup__legend">
+          <span><i class="dot dot--f"></i>Signal, front</span>
+          <span><i class="dot dot--in1"></i>Ground plane</span>
+          <span><i class="dot dot--in2"></i>3V3 plane</span>
+          <span><i class="dot dot--b"></i>Signal, back</span>
+          <span class="stackup__unit">Thickness in mm, bars not to scale</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="dossier" aria-labelledby="fabrication">
+      <h2 class="dossier__title" id="fabrication">Fabrication</h2>
+      <dl class="fab" data-reveal>
+        <div><dt>Board size</dt><dd>134.6 &times; 76.2 <small>mm</small></dd></div>
+        <div><dt>Copper layers</dt><dd>4</dd></div>
+        <div><dt>Min clearance</dt><dd>0.127 <small>mm / 5 mil</small></dd></div>
+        <div><dt>Track width</dt><dd>0.127 <small>mm / 5 mil</small></dd></div>
+        <div><dt>Via pad</dt><dd>0.457 <small>mm / 18 mil</small></dd></div>
+        <div><dt>Via drill</dt><dd>0.254 <small>mm / 10 mil</small></dd></div>
+        <div><dt>Annular ring</dt><dd>0.102 <small>mm / 4 mil</small></dd></div>
+        <div><dt>Finest pitch</dt><dd>0.50 <small>mm, eMMC</small></dd></div>
+      </dl>
+      <p class="dossier__note">Every via is a plain through-hole placed between pads. No via-in-pad, no blind or buried vias, no filled-and-capped processing. The whole board sits inside standard fab capability, which was a deliberate constraint rather than an outcome.</p>
+    </section>
+
+    <section class="dossier" aria-labelledby="status">
+      <h2 class="dossier__title" id="status">Status</h2>
+      <ol class="status" data-reveal>
+        <li style="--i:0"><span class="pill pill--done">Done</span><b>Schematic</b><span>Reduced from the reference, ERC clean of structural errors</span></li>
+        <li style="--i:1"><span class="pill pill--done">Done</span><b>Placement</b><span>295 parts, 129 on the back face</span></li>
+        <li style="--i:2"><span class="pill pill--done">Done</span><b>Routing</b><span>7,105 segments, 981 vias, 50 pours. 22 unconnected pads remaining</span></li>
+        <li style="--i:3"><span class="pill pill--open">Open</span><b>Stackup</b><span>Dielectric thicknesses to be set from the fab's real stack before impedance-controlled pairs are finalised</span></li>
+        <li style="--i:4"><span class="pill pill--open">Open</span><b>Differential pairs</b><span>HDMI TMDS, USB, and Ethernet to be tuned to 90 and 100 &Omega; once the stack is fixed</span></li>
+        <li style="--i:5"><span class="pill pill--open">Open</span><b>DFM review</b><span>Solder-mask webs at fine pitch, hole-to-copper margins, eMMC ball-map verification</span></li>
+        <li style="--i:6"><span class="pill pill--open">Open</span><b>Fabrication</b><span>Not yet ordered</span></li>
+      </ol>
+    </section>
 
     <div class="page__next">
       <a class="next" href="esp32-weather-station.html">
@@ -191,10 +276,14 @@
   </div>
   <div class="container footer__bar">
     <p>&copy; <span id="year">2026</span> Daniel Wang</p>
-    <p>Built by hand. No framework, no tracking.</p>
+    <p>Built by me, no tracking.</p>
   </div>
 </footer>
 
+<script src="../assets/vendor/lenis.min.js" defer></script>
+<script src="../assets/vendor/gsap.min.js" defer></script>
+<script src="../assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="../assets/vendor/SplitText.min.js" defer></script>
 <script src="../main.js" defer></script>
 </body>
 </html>

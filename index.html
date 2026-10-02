@@ -6,16 +6,22 @@
   <title>Daniel Wang</title>
   <meta name="description" content="Daniel Wang is a Computer Engineering student at Toronto Metropolitan University working on FPGA design, embedded systems, and hardware/software integration." />
   <meta name="color-scheme" content="light dark" />
+  <link rel="canonical" href="https://danielwang5421.github.io/" />
+  <meta property="og:url" content="https://danielwang5421.github.io/" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta property="og:title" content="Daniel Wang" />
   <meta property="og:description" content="Computer Engineering student. FPGA design, embedded systems, and the software that ties them together." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/img/esp32-featured.jpg" />
+  <meta property="og:image" content="https://danielwang5421.github.io/assets/img/esp32-featured.jpg" />
   <link rel="preload" href="assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/Archivo-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/img/avatar-800.webp" as="image" type="image/webp" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="assets/vendor/lenis.css" />
   <link rel="stylesheet" href="styles.css" />
   <script>
     document.documentElement.classList.add('js');
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('lines-on');
     try {
       var t = localStorage.getItem('theme');
       if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
@@ -68,7 +74,7 @@
 <main id="main">
 
   <!-- HERO -->
-  <section class="hero" id="top">
+  <section data-hud="Intro" class="hero" id="top">
     <div class="hero__paper" aria-hidden="true">
       <span class="paper__grid" data-depth="0.025"></span>
       <span class="paper__ruler paper__ruler--top"></span>
@@ -102,7 +108,8 @@
   </section>
 
   <!-- ABOUT -->
-  <section class="about" id="about">
+  <section data-hud="About" class="about" id="about">
+    <div class="container"><div class="sec-rule" data-reveal aria-hidden="true"><span class="sec-rule__idx">01</span><span class="sec-rule__line"></span><span class="sec-rule__meta">Profile</span></div></div>
     <div class="container about__grid">
       <div class="about__main">
         <h2 class="section__title" data-reveal>About</h2>
@@ -148,34 +155,48 @@
   </section>
 
   <!-- PROJECTS -->
-  <section class="projects" id="projects" data-tone="cool">
+  <section data-hud="Projects" class="projects" id="projects">
+    <div class="container"><div class="sec-rule" data-reveal aria-hidden="true"><span class="sec-rule__idx">02</span><span class="sec-rule__line"></span><span class="sec-rule__meta">7 builds</span></div></div>
     <div class="container">
       <h2 class="section__title" data-reveal>Projects</h2>
 
-      <!-- Featured: OSD32MP15x carrier -->
-      <article class="project project--featured" data-reveal>
-        <a class="gallery__link" href="projects/osd32mp15x-carrier.html" data-cursor="Open write-up" aria-label="Open the OSD32MP15x Carrier write-up">
-          <div class="gallery__stage img-reveal">
-            <picture><source srcset="assets/img/pcb-3d-top-800.webp 800w, assets/img/pcb-3d-top.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/pcb-3d-top.jpg" srcset="assets/img/pcb-3d-top-800.jpg 800w, assets/img/pcb-3d-top.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="998" height="563" alt="3D render of the OSD32MP15x carrier board" loading="lazy" decoding="async" /></picture>
+    </div>
+
+    <!-- Showcase: OSD32MP15x carrier. Dark band, pinned image sequence on desktop -->
+    <div class="showcase" id="carrier" data-surface="dark">
+      <div class="showcase__pin">
+        <span class="showcase__grid" aria-hidden="true"></span>
+        <div class="container showcase__inner">
+          <div class="showcase__copy">
+            <p class="showcase__label">[ Featured build ]</p>
+            <h3 class="showcase__title">OSD32MP15x Carrier</h3>
+            <p class="project__year showcase__year">2026, routed and rule-checked</p>
+            <p class="showcase__desc">A custom four-layer Linux single-board computer built around the Octavo OSD32MP157C system-in-package. Reduced from the vendor reference to a targeted feature set: HDMI, Ethernet, Wi-Fi and Bluetooth, USB-C, CAN, eMMC, and microSD on a 134.6 by 76.2 mm board.</p>
+            <ul class="tags" aria-label="Technologies">
+              <li>KiCad 10</li><li>STM32MP157C</li><li>4-layer</li><li>USB-C PD</li><li>HDMI</li><li>CAN</li>
+            </ul>
+            <a class="more" href="projects/osd32mp15x-carrier.html">
+              <span>Read the write-up</span>
+              <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-arrow-right"/></svg>
+            </a>
           </div>
-        </a>
-
-        <div class="project__body">
-          <h3 class="project__title">OSD32MP15x Carrier</h3>
-          <p class="project__year">2026, routed and rule-checked</p>
-          <p class="project__desc">
-            A custom four-layer Linux single-board computer built around the Octavo OSD32MP157C system-in-package. Derived from the vendor reference design and reduced to a targeted feature set: HDMI, Ethernet, Wi-Fi and Bluetooth, USB-C, CAN, eMMC, and microSD on a 134.6 by 76.2 mm board. Designed in KiCad 10.
-          </p>
-          <ul class="tags" aria-label="Technologies">
-            <li>KiCad 10</li><li>STM32MP157C</li><li>4-layer</li><li>USB-C PD</li><li>HDMI</li><li>Ethernet</li><li>CAN</li>
-          </ul>
-          <a class="more" href="projects/osd32mp15x-carrier.html">
-            <span>Read the write-up</span>
-            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-arrow-right"/></svg>
-          </a>
+          <div class="showcase__media">
+            <a class="showcase__stage" href="projects/osd32mp15x-carrier.html" data-cursor="Open write-up" aria-label="Open the OSD32MP15x Carrier write-up">
+              <figure class="showcase__frame"><picture><source srcset="assets/img/pcb-3d-top-800.webp 800w, assets/img/pcb-3d-top.webp 1600w" sizes="(min-width: 1024px) 55vw, 92vw" type="image/webp" /><img src="assets/img/pcb-3d-top.jpg" srcset="assets/img/pcb-3d-top-800.jpg 800w, assets/img/pcb-3d-top.jpg 1600w" sizes="(min-width: 1024px) 55vw, 92vw" width="998" height="563" alt="3D render of the top of the OSD32MP15x carrier board" loading="lazy" decoding="async" /></picture><figcaption>Top side, 3D render</figcaption></figure>
+              <figure class="showcase__frame"><picture><source srcset="assets/img/pcb-layout-800.webp 800w, assets/img/pcb-layout.webp 1600w" sizes="(min-width: 1024px) 55vw, 92vw" type="image/webp" /><img src="assets/img/pcb-layout.jpg" srcset="assets/img/pcb-layout-800.jpg 800w, assets/img/pcb-layout.jpg 1600w" sizes="(min-width: 1024px) 55vw, 92vw" width="1600" height="929" alt="KiCad layout of all four copper layers" loading="lazy" decoding="async" /></picture><figcaption>All four copper layers: 413 nets, 981 vias</figcaption></figure>
+              <figure class="showcase__frame"><picture><source srcset="assets/img/pcb-schematic-800.webp 800w, assets/img/pcb-schematic.webp 1600w" sizes="(min-width: 1024px) 55vw, 92vw" type="image/webp" /><img src="assets/img/pcb-schematic.jpg" srcset="assets/img/pcb-schematic-800.jpg 800w, assets/img/pcb-schematic.jpg 1600w" sizes="(min-width: 1024px) 55vw, 92vw" width="1210" height="918" alt="KiCad schematic sheets for USB-C, HDMI, wireless, and Ethernet" loading="lazy" decoding="async" /></picture><figcaption>Schematic: USB-C, HDMI, wireless, Ethernet</figcaption></figure>
+            </a>
+            <div class="showcase__meta" aria-hidden="true">
+              <span class="showcase__count">[ 1 / 3 ]</span>
+              <span class="showcase__bar"><i></i></span>
+              <span class="showcase__cap">Top side, 3D render</span>
+            </div>
+          </div>
         </div>
-      </article>
+      </div>
+    </div>
 
+    <div class="container">
       <!-- Featured: ESP32 weather station -->
       <article class="project project--featured project--flip" data-reveal>
         <div class="project__body">
@@ -360,7 +381,8 @@
   </section>
 
   <!-- EXPERIENCE + EDUCATION -->
-  <section class="timeline-section" id="experience">
+  <section data-hud="Experience" class="timeline-section" id="experience">
+    <div class="container"><div class="sec-rule" data-reveal aria-hidden="true"><span class="sec-rule__idx">03</span><span class="sec-rule__line"></span><span class="sec-rule__meta">5 entries</span></div></div>
     <div class="container timeline__grid">
       <div class="timeline__head">
         <h2 class="section__title" data-reveal>Experience and education</h2>
@@ -402,7 +424,8 @@
   </section>
 
   <!-- LAB WORK -->
-  <section class="lab" id="lab">
+  <section data-hud="Lab work" class="lab" id="lab">
+    <div class="container"><div class="sec-rule" data-reveal aria-hidden="true"><span class="sec-rule__idx">04</span><span class="sec-rule__line"></span><span class="sec-rule__meta">8 figures</span></div></div>
     <div class="container">
       <h2 class="section__title" data-reveal>Lab work and other bits</h2>
       <p class="lab__intro" data-reveal>Coursework that put instruments in my hands: characterising circuits on the bench for Signals and Systems, and taking an ALU from VHDL to a running FPGA board for Digital Systems. Plus a couple of things from the bench that did not fit anywhere else.</p>
@@ -475,7 +498,8 @@
   </section>
 
   <!-- SKILLS -->
-  <section class="skills" id="skills">
+  <section data-hud="Skills" class="skills" id="skills">
+    <div class="container"><div class="sec-rule" data-reveal aria-hidden="true"><span class="sec-rule__idx">05</span><span class="sec-rule__line"></span><span class="sec-rule__meta">4 groups</span></div></div>
     <div class="container">
       <h2 class="section__title" data-reveal>Skills</h2>
       <div class="skills__rows">
@@ -528,7 +552,8 @@
   </section>
 
   <!-- CONTACT -->
-  <section class="contact" id="contact" data-tone="accent">
+  <section data-hud="Contact" class="contact" id="contact" data-tone="accent">
+    <div class="container"><div class="sec-rule" data-reveal aria-hidden="true"><span class="sec-rule__idx">06</span><span class="sec-rule__line"></span><span class="sec-rule__meta">Open to co-op</span></div></div>
     <div class="container">
       <h2 class="contact__title" data-reveal>Get in touch</h2>
       <p class="contact__sub" data-reveal>Open to internships and co-op roles in embedded systems, FPGA, and hardware/software integration.</p>
@@ -595,10 +620,14 @@
   </div>
   <div class="container footer__bar">
     <p>&copy; <span id="year">2026</span> Daniel Wang</p>
-    <p>Built by hand. No framework, no tracking.</p>
+    <p>Built by me, no tracking.</p>
   </div>
 </footer>
 
+<script src="assets/vendor/lenis.min.js" defer></script>
+<script src="assets/vendor/gsap.min.js" defer></script>
+<script src="assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/vendor/SplitText.min.js" defer></script>
 <script src="main.js" defer></script>
 </body>
 </html>

@@ -1,4 +1,6 @@
 /* Daniel Wang portfolio: interactions
+   - GSAP (ScrollTrigger, SplitText) + Lenis smooth scroll on one ticker
+   - line-by-line text reveals, layered parallax, pinned carrier showcase
    - theme toggle (persisted)
    - hero word split for staggered entrance
    - scroll reveal (IntersectionObserver)
@@ -15,6 +17,33 @@
   const body = document.body;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+  /* ---------- GSAP (vendored): ScrollTrigger + SplitText ---------- */
+  const G = window.gsap && window.ScrollTrigger ? window.gsap : null;
+  const ST = G ? window.ScrollTrigger : null;
+  if (G) {
+    G.registerPlugin(ST);
+    if (window.SplitText) G.registerPlugin(window.SplitText);
+    root.classList.add('has-gsap');
+  }
+
+  /* ---------- Lenis smooth scroll (skipped for reduced motion), driven by GSAP's ticker ---------- */
+  let lenis = null;
+  if (window.Lenis && !reduceMotion.matches) {
+    lenis = new window.Lenis({
+      autoRaf: !G,
+      lerp: 0.11,
+      anchors: true,
+      stopInertiaOnNavigate: true,
+      prevent: (node) => !!(node.closest && node.closest('.lb, [data-lenis-prevent]')),
+    });
+    if (G) {
+      lenis.on('scroll', ST.update);
+      G.ticker.add((t) => lenis.raf(t * 1000));
+      G.ticker.lagSmoothing(0);
+    }
+    window.__lenis = lenis;
+  }
 
   /* ---------- theme ---------- */
   const toggles = [...document.querySelectorAll('[data-theme-toggle]')];
@@ -67,23 +96,6 @@
     });
   }
 
-  /* ---------- about statement: words spread from centre, converge on scroll ---------- */
-  const statement = document.getElementById('about-statement');
-  if (statement) {
-    const words = statement.textContent.trim().split(/\s+/);
-    const centre = (words.length - 1) / 2;
-    statement.textContent = '';
-    words.forEach((word, i) => {
-      const span = document.createElement('span');
-      span.className = 'w';
-      span.textContent = word;
-      // distance from the centre word, scaled down so the outer words travel further
-      span.style.setProperty('--d', ((i - centre) / 4).toFixed(2));
-      statement.appendChild(span);
-      if (i < words.length - 1) statement.appendChild(document.createTextNode(' '));
-    });
-  }
-
   /* ---------- preload: start fetching images two screens early ---------- */
   const lazyImgs = [...document.querySelectorAll('img[loading="lazy"]')];
   if (lazyImgs.length && 'IntersectionObserver' in window) {
@@ -95,6 +107,127 @@
       });
     }, { rootMargin: '200% 0px 200% 0px' });
     lazyImgs.forEach((img) => warm.observe(img));
+  }
+
+  /* ---------- line-by-line text reveals (SplitText) ---------- */
+  const LINES = '.section__title, .contact__title, .contact__sub, .about__statement, .about__body p, .lab__intro, .timeline__intro, .showcase__title, .showcase__desc, .project--featured .project__title, .project--featured .project__desc, .page__title, .page__summary, .prose > h2, .prose > p, .dossier__title, .dossier__intro p, .dossier__note, .walk__step h2, .walk__step p, .notfound__title, .notfound__sub';
+  // anything that now animates line by line drops the block fade, and so do the wrappers around it
+  document.querySelectorAll(LINES + ', .about__body, .walk__step').forEach((el) => el.removeAttribute('data-reveal'));
+  if (G && window.SplitText && !reduceMotion.matches) {
+    document.querySelectorAll(LINES).forEach((el) => {
+      window.SplitText.create(el, {
+        type: 'lines', mask: 'lines', linesClass: 'split-line', autoSplit: true,
+        onSplit(self) {
+          G.set(el, { opacity: 1 });
+          return G.from(self.lines, {
+            yPercent: 110, duration: 1.15, ease: 'expo.out', stagger: 0.08,
+            force3D: false, clearProps: 'transform',
+            scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+          });
+        },
+      });
+    });
+  } else {
+    root.classList.remove('lines-on');
+  }
+
+  /* ---------- layered parallax: images scale into their frames, containers drift ---------- */
+  const IMG_IN = '.gallery__stage, .project__media, .strip__item a, .walk__fig a, .page__hero, .masonry a';
+  document.querySelectorAll(IMG_IN).forEach((el) => el.setAttribute('data-img-in', ''));
+  // drift media only: moving text sits between pixels and shimmers
+  [['.project--featured .gallery', 0.95]]
+    .forEach(([sel, sp]) => document.querySelectorAll(sel).forEach((el) => { if (!el.dataset.speed) el.dataset.speed = sp; }));
+  if (G) {
+    const mm = G.matchMedia();
+    mm.add({ desk: '(min-width: 768px)', still: '(prefers-reduced-motion: reduce)' }, (ctx) => {
+      if (ctx.conditions.still) return;
+      document.querySelectorAll('[data-img-in]').forEach((el) => {
+        const imgs = el.querySelectorAll('img');
+        if (!imgs.length) return;
+        G.fromTo(imgs, { scale: 1.18 }, {
+          scale: 1, ease: 'none',
+          scrollTrigger: { trigger: el, start: 'top bottom', end: 'center 45%', scrub: true },
+        });
+      });
+      if (!ctx.conditions.desk) return;
+      document.querySelectorAll('[data-speed]').forEach((el) => {
+        const amt = ((parseFloat(el.dataset.speed) || 1) - 1) * 400;
+        G.fromTo(el, { y: amt }, {
+          y: -amt, ease: 'none',
+          scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true },
+        });
+      });
+    });
+
+    /* ---------- dark carrier showcase: pinned on desktop, frames wipe in sequence ---------- */
+    const show = document.querySelector('.showcase');
+    if (show) {
+      const frames = [...show.querySelectorAll('.showcase__frame')];
+      const caps = frames.map((f) => (f.querySelector('figcaption') || {}).textContent || '');
+      const countEl = show.querySelector('.showcase__count');
+      const capEl = show.querySelector('.showcase__cap');
+      const barEl = show.querySelector('.showcase__bar i');
+      let cur = 0;
+      const setIdx = (i) => {
+        if (i === cur) return;
+        cur = i;
+        countEl.textContent = `[ ${i + 1} / ${frames.length} ]`;
+        capEl.textContent = caps[i];
+        G.fromTo(capEl, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.5, ease: 'expo.out' });
+      };
+      mm.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
+        const rest = frames.slice(1);
+        G.set(rest, { clipPath: 'inset(100% 0% 0% 0%)' });
+        G.set(rest.map((f) => f.querySelector('img')), { scale: 1.12 });
+        const tl = G.timeline({
+          defaults: { ease: 'none' },
+          scrollTrigger: {
+            trigger: show.querySelector('.showcase__pin'), start: 'top top', end: '+=105%',
+            pin: true, scrub: 0.5, anticipatePin: 1,
+            onUpdate(self) {
+              barEl.style.transform = `scaleX(${self.progress.toFixed(4)})`;
+              setIdx(self.progress < 0.25 ? 0 : self.progress < 0.75 ? 1 : 2);
+            },
+          },
+        });
+        tl.to({}, { duration: 0.15 });
+        rest.forEach((f, i) => {
+          tl.to(f, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1 })
+            .to(f.querySelector('img'), { scale: 1, duration: 1 }, '<');
+          if (i < rest.length - 1) tl.to({}, { duration: 0.3 });
+        });
+        tl.to({}, { duration: 0.15 });
+        return () => { cur = 0; countEl.textContent = `[ 1 / ${frames.length} ]`; capEl.textContent = caps[0]; };
+      });
+      // nav takes the dark scheme while the band sits under it
+      // nav, side rail, and scroll readout take the dark scheme while the band sits under them
+      let fadeTimer = null;
+      const darkUi = (on) => {
+        root.classList.add('ui-fading');
+        clearTimeout(fadeTimer);
+        fadeTimer = setTimeout(() => root.classList.remove('ui-fading'), 700);
+        document.querySelectorAll('#nav, .rail, .hud').forEach((el) => el.classList.toggle('is-on-dark', on));
+      };
+      ST.create({ trigger: show, start: 'top top+=68', end: 'bottom top+=68', onToggle: (self) => darkUi(self.isActive) });
+    }
+
+    window.addEventListener('load', () => ST.refresh());
+  }
+
+  /* ---------- figures count up when they scroll in ---------- */
+  const counters = [...document.querySelectorAll('[data-count]')];
+  if (G && counters.length && !reduceMotion.matches) {
+    counters.forEach((el, i) => {
+      const end = parseInt(el.dataset.count, 10) || 0;
+      const fmt = (n) => Math.round(n).toLocaleString('en-US');
+      const state = { v: 0 };
+      el.textContent = fmt(0);
+      G.to(state, {
+        v: end, duration: 1.6, ease: 'expo.out', delay: i * 0.06,
+        onUpdate: () => { el.textContent = fmt(state.v); },
+        scrollTrigger: { trigger: el, start: 'top 92%', once: true },
+      });
+    });
   }
 
   /* ---------- scroll reveal ---------- */
@@ -351,11 +484,12 @@
       render(0);
       dlg.showModal();
       body.style.overflow = 'hidden';
+      if (lenis) lenis.stop();
     };
     const close = () => { dlg.close(); };
     const step = (d) => { idx = (idx + d + items.length) % items.length; render(d); };
 
-    dlg.addEventListener('close', () => { body.style.overflow = ''; });
+    dlg.addEventListener('close', () => { body.style.overflow = ''; if (lenis) lenis.start(); });
     dlg.querySelector('.lb__close').addEventListener('click', close);
     dlg.querySelector('.lb__nav--prev').addEventListener('click', () => step(-1));
     dlg.querySelector('.lb__nav--next').addEventListener('click', () => step(1));
@@ -457,6 +591,7 @@
   }
   const mediaFor = (link) => {
     const card = link.closest('.project') || link;
+    if (link.matches('.showcase__stage')) return link.querySelector('.showcase__frame');
     return card.querySelector('.gallery__stage, .project__media, .project__panel, .project__stat') || (link.matches('.gallery__link') ? link.querySelector('.gallery__stage') : null);
   };
   const projectLinks = [...document.querySelectorAll('a[href*="projects/"]')];
@@ -545,30 +680,74 @@
     if ('IntersectionObserver' in window) new IntersectionObserver(([en]) => { inView = en.isIntersecting; if (inView) kick(); }).observe(heroEl);
   }
 
-  /* ---------- 4. scroll storyboard ---------- */
-  document.querySelectorAll('.story').forEach((story) => {
-    const slides = [...story.querySelectorAll('.story__slide')];
-    const steps = [...story.querySelectorAll('.story__step')];
-    const cap = story.querySelector('.story__cap');
-    const count = story.querySelector('.story__count');
-    const bar = story.querySelector('.story__progress i');
-    if (!slides.length || !steps.length) return;
-    const show = (i) => {
-      slides.forEach((s, j) => s.classList.toggle('is-active', j === i));
-      steps.forEach((s, j) => s.classList.toggle('is-active', j === i));
-      if (cap) cap.textContent = slides[i].dataset.caption || '';
-      if (count) count.textContent = `${i + 1} / ${slides.length}`;
-      if (bar) bar.style.width = `${((i + 1) / slides.length) * 100}%`;
-    };
-    show(0);
-    if (!('IntersectionObserver' in window)) return;
-    const spy = new IntersectionObserver((entries) => {
-      entries.forEach((en) => { if (en.isIntersecting) show(steps.indexOf(en.target)); });
-    }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
-    steps.forEach((st) => spy.observe(st));
-  });
-
   /* ---------- footer year ---------- */
   const year = document.getElementById('year');
   if (year) year.textContent = String(new Date().getFullYear());
+  /* ---------- hero crosshair with a millimetre readout ---------- */
+  const xhHost = document.querySelector('.hero');
+  if (xhHost && finePointer.matches) {
+    const xh = document.createElement('div');
+    xh.className = 'xh'; xh.setAttribute('aria-hidden', 'true');
+    xh.innerHTML = '<span class="xh__v"></span><span class="xh__h"></span><span class="xh__label"></span>';
+    xhHost.insertBefore(xh, xhHost.querySelector('.hero__grid'));
+    const v = xh.querySelector('.xh__v'), h = xh.querySelector('.xh__h'), label = xh.querySelector('.xh__label');
+    const PX_PER_MM = 96 / 25.4;
+    const k = reduceMotion.matches ? 1 : 0.3;
+    let tx = 0, ty = 0, cx = 0, cy = 0, raf = null, on = false;
+    const mm = (n) => (n / PX_PER_MM).toFixed(1).padStart(5, '0');
+    const draw = () => {
+      cx += (tx - cx) * k; cy += (ty - cy) * k;
+      v.style.transform = `translate3d(${cx.toFixed(1)}px, 0, 0)`;
+      h.style.transform = `translate3d(0, ${cy.toFixed(1)}px, 0)`;
+      const w = xhHost.clientWidth;
+      const lx = cx + 150 > w ? cx - 142 : cx + 12;
+      label.style.transform = `translate3d(${lx.toFixed(1)}px, ${(cy + 12).toFixed(1)}px, 0)`;
+      label.textContent = `X ${mm(cx)}  Y ${mm(cy)} mm`;
+      if (on && (Math.abs(tx - cx) > 0.3 || Math.abs(ty - cy) > 0.3)) raf = requestAnimationFrame(draw); else raf = null;
+    };
+    xhHost.addEventListener('pointermove', (e) => {
+      const r = xhHost.getBoundingClientRect();
+      tx = e.clientX - r.left; ty = e.clientY - r.top;
+      if (!on) { on = true; cx = tx; cy = ty; xh.classList.add('is-on'); }
+      if (!raf) raf = requestAnimationFrame(draw);
+    });
+    xhHost.addEventListener('pointerleave', () => { on = false; xh.classList.remove('is-on'); });
+  }
+
+  /* ---------- scroll HUD: progress plus the section in view ---------- */
+  {
+    const hud = document.createElement('div');
+    hud.className = 'hud'; hud.setAttribute('aria-hidden', 'true');
+    hud.innerHTML = '<span class="hud__pct">000%</span><span class="hud__bar"><i></i></span><span class="hud__label"></span>';
+    body.appendChild(hud);
+    const pct = hud.querySelector('.hud__pct'), bar = hud.querySelector('.hud__bar i'), lab = hud.querySelector('.hud__label');
+    let marks = [...document.querySelectorAll('[data-hud]')].map((el) => ({ el, name: el.dataset.hud }));
+    if (!marks.length) {
+      const first = { el: document.querySelector('main'), name: (document.querySelector('h1') || {}).textContent || 'Page' };
+      marks = [first, ...[...document.querySelectorAll('.prose h2, .walk__step h2, .dossier__title, .page__gallery .section__title')]
+        .map((el) => ({ el, name: el.getAttribute('aria-label') || el.textContent }))];
+    }
+    marks.forEach((m) => { m.name = m.name.trim().split(/\s+/).slice(0, 3).join(' '); });
+    const foot = document.querySelector('.footer');
+    let queued = false;
+    const update = () => {
+      queued = false;
+      const y = window.scrollY;
+      const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const p = Math.min(1, Math.max(0, y / max));
+      pct.textContent = String(Math.round(p * 100)).padStart(3, '0') + '%';
+      bar.style.transform = `scaleX(${p.toFixed(4)})`;
+      const line = window.innerHeight * 0.45;
+      let current = marks[0];
+      for (const m of marks) if (m.el.getBoundingClientRect().top <= line) current = m;
+      if (current && lab.textContent !== current.name) lab.textContent = current.name;
+      // step aside once the curtain footer starts to show
+      const footH = foot ? foot.offsetHeight : 0;
+      hud.classList.toggle('is-on', y > 120 && y < max - footH * 0.6);
+    };
+    const queue = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', queue);
+    update();
+  }
 })();
