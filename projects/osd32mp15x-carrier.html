@@ -13,12 +13,18 @@
   <meta property="og:image" content="https://danielwang5421.github.io/assets/img/pcb-3d-top.jpg" />
   <link rel="preload" href="../assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="../assets/fonts/Archivo-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" href="../favicon.ico" sizes="32x32" />
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="../assets/vendor/lenis.css" />
   <link rel="stylesheet" href="../styles.css" />
   <script>
     document.documentElement.classList.add('js');
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('lines-on');
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('blink-on');
+      // failsafe: if main.js never arms the reveals, show everything
+      setTimeout(function () { var d = document.documentElement; if (!d.classList.contains('blink-armed')) d.classList.remove('blink-on'); }, 3500);
+    }
     try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
   </script>
 </head>
@@ -28,7 +34,7 @@
 
 <header class="nav" id="nav">
   <div class="container nav__inner">
-    <a class="nav__brand" href="../index.html" aria-label="Daniel Wang, home">DW</a>
+    <a class="nav__brand" href="../index.html" aria-label="Daniel Wang, home"><svg class="nav__mark" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 36 C24 40 31 50 32 70"/><path d="M25 29 C34 29 41 34 45 42"/><path d="M22 76 C32 74 44 67 58 53 L64 67 L87 22"/></g></svg></a>
     <nav class="nav__links" id="nav-links" aria-label="Primary">
       <a href="../index.html#about" data-nav>About</a>
       <a href="../index.html#projects" data-nav class="is-active">Projects</a>
@@ -133,7 +139,7 @@
     </aside>
       <article class="prose">
         <h2 id="the-part">Why a system-in-package</h2>
-        <div class="part-card" data-reveal>
+        <div class="part-card">
           <div class="part-card__id">
             <span class="part-card__pn">OSD32MP157C-512M-BAA</span>
             <span class="part-card__mfr">Octavo Systems. 324-ball BGA, 1.0 mm pitch, 18 by 18 mm</span>
@@ -150,7 +156,7 @@
         <h2 id="reduction">Reduced, not redrawn</h2>
         <p>The board began as the Octavo OSD32MP1-RED reference design and was cut down rather than drawn from scratch. Four subsystems came out: the three-phase motor-control interface with its two TXB0108 level-shifter banks, the DCMI camera port, the MIPI-DSI display channel, and the mikroBUS Click and 40-pin expansion headers. That took 19 components off the board, along with the analog sense chains and pull-ups that existed only to serve them.</p>
         <p>Doing that carefully is most of the work. Level shifters had to be checked channel by channel, because the same SiP pins are muxed between the motor bank and the display bus, and deleting the wrong pair would have silently killed HDMI. The jumper that selects between those two banks had to stay, with its default position corrected, since a pulldown leaves the display path disabled unless it is fitted.</p>
-        <aside class="provenance" data-reveal>
+        <aside class="provenance">
           <span class="provenance__label">Provenance</span>
           <p>Component placement and routing are derived from the Octavo reference design, which is published for this purpose. The engineering here is in the reduction: deciding what could be removed, verifying that nothing left behind depends on it, and confirming the result still routes and passes rules.</p>
         </aside>
@@ -160,7 +166,7 @@
 
     <section class="dossier" aria-labelledby="subsystems">
       <h2 class="dossier__title" id="subsystems">Subsystems</h2>
-      <div class="table-wrap" data-reveal>
+      <div class="table-wrap">
         <table class="parts">
           <thead><tr><th>Function</th><th>Part</th><th>Ref</th><th>Notes</th></tr></thead>
           <tbody>
@@ -213,7 +219,7 @@
 
     <section class="dossier" aria-labelledby="fabrication">
       <h2 class="dossier__title" id="fabrication">Fabrication</h2>
-      <dl class="fab" data-reveal>
+      <dl class="fab">
         <div><dt>Board size</dt><dd>134.6 &times; 76.2 <small>mm</small></dd></div>
         <div><dt>Copper layers</dt><dd>4</dd></div>
         <div><dt>Min clearance</dt><dd>0.127 <small>mm / 5 mil</small></dd></div>
@@ -249,12 +255,13 @@
       </a>
     </div>
   </div>
+  <span class="curtain-sentinel" aria-hidden="true"></span>
 </main>
 
 <footer class="footer">
   <div class="container footer__grid">
     <div class="footer__brand">
-      <a class="nav__brand" href="../index.html" aria-label="Daniel Wang, home">DW</a>
+      <a class="nav__brand" href="../index.html" aria-label="Daniel Wang, home"><svg class="nav__mark" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 36 C24 40 31 50 32 70"/><path d="M25 29 C34 29 41 34 45 42"/><path d="M22 76 C32 74 44 67 58 53 L64 67 L87 22"/></g></svg></a>
       <p class="footer__name">Daniel Wang</p>
       <p class="footer__line">Computer Engineering student, Toronto Metropolitan University. Markham, Ontario.</p>
     </div>
@@ -278,12 +285,12 @@
     <p>&copy; <span id="year">2026</span> Daniel Wang</p>
     <p>Built by me, no tracking.</p>
   </div>
+  <div class="footer__mark" aria-hidden="true"><span>Daniel Wang</span></div>
 </footer>
 
 <script src="../assets/vendor/lenis.min.js" defer></script>
 <script src="../assets/vendor/gsap.min.js" defer></script>
 <script src="../assets/vendor/ScrollTrigger.min.js" defer></script>
-<script src="../assets/vendor/SplitText.min.js" defer></script>
 <script src="../main.js" defer></script>
 </body>
 </html>

@@ -1,9 +1,8 @@
 /* Daniel Wang portfolio: interactions
-   - GSAP (ScrollTrigger, SplitText) + Lenis smooth scroll on one ticker
-   - line-by-line text reveals, layered parallax, pinned carrier showcase
+   - GSAP (ScrollTrigger) + Lenis smooth scroll on one ticker
+   - batched reveals (blinking titles, soft fades), print-separation photo wipes
+   - layered parallax, pinned carrier showcase, timing diagram
    - theme toggle (persisted)
-   - hero word split for staggered entrance
-   - scroll reveal (IntersectionObserver)
    - nav hide on scroll down / show on scroll up, active link tracking
    - magnetic buttons (pointer devices only)
    - spotlight border cards (pointer devices only)
@@ -18,12 +17,11 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
 
-  /* ---------- GSAP (vendored): ScrollTrigger + SplitText ---------- */
+  /* ---------- GSAP (vendored): ScrollTrigger ---------- */
   const G = window.gsap && window.ScrollTrigger ? window.gsap : null;
   const ST = G ? window.ScrollTrigger : null;
   if (G) {
     G.registerPlugin(ST);
-    if (window.SplitText) G.registerPlugin(window.SplitText);
     root.classList.add('has-gsap');
   }
 
@@ -79,21 +77,103 @@
   setTimeout(() => allImages.forEach((img) => { if (img.complete) markLoaded(img); }), 1500);
   window.addEventListener('load', () => allImages.forEach(markLoaded));
 
-  /* ---------- hero word split ---------- */
-  const title = document.getElementById('hero-title');
-  if (title) {
-    const words = title.textContent.trim().split(/\s+/);
-    title.textContent = '';
-    words.forEach((word, i) => {
-      const outer = document.createElement('span');
-      outer.className = 'w';
-      const inner = document.createElement('span');
-      inner.textContent = word;
-      inner.style.setProperty('--i', i);
-      outer.appendChild(inner);
-      title.appendChild(outer);
-      if (i < words.length - 1) title.appendChild(document.createTextNode(' '));
-    });
+  /* ---------- reveals, played in batches ----------
+     Section titles (and the carrier band) blink like Endfield's site; everything else fades softly.
+     Opacity only, so text never leaves the pixel grid. Whatever scrolls in together is queued
+     up to 200ms apart. Photos get the print-separation wipe.
+     These lists are mirrored in styles.css ("Endfield pass"): keep them in sync. */
+  const BT = '.section__title, .contact__title, .showcase__title, .page__title, .notfound__title, .dossier__title, .prose > h2, .walk__step h2, .project--featured .project__title, .skills__group';
+  const BC = '.about__statement, .about__body > p, .fact, .lab__intro, .timeline__intro, .timeline__item, .showcase__copy > :is(.showcase__label, .showcase__year, .showcase__desc, .tags, .more), .project--featured :is(.project__year, .project__desc, .tags, .more), .project--card .project__body, .project__stat-num, .strip__cap, .contact__sub, .contact__actions, .socials, .page__summary, .prose > :is(p, ul, .part-card, .provenance), .dossier__intro > p, .dossier__note, .table-wrap, .fab, .walk__step > p, .walk__fig figcaption, .masonry figcaption, .notfound__sub, .pindex, .readout, .callouts';
+  const PS = '.hero__photo, .gallery__stage, .project__media, .strip__item > a, .walk__fig > a, .masonry a';
+  const clearVar = (el, name) => { el.style.removeProperty(name); if (!el.getAttribute('style')) el.removeAttribute('style'); };
+
+  // print separation: a paper slab, then a 1-bit ink copy of the photo, then the photo itself, each wiped in
+  const runPS = (el, delay) => {
+    if (el.classList.contains('ps-done') || el.classList.contains('ps-run')) return;
+    const pic = el.querySelector(':scope > picture.is-active') || el.querySelector(':scope > picture');
+    const img = pic && pic.querySelector('img');
+    if (!img) { el.classList.add('ps-done'); return; }
+    const due = performance.now() + delay;
+    let layer = null, sync = null, done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      if (sync && G) G.ticker.remove(sync);
+      if (layer) layer.remove();
+      el.classList.remove('ps-run');
+      el.classList.add('ps-done');
+      clearVar(el, '--ps-d');
+    };
+    const guard = setTimeout(finish, 5000);
+    const start = async () => {
+      try { await img.decode(); } catch (e) {}
+      markLoaded(img);
+      if (done) return;
+      layer = document.createElement('span');
+      layer.className = 'ps';
+      layer.setAttribute('aria-hidden', 'true');
+      layer.innerHTML = '<i class="ps__slab"></i><i class="ps__bit"><img class="is-loaded" alt="" /></i>';
+      const clone = layer.querySelector('img');
+      clone.style.objectPosition = getComputedStyle(img).objectPosition;
+      clone.src = img.currentSrc || img.src;
+      try { await clone.decode(); } catch (e) {}
+      if (done) return;
+      el.append(layer); // last child: the lightbox reads the first img in the link
+      // GSAP scales the photo on scroll; the copy has to follow it frame for frame
+      sync = () => { clone.style.transform = img.style.transform; };
+      sync();
+      if (G) G.ticker.add(sync);
+      const wait = Math.max(0, due - performance.now());
+      el.style.setProperty('--ps-d', `${Math.round(wait)}ms`);
+      el.classList.add('ps-run');
+      clearTimeout(guard);
+      pic.addEventListener('animationend', finish, { once: true });
+      pic.addEventListener('animationcancel', finish, { once: true });
+      setTimeout(finish, wait + 1400);
+    };
+    if (img.complete) start();
+    else {
+      img.addEventListener('load', start, { once: true });
+      img.addEventListener('error', finish, { once: true });
+    }
+  };
+
+  const armed = root.classList.contains('blink-on') && 'IntersectionObserver' in window;
+  if (!armed) {
+    root.classList.remove('blink-on');
+    document.querySelectorAll(`${BT}, ${BC}, [data-reveal]`).forEach((el) => el.classList.add('is-visible'));
+  } else {
+    // the image a page transition morphs into must be visible from the first frame
+    const photos = new Set([...document.querySelectorAll(PS)].filter((el) => !el.querySelector('img.vt-media')));
+    const targets = new Set([...document.querySelectorAll(`${BT}, ${BC}, [data-reveal]`), ...photos]);
+    let batch = [];
+    let timer = 0;
+    const flush = () => {
+      timer = 0;
+      batch.sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+      const step = batch.length > 1 ? Math.min(200, 600 / (batch.length - 1)) : 0;
+      batch.forEach((el, i) => {
+        const d = Math.round(i * step);
+        if (d) {
+          el.style.setProperty('--bd', `${d}ms`);
+          setTimeout(() => clearVar(el, '--bd'), d + 2400);
+        }
+        el.classList.add('is-visible');
+        if (photos.has(el)) runPS(el, d);
+      });
+      batch = [];
+    };
+    // entries that land within 50ms of each other play as one sequence
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        io.unobserve(en.target);
+        batch.push(en.target);
+      });
+      if (batch.length && !timer) timer = setTimeout(flush, 50);
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0 });
+    targets.forEach((el) => io.observe(el));
+    root.classList.add('blink-armed');
   }
 
   /* ---------- preload: start fetching images two screens early ---------- */
@@ -109,30 +189,71 @@
     lazyImgs.forEach((img) => warm.observe(img));
   }
 
-  /* ---------- line-by-line text reveals (SplitText) ---------- */
-  const LINES = '.section__title, .contact__title, .contact__sub, .about__statement, .about__body p, .lab__intro, .timeline__intro, .showcase__title, .showcase__desc, .project--featured .project__title, .project--featured .project__desc, .page__title, .page__summary, .prose > h2, .prose > p, .dossier__title, .dossier__intro p, .dossier__note, .walk__step h2, .walk__step p, .notfound__title, .notfound__sub';
-  // anything that now animates line by line drops the block fade, and so do the wrappers around it
-  document.querySelectorAll(LINES + ', .about__body, .walk__step').forEach((el) => el.removeAttribute('data-reveal'));
-  if (G && window.SplitText && !reduceMotion.matches) {
-    document.querySelectorAll(LINES).forEach((el) => {
-      window.SplitText.create(el, {
-        type: 'lines', mask: 'lines', linesClass: 'split-line', autoSplit: true,
-        onSplit(self) {
-          G.set(el, { opacity: 1 });
-          return G.from(self.lines, {
-            yPercent: 110, duration: 1.15, ease: 'expo.out', stagger: 0.08,
-            force3D: false, clearProps: 'transform',
-            scrollTrigger: { trigger: el, start: 'top 88%', once: true },
-          });
-        },
-      });
+  /* ---------- timing diagram: the experience entries as signals on a year axis ---------- */
+  const tdiag = document.querySelector('.tdiag');
+  const tItems = [...document.querySelectorAll('.timeline__item[data-from]')];
+  let tdSet = null;
+  if (tdiag && tItems.length) {
+    const today = new Date();
+    const now = today.getFullYear() + today.getMonth() / 12;
+    const ym = (s) => {
+      if (s === 'now') return now;
+      const [y, m] = s.split('-').map(Number);
+      return y + (m - 1) / 12;
+    };
+    const rows = tItems.map((el) => ({ net: el.dataset.net, from: el.dataset.from, a: ym(el.dataset.from), b: ym(el.dataset.to), open: el.dataset.to === 'now' }));
+    const y0 = Math.floor(Math.min(...rows.map((r) => r.a)));
+    const y1 = Math.floor(now) + 1;
+    const W = 440, X0 = 84, X1 = 432, TOP = 28, ROW = 24;
+    const AX = TOP + (rows.length + 1) * ROW + 4, H = AX + 18;
+    const X = (t) => +(X0 + ((t - y0) / (y1 - y0)) * (X1 - X0)).toFixed(1);
+    const hiY = (i) => TOP + i * ROW + 5;
+    const loY = (i) => TOP + i * ROW + ROW - 6;
+    const hatch = (id, cls) => `<pattern id="${id}" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="5" class="${cls}"/></pattern>`;
+    let guides = '', ticks = '', years = '';
+    for (let y = y0; y <= y1; y++) {
+      guides += `M${X(y)} ${TOP - 4}V${AX}`;
+      ticks += `M${X(y)} ${AX}v4`;
+      if (y < y1) years += `<text class="td__yr" x="${X(y + 0.5)}" y="${AX + 15}" text-anchor="middle">'${String(y).slice(2)}</text>`;
+    }
+    // clock row: one period per year
+    let clk = `M${X0} ${loY(0)}`;
+    for (let y = y0; y < y1; y++) clk += `H${X(y)}V${hiY(0)}H${X(y + 0.5)}V${loY(0)}`;
+    clk += `H${X1}`;
+    let sigs = '';
+    rows.forEach((r, k) => {
+      const i = k + 1, xa = X(r.a), xb = X(Math.min(r.b, now));
+      let d = `M${X0} ${loY(i)}H${xa}V${hiY(i)}H${xb}`;
+      if (!r.open) d += `V${loY(i)}H${X1}`;
+      sigs += `<g class="td__row"><text class="td__net" x="0" y="${loY(i)}">${r.net}</text>`
+        + `<rect class="td__hi" x="${xa}" y="${hiY(i)}" width="${+(xb - xa).toFixed(1)}" height="${loY(i) - hiY(i)}"/>`
+        + `<path class="td__sig" d="${d}"/>`
+        + (r.open ? `<path class="td__sig" d="M${+(xb + 3).toFixed(1)} ${hiY(i) - 3}l4 3-4 3"/>` : '')
+        + '</g>';
     });
-  } else {
-    root.classList.remove('lines-on');
+    tdiag.insertAdjacentHTML('beforeend', `<svg viewBox="0 0 ${W} ${H}" focusable="false">`
+      + `<defs>${hatch('td-hatch', 'td__hatch')}${hatch('td-hatch-hot', 'td__hatch td__hatch--hot')}</defs>`
+      + `<path class="td__guide" d="${guides}"/><path class="td__axis" d="M${X0} ${AX}H${X1}${ticks}"/>${years}`
+      + `<g class="td__clk"><text class="td__net" x="0" y="${loY(0)}">CLK</text><path class="td__sig" d="${clk}"/></g>${sigs}`
+      + `<g class="td__cursor"><line x1="0" y1="${TOP - 8}" x2="0" y2="${AX}"/>`
+      + `<g class="td__tag"><path d="M-2 ${TOP - 24}h64l-4 12h-64z"/><text x="3" y="${TOP - 15}"></text></g></g></svg>`);
+    const range = tdiag.querySelector('.tdiag__range');
+    if (range) range.textContent = `${y0} to now`;
+    const groups = [...tdiag.querySelectorAll('.td__row')];
+    const cursor = tdiag.querySelector('.td__cursor');
+    const tag = tdiag.querySelector('.td__tag text');
+    tdSet = (i) => {
+      const r = rows[i];
+      if (!r) return;
+      groups.forEach((g, k) => g.classList.toggle('is-active', k === i));
+      cursor.style.transform = `translateX(${X(r.a)}px)`;
+      tag.textContent = `T ${r.from.replace('-', '.')}`;
+    };
+    tdSet(0);
   }
 
   /* ---------- layered parallax: images scale into their frames, containers drift ---------- */
-  const IMG_IN = '.gallery__stage, .project__media, .strip__item a, .walk__fig a, .page__hero, .masonry a';
+  const IMG_IN = '.gallery__stage, .project__media, .strip__item a, .walk__fig a, .masonry a';
   document.querySelectorAll(IMG_IN).forEach((el) => el.setAttribute('data-img-in', ''));
   // drift media only: moving text sits between pixels and shimmers
   [['.project--featured .gallery', 0.95]]
@@ -158,6 +279,27 @@
         });
       });
     });
+
+    /* ---------- fixed chrome over a coloured band ----------
+       The nav, side rail and scroll readout take a band's palette while the band sits under them.
+       Each piece switches at its own height (nav near the top, rail at the middle, readout at the
+       bottom), with a short colour fade. The HUD is created further down, so look pieces up lazily. */
+    let fadeTimer = null;
+    const chromeOver = (band, cls) => {
+      [['#nav', 'top+=34'], ['.rail', 'center'], ['.hud', 'bottom-=33']].forEach(([sel, line]) => {
+        ST.create({
+          trigger: band, start: `top ${line}`, end: `bottom ${line}`,
+          onToggle: (self) => {
+            const el = document.querySelector(sel);
+            if (!el) return;
+            root.classList.add('ui-fading');
+            clearTimeout(fadeTimer);
+            fadeTimer = setTimeout(() => root.classList.remove('ui-fading'), 700);
+            el.classList.toggle(cls, self.isActive);
+          },
+        });
+      });
+    };
 
     /* ---------- dark carrier showcase: pinned on desktop, frames wipe in sequence ---------- */
     const show = document.querySelector('.showcase');
@@ -199,16 +341,20 @@
         tl.to({}, { duration: 0.15 });
         return () => { cur = 0; countEl.textContent = `[ 1 / ${frames.length} ]`; capEl.textContent = caps[0]; };
       });
-      // nav takes the dark scheme while the band sits under it
-      // nav, side rail, and scroll readout take the dark scheme while the band sits under them
-      let fadeTimer = null;
-      const darkUi = (on) => {
-        root.classList.add('ui-fading');
-        clearTimeout(fadeTimer);
-        fadeTimer = setTimeout(() => root.classList.remove('ui-fading'), 700);
-        document.querySelectorAll('#nav, .rail, .hud').forEach((el) => el.classList.toggle('is-on-dark', on));
-      };
-      ST.create({ trigger: show, start: 'top top+=68', end: 'bottom top+=68', onToggle: (self) => darkUi(self.isActive) });
+      chromeOver(show, 'is-on-dark');
+    }
+    // the terracotta Contact band works the same way
+    const tonedBand = document.querySelector('section[data-tone]');
+    if (tonedBand) chromeOver(tonedBand, 'is-on-tone');
+
+    // the timing diagram's cursor jumps to whichever entry is being read
+    if (tdSet) {
+      mm.add('(min-width: 1024px) and (min-height: 760px)', () => {
+        tItems.forEach((el, i) => ST.create({
+          trigger: el, start: 'top 62%', end: 'bottom 62%',
+          onToggle: (self) => { if (self.isActive) tdSet(i); },
+        }));
+      });
     }
 
     window.addEventListener('load', () => ST.refresh());
@@ -230,20 +376,20 @@
     });
   }
 
-  /* ---------- scroll reveal ---------- */
-  const revealEls = document.querySelectorAll('[data-reveal], .img-reveal');
-  if (reduceMotion.matches || !('IntersectionObserver' in window)) {
-    revealEls.forEach((el) => el.classList.add('is-visible'));
-  } else {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
-    revealEls.forEach((el) => io.observe(el));
+  /* ---------- footer wordmark: flashes on once the page has lifted off it ---------- */
+  // the curtain footer always counts as in view, so watch the bottom edge of main instead
+  const sentinel = document.querySelector('.curtain-sentinel');
+  const footMark = document.querySelector('.footer__mark');
+  if (sentinel && footMark) {
+    if (!armed) footMark.classList.add('is-visible');
+    else {
+      const markIo = new IntersectionObserver(([en]) => {
+        if (!en.isIntersecting) return;
+        footMark.classList.add('is-visible');
+        markIo.disconnect();
+      }, { rootMargin: '0px 0px -60px 0px' });
+      markIo.observe(sentinel);
+    }
   }
 
   /* ---------- nav: hide/show + active section ---------- */
@@ -595,19 +741,18 @@
     return card.querySelector('.gallery__stage, .project__media, .project__panel, .project__stat') || (link.matches('.gallery__link') ? link.querySelector('.gallery__stage') : null);
   };
   const projectLinks = [...document.querySelectorAll('a[href*="projects/"]')];
+  // several links can point at one write-up (index entries, "Read the write-up"); use the one with media
+  const mediaForUrl = (url) => projectLinks.filter((a) => a.href === url).map(mediaFor).find(Boolean);
   window.addEventListener('pageswap', (e) => {
     if (!e.viewTransition || !e.activation) return;
-    const to = e.activation.entry?.url;
-    const link = projectLinks.find((a) => a.href === to);
-    const el = link && mediaFor(link);
+    const el = mediaForUrl(e.activation.entry?.url);
     if (el) el.style.viewTransitionName = 'project-media';
   });
   window.addEventListener('pagereveal', (e) => {
     if (!e.viewTransition || !window.navigation?.activation?.from) return;
-    const from = navigation.activation.from.url;
-    const link = projectLinks.find((a) => a.href === from);
-    const el = link && mediaFor(link);
+    const el = mediaForUrl(navigation.activation.from.url);
     if (el) {
+      el.classList.add('ps-done'); // the morph lands on it, so skip the separation wipe
       el.style.viewTransitionName = 'project-media';
       e.viewTransition.finished.finally(() => { el.style.viewTransitionName = ''; });
     }
@@ -623,30 +768,6 @@
       pill.innerHTML = `<span>${el.dataset.cursor}</span><svg class="icon"><use href="${iconBase}#i-${el.dataset.cursor === 'Enlarge' ? 'magnifying-glass-plus' : 'arrow-right'}"/></svg>`;
       host.appendChild(pill);
     });
-  }
-
-  /* ---------- 2. colour tone follows the section in view ---------- */
-  const toned = [...document.querySelectorAll('[data-tone]')];
-  if (toned.length && 'IntersectionObserver' in window) {
-    let toneTimer = null;
-    const setTone = (tone) => {
-      if (body.dataset.tone === tone) return;
-      root.classList.add('is-toning');
-      if (tone) body.dataset.tone = tone; else delete body.dataset.tone;
-      clearTimeout(toneTimer);
-      toneTimer = setTimeout(() => root.classList.remove('is-toning'), 760);
-    };
-    // a section owns the tone while it covers the middle of the viewport
-    const toneSpy = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) setTone(entry.target.dataset.tone);
-        else if (body.dataset.tone === entry.target.dataset.tone) {
-          // left the middle band: fall back to the default tone
-          setTone('');
-        }
-      });
-    }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
-    toned.forEach((s) => toneSpy.observe(s));
   }
 
   /* ---------- 3. hero depth field: orbs and the portrait shift with cursor and scroll ---------- */
@@ -681,8 +802,7 @@
   }
 
   /* ---------- footer year ---------- */
-  const year = document.getElementById('year');
-  if (year) year.textContent = String(new Date().getFullYear());
+  document.querySelectorAll('#year, [data-year]').forEach((el) => { el.textContent = String(new Date().getFullYear()); });
   /* ---------- hero crosshair with a millimetre readout ---------- */
   const xhHost = document.querySelector('.hero');
   if (xhHost && finePointer.matches) {

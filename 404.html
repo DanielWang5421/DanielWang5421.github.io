@@ -9,12 +9,18 @@
   <meta name="robots" content="noindex" />
   <link rel="preload" href="/assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/Archivo-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="/assets/vendor/lenis.css" />
   <link rel="stylesheet" href="/styles.css" />
   <script>
     document.documentElement.classList.add('js');
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('lines-on');
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('blink-on');
+      // failsafe: if main.js never arms the reveals, show everything
+      setTimeout(function () { var d = document.documentElement; if (!d.classList.contains('blink-armed')) d.classList.remove('blink-on'); }, 3500);
+    }
     try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
   </script>
 </head>
@@ -24,7 +30,7 @@
 
 <header class="nav" id="nav">
   <div class="container nav__inner">
-    <a class="nav__brand" href="/index.html" aria-label="Daniel Wang, home">DW</a>
+    <a class="nav__brand" href="/index.html" aria-label="Daniel Wang, home"><svg class="nav__mark" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 36 C24 40 31 50 32 70"/><path d="M25 29 C34 29 41 34 45 42"/><path d="M22 76 C32 74 44 67 58 53 L64 67 L87 22"/></g></svg></a>
     <nav class="nav__links" id="nav-links" aria-label="Primary">
       <a href="/index.html#about" data-nav>About</a>
       <a href="/index.html#projects" data-nav>Projects</a>
@@ -62,8 +68,8 @@
 <main id="main" class="page notfound">
   <div class="container">
     <p class="eyebrow">404</p>
-    <h1 class="notfound__title">That page is not routed.</h1>
-    <p class="notfound__sub">The address may have changed, or the link was wrong. The projects are still where they should be.</p>
+    <h1 class="notfound__title">How did you get here lol</h1>
+    <p class="notfound__sub">The address may have changed, or the link was wrong.</p>
     <div class="hero__cta">
       <a class="btn btn--primary" href="/index.html" data-magnetic>
         <svg class="icon" aria-hidden="true"><use href="/assets/icons.svg#i-arrow-left"/></svg>
@@ -74,12 +80,13 @@
       </a>
     </div>
   </div>
+  <span class="curtain-sentinel" aria-hidden="true"></span>
 </main>
 
 <footer class="footer">
   <div class="container footer__grid">
     <div class="footer__brand">
-      <a class="nav__brand" href="/index.html" aria-label="Daniel Wang, home">DW</a>
+      <a class="nav__brand" href="/index.html" aria-label="Daniel Wang, home"><svg class="nav__mark" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 36 C24 40 31 50 32 70"/><path d="M25 29 C34 29 41 34 45 42"/><path d="M22 76 C32 74 44 67 58 53 L64 67 L87 22"/></g></svg></a>
       <p class="footer__name">Daniel Wang</p>
       <p class="footer__line">Computer Engineering student, Toronto Metropolitan University. Markham, Ontario.</p>
     </div>
@@ -103,12 +110,12 @@
     <p>&copy; <span id="year">2026</span> Daniel Wang</p>
     <p>Built by me, no tracking.</p>
   </div>
+  <div class="footer__mark" aria-hidden="true"><span>Daniel Wang</span></div>
 </footer>
 
 <script src="/assets/vendor/lenis.min.js" defer></script>
 <script src="/assets/vendor/gsap.min.js" defer></script>
 <script src="/assets/vendor/ScrollTrigger.min.js" defer></script>
-<script src="/assets/vendor/SplitText.min.js" defer></script>
 <script src="/main.js" defer></script>
 </body>
 </html>

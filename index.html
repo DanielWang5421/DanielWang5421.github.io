@@ -16,12 +16,18 @@
   <link rel="preload" href="assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/Archivo-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/img/avatar-800.webp" as="image" type="image/webp" />
+  <link rel="icon" href="favicon.ico" sizes="32x32" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="assets/vendor/lenis.css" />
   <link rel="stylesheet" href="styles.css" />
   <script>
     document.documentElement.classList.add('js');
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('lines-on');
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('blink-on');
+      // failsafe: if main.js never arms the reveals, show everything
+      setTimeout(function () { var d = document.documentElement; if (!d.classList.contains('blink-armed')) d.classList.remove('blink-on'); }, 3500);
+    }
     try {
       var t = localStorage.getItem('theme');
       if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
@@ -34,7 +40,7 @@
 
 <header class="nav" id="nav">
   <div class="container nav__inner">
-    <a class="nav__brand" href="#top" aria-label="Daniel Wang, home">DW</a>
+    <a class="nav__brand" href="#top" aria-label="Daniel Wang, home"><svg class="nav__mark" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 36 C24 40 31 50 32 70"/><path d="M25 29 C34 29 41 34 45 42"/><path d="M22 76 C32 74 44 67 58 53 L64 67 L87 22"/></g></svg></a>
 
     <nav class="nav__links" id="nav-links" aria-label="Primary">
       <a href="#about" data-nav>About</a>
@@ -77,14 +83,18 @@
   <section data-hud="Intro" class="hero" id="top">
     <div class="hero__paper" aria-hidden="true">
       <span class="paper__grid" data-depth="0.025"></span>
+      <div class="topo topo--hero" data-reveal data-depth="0.012"><i class="topo__lines"></i></div>
       <span class="paper__ruler paper__ruler--top"></span>
       <span class="paper__ruler paper__ruler--left"></span>
+      <span class="paper__ruler paper__ruler--bottom"></span>
+      <span class="paper__bar"><i></i><i></i><i></i></span>
+      <span class="paper__tag">Daniel Wang / Portfolio <span data-year>2026</span></span>
     </div>
     <div class="container hero__grid">
       <div class="hero__copy">
         <p class="eyebrow hero__eyebrow">Computer Engineering, Toronto Metropolitan University</p>
         <h1 class="hero__title" id="hero-title">Building at the edge of hardware and software.</h1>
-        <p class="hero__sub">Third-year Computer Engineering student. I design digital logic for FPGAs, write firmware for microcontrollers, and debug the boundary between the two.</p>
+        <p class="hero__sub">Third year Computer Engineering student. I design digital logic for FPGAs, write firmware for microcontrollers, and debug the boundary between the two.</p>
         <div class="hero__cta">
           <a class="btn btn--primary" href="#projects" data-magnetic>
             <span>See projects</span>
@@ -109,6 +119,7 @@
 
   <!-- ABOUT -->
   <section data-hud="About" class="about" id="about">
+    <div class="topo topo--about" data-reveal data-speed="0.92" aria-hidden="true"><i class="topo__lines"></i><i class="topo__marks"></i></div>
     <div class="container"><div class="sec-rule" data-reveal aria-hidden="true"><span class="sec-rule__idx">01</span><span class="sec-rule__line"></span><span class="sec-rule__meta">Profile</span></div></div>
     <div class="container about__grid">
       <div class="about__main">
@@ -121,10 +132,10 @@
             In my digital systems work I have designed and simulated finite state machines, registers, and ALUs in Quartus II, then implemented a small processor with an FSM controller, ALU, memory, and an instruction set on an Altera DE-series board. Writing the testbenches taught me more about timing than any lecture did.
           </p>
           <p>
-            On the embedded side I build things I can hold. My weather station runs eight-plus sensors off one ESP32 and streams to a live dashboard, with 3D-printed parts I modeled myself. Outside school I have built and tuned more than fifteen custom PCs, which is where I first learned to benchmark, diagnose, and fix hardware methodically.
+            On the embedded side I build things I can hold. My weather station runs eight plus sensors off one ESP32 and streams to a live dashboard, with 3D printed parts I modeled myself. Outside school I have built and tuned more than fifteen custom PCs, which is where I first learned to benchmark, diagnose, and fix hardware methodically.
           </p>
           <p>
-            Right now I am on the TMU Engineering Concrete Toboggan Team, programming a microcontroller-based interactive display for Canada's largest engineering competition.
+            Right now I am on the TMU Engineering Concrete Toboggan Team, programming a microcontroller based interactive display for Canada's largest engineering competition.
           </p>
         </div>
       </div>
@@ -132,7 +143,7 @@
       <aside class="about__facts" data-reveal-group>
         <div class="fact" data-reveal style="--i:0">
           <span class="fact__label">Focus</span>
-          <span class="fact__value">Digital logic and FPGA design, microcontrollers and sensors, system-level hardware/software integration</span>
+          <span class="fact__value">Digital logic and FPGA design, microcontrollers and sensors, system level hardware/software integration</span>
         </div>
         <div class="fact" data-reveal style="--i:1">
           <span class="fact__label">Core knowledge</span>
@@ -157,15 +168,26 @@
   <!-- PROJECTS -->
   <section data-hud="Projects" class="projects" id="projects">
     <div class="container"><div class="sec-rule" data-reveal aria-hidden="true"><span class="sec-rule__idx">02</span><span class="sec-rule__line"></span><span class="sec-rule__meta">7 builds</span></div></div>
-    <div class="container">
-      <h2 class="section__title" data-reveal>Projects</h2>
-
+    <div class="container projects__head">
+      <h2 class="section__title">Projects</h2>
+      <nav class="pindex" aria-label="Project index">
+        <ol>
+          <li><a href="projects/osd32mp15x-carrier.html"><span class="pindex__n">01</span>OSD32MP15x carrier</a></li>
+          <li><a href="projects/esp32-weather-station.html"><span class="pindex__n">02</span>ESP32 weather station</a></li>
+          <li><a href="projects/fpga-processor.html"><span class="pindex__n">03</span>Processor on an FPGA</a></li>
+          <li><a href="projects/tech-display-scoreboard.html"><span class="pindex__n">04</span>Seven-segment scoreboard</a></li>
+          <li><a href="projects/line-following-robot.html"><span class="pindex__n">05</span>Line-following robot</a></li>
+          <li><a href="projects/custom-pc-builds.html"><span class="pindex__n">06</span>Custom PC builds</a></li>
+          <li><a href="projects/book-store-app.html"><span class="pindex__n">07</span>Book store app</a></li>
+        </ol>
+      </nav>
     </div>
 
     <!-- Showcase: OSD32MP15x carrier. Dark band, pinned image sequence on desktop -->
     <div class="showcase" id="carrier" data-surface="dark">
       <div class="showcase__pin">
         <span class="showcase__grid" aria-hidden="true"></span>
+        <div class="topo topo--band" data-reveal aria-hidden="true"><i class="topo__lines"></i><i class="topo__marks"></i></div>
         <div class="container showcase__inner">
           <div class="showcase__copy">
             <p class="showcase__label">[ Featured build ]</p>
@@ -182,7 +204,17 @@
           </div>
           <div class="showcase__media">
             <a class="showcase__stage" href="projects/osd32mp15x-carrier.html" data-cursor="Open write-up" aria-label="Open the OSD32MP15x Carrier write-up">
-              <figure class="showcase__frame"><picture><source srcset="assets/img/pcb-3d-top-800.webp 800w, assets/img/pcb-3d-top.webp 1600w" sizes="(min-width: 1024px) 55vw, 92vw" type="image/webp" /><img src="assets/img/pcb-3d-top.jpg" srcset="assets/img/pcb-3d-top-800.jpg 800w, assets/img/pcb-3d-top.jpg 1600w" sizes="(min-width: 1024px) 55vw, 92vw" width="998" height="563" alt="3D render of the top of the OSD32MP15x carrier board" loading="lazy" decoding="async" /></picture><figcaption>Top side, 3D render</figcaption></figure>
+              <figure class="showcase__frame"><picture><source srcset="assets/img/pcb-3d-top-800.webp 800w, assets/img/pcb-3d-top.webp 1600w" sizes="(min-width: 1024px) 55vw, 92vw" type="image/webp" /><img src="assets/img/pcb-3d-top.jpg" srcset="assets/img/pcb-3d-top-800.jpg 800w, assets/img/pcb-3d-top.jpg 1600w" sizes="(min-width: 1024px) 55vw, 92vw" width="998" height="563" alt="3D render of the top of the OSD32MP15x carrier board" loading="lazy" decoding="async" /></picture>
+                <div class="callouts" aria-hidden="true">
+                  <svg class="callouts__lines" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M58.4 41.2L45.3 20.2H40.3M45.9 67.1L36.5 82.1H31.5M86.7 47.6V12H84"/></svg>
+                  <i class="callout__node" style="--x:58.4%;--y:41.2%"></i>
+                  <i class="callout__node" style="--x:45.9%;--y:67.1%"></i>
+                  <i class="callout__node" style="--x:86.7%;--y:47.6%"></i>
+                  <span class="callout__tag" style="--x:40.3%;--y:20.2%"><b>Component - 01</b><small>OSD32MP157C SiP</small></span>
+                  <span class="callout__tag" style="--x:31.5%;--y:82.1%"><b>Component - 02</b><small>U23 eMMC, 4 GB</small></span>
+                  <span class="callout__tag" style="--x:84%;--y:12%"><b>Component - 03</b><small>X4 RJ45 magjack</small></span>
+                </div>
+                <figcaption>Top side, 3D render</figcaption></figure>
               <figure class="showcase__frame"><picture><source srcset="assets/img/pcb-layout-800.webp 800w, assets/img/pcb-layout.webp 1600w" sizes="(min-width: 1024px) 55vw, 92vw" type="image/webp" /><img src="assets/img/pcb-layout.jpg" srcset="assets/img/pcb-layout-800.jpg 800w, assets/img/pcb-layout.jpg 1600w" sizes="(min-width: 1024px) 55vw, 92vw" width="1600" height="929" alt="KiCad layout of all four copper layers" loading="lazy" decoding="async" /></picture><figcaption>All four copper layers: 413 nets, 981 vias</figcaption></figure>
               <figure class="showcase__frame"><picture><source srcset="assets/img/pcb-schematic-800.webp 800w, assets/img/pcb-schematic.webp 1600w" sizes="(min-width: 1024px) 55vw, 92vw" type="image/webp" /><img src="assets/img/pcb-schematic.jpg" srcset="assets/img/pcb-schematic-800.jpg 800w, assets/img/pcb-schematic.jpg 1600w" sizes="(min-width: 1024px) 55vw, 92vw" width="1210" height="918" alt="KiCad schematic sheets for USB-C, HDMI, wireless, and Ethernet" loading="lazy" decoding="async" /></picture><figcaption>Schematic: USB-C, HDMI, wireless, Ethernet</figcaption></figure>
             </a>
@@ -198,7 +230,7 @@
 
     <div class="container">
       <!-- Featured: ESP32 weather station -->
-      <article class="project project--featured project--flip" data-reveal>
+      <article class="project project--featured project--flip">
         <div class="project__body">
           <h3 class="project__title">ESP32 Weather Station</h3>
           <p class="project__year">June 2025</p>
@@ -216,7 +248,7 @@
 
         <div class="gallery" id="esp32-gallery">
           <a class="gallery__link" href="projects/esp32-weather-station.html" data-cursor="Open write-up" aria-label="Open the ESP32 Weather Station write-up">
-          <div class="gallery__stage img-reveal">
+          <div class="gallery__stage">
             <picture class="gallery__slide is-active" data-slide="0">
               <source srcset="assets/img/esp32-featured-800.webp 800w, assets/img/esp32-featured.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" />
               <img src="assets/img/esp32-featured.jpg" srcset="assets/img/esp32-featured-800.jpg 800w, assets/img/esp32-featured.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="1600" height="1200" alt="ESP32 on a breadboard wired to a row of hall effect modules and environmental sensors" loading="lazy" />
@@ -258,8 +290,8 @@
 
       <div class="projects__row">
         <!-- FPGA processor -->
-        <a class="project project--card card-spot" href="projects/fpga-processor.html" data-reveal style="--i:0">
-          <div class="project__media img-reveal">
+        <a class="project project--card card-spot" href="projects/fpga-processor.html">
+          <div class="project__media">
             <picture><source srcset="assets/img/de2-115-800.webp 800w, assets/img/de2-115.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" /><img src="assets/img/de2-115.jpg" srcset="assets/img/de2-115-800.jpg 800w, assets/img/de2-115.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="704" height="521" alt="Altera DE2-115 development board" loading="lazy" decoding="async" /></picture>
             <div class="card__panel" aria-hidden="true">
               <ul class="card__facts"><li><span>Language</span>VHDL</li><li><span>Board</span>Altera DE2-115</li><li><span>Blocks</span>FSM, ALU, memory</li></ul>
@@ -280,8 +312,8 @@
         </a>
 
         <!-- Scoreboard -->
-        <a class="project project--card card-spot" href="projects/tech-display-scoreboard.html" data-reveal style="--i:0">
-          <div class="project__media img-reveal">
+        <a class="project project--card card-spot" href="projects/tech-display-scoreboard.html">
+          <div class="project__media">
             <picture>
               <source srcset="assets/img/scoreboard-soldering-800.webp 800w, assets/img/scoreboard-soldering.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" />
               <img src="assets/img/scoreboard-soldering.jpg" srcset="assets/img/scoreboard-soldering-800.jpg 800w, assets/img/scoreboard-soldering.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="1600" height="1200" alt="Soldering addressable LED strip segments into 3D printed seven-segment housings" loading="lazy" />
@@ -305,8 +337,8 @@
         </a>
 
         <!-- Line follower -->
-        <a class="project project--card card-spot" href="projects/line-following-robot.html" data-reveal style="--i:1">
-          <div class="project__media img-reveal">
+        <a class="project project--card card-spot" href="projects/line-following-robot.html">
+          <div class="project__media">
             <picture>
               <source srcset="assets/video/linefollower-poster-800.webp 800w, assets/video/linefollower-poster.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" />
               <img src="assets/video/linefollower-poster.jpg" srcset="assets/video/linefollower-poster-800.jpg 800w, assets/video/linefollower-poster.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="1080" height="606" alt="Line-following robot on a taped maze board" loading="lazy" />
@@ -330,8 +362,8 @@
         </a>
 
         <!-- PC building -->
-        <a class="project project--card card-spot" href="projects/custom-pc-builds.html" data-reveal style="--i:2">
-          <div class="project__media img-reveal">
+        <a class="project project--card card-spot" href="projects/custom-pc-builds.html">
+          <div class="project__media">
             <picture>
               <source srcset="assets/img/pc-white-1-800.webp 800w, assets/img/pc-white-1.webp 1600w" sizes="(min-width: 1024px) 45vw, 92vw" type="image/webp" />
               <img src="assets/img/pc-white-1.jpg" srcset="assets/img/pc-white-1-800.jpg 800w, assets/img/pc-white-1.jpg 1600w" sizes="(min-width: 1024px) 45vw, 92vw" width="1600" height="1508" alt="White PC build with a liquid cooler, RTX graphics card, and sleeved cables" loading="lazy" />
@@ -355,7 +387,7 @@
         </a>
 
         <!-- Book store app -->
-        <a class="project project--card project--tinted project--card-wide card-spot" href="projects/book-store-app.html" data-reveal style="--i:3">
+        <a class="project project--card project--tinted project--card-wide card-spot" href="projects/book-store-app.html">
           <div class="project__stat" aria-hidden="true">
             <span class="project__stat-num">94<span class="project__stat-unit">%</span></span>
             <span class="project__stat-label">final grade</span>
@@ -387,34 +419,37 @@
       <div class="timeline__head">
         <h2 class="section__title" data-reveal>Experience and education</h2>
         <p class="timeline__intro" data-reveal>Team roles, coursework that turned into real hardware, and the volunteer work where I first learned to keep a live system running.</p>
+        <figure class="tdiag" data-reveal aria-hidden="true">
+          <figcaption class="tdiag__cap"><span>Fig.03 / Timing</span><span class="tdiag__range"></span></figcaption>
+        </figure>
       </div>
 
       <ol class="timeline" id="timeline">
-        <li class="timeline__item" data-reveal style="--i:0">
+        <li class="timeline__item" data-from="2025-05" data-to="now" data-net="TECH_DISP">
           <p class="timeline__date">May 2025 to present</p>
           <h3 class="timeline__title">Tech Display Member</h3>
           <p class="timeline__org"><a href="https://www.torontomu.ca/" target="_blank" rel="noopener">TMU Engineering Concrete Toboggan Team</a></p>
           <p class="timeline__desc">Programming and integrating a microcontroller-based interactive display in Arduino and C++ for Canada's largest and oldest engineering competition. Small team, shared deadlines, and a display that has to work on competition day.</p>
         </li>
-        <li class="timeline__item" data-reveal style="--i:1">
+        <li class="timeline__item" data-from="2024-09" data-to="2024-11" data-net="DLD_QII">
           <p class="timeline__date">Sept 2024 to Nov 2024</p>
           <h3 class="timeline__title">Digital Logic Design, Quartus II</h3>
           <p class="timeline__org">Toronto Metropolitan University</p>
           <p class="timeline__desc">Designed and simulated FSMs, registers, and ALUs, then implemented a processor in VHDL on an FPGA. Wrote testbenches that improved timing verification and confirmed reliable instruction execution on hardware.</p>
         </li>
-        <li class="timeline__item" data-reveal style="--i:2">
+        <li class="timeline__item" data-from="2022-09" data-to="now" data-net="BENG_CE">
           <p class="timeline__date">Sept 2022 to present</p>
           <h3 class="timeline__title">BEng, Computer Engineering</h3>
           <p class="timeline__org"><a href="https://www.torontomu.ca/" target="_blank" rel="noopener">Toronto Metropolitan University</a></p>
           <p class="timeline__desc">Relevant courses: Digital Systems, Software Systems, Electronic Circuits I, Engineering Algorithms and Data Structures.</p>
         </li>
-        <li class="timeline__item" data-reveal style="--i:3">
+        <li class="timeline__item" data-from="2020-05" data-to="2024-03" data-net="MEDIA_VOL">
           <p class="timeline__date">May 2020 to Mar 2024</p>
           <h3 class="timeline__title">Media and Technical Support, Volunteer</h3>
           <p class="timeline__org">Chinese Martyrs Catholic Church, Markham</p>
           <p class="timeline__desc">Operated live-streaming equipment to broadcast weekly services and major events, starting during the pandemic. Resolved technical issues during live productions and kept every streaming and upload schedule.</p>
         </li>
-        <li class="timeline__item" data-reveal style="--i:4">
+        <li class="timeline__item" data-from="2018-09" data-to="2022-06" data-net="HS_DIPLOMA">
           <p class="timeline__date">2018 to 2022</p>
           <h3 class="timeline__title">High School Diploma</h3>
           <p class="timeline__org">St. Augustine Catholic High School</p>
@@ -428,8 +463,14 @@
     <div class="container"><div class="sec-rule" data-reveal aria-hidden="true"><span class="sec-rule__idx">04</span><span class="sec-rule__line"></span><span class="sec-rule__meta">8 figures</span></div></div>
     <div class="container">
       <h2 class="section__title" data-reveal>Lab work and other bits</h2>
-      <p class="lab__intro" data-reveal>Coursework that put instruments in my hands: characterising circuits on the bench for Signals and Systems, and taking an ALU from VHDL to a running FPGA board for Digital Systems. Plus a couple of things from the bench that did not fit anywhere else.</p>
-      <div class="strip-wrap" data-reveal>
+      <div class="lab__head">
+        <p class="lab__intro" data-reveal>Coursework that put instruments in my hands: characterising circuits on the bench for Signals and Systems, and taking an ALU from VHDL to a running FPGA board for Digital Systems. Plus a couple of things from the bench that did not fit anywhere else.</p>
+        <figure class="sr" data-reveal>
+          <figcaption class="sr__cap"><span>Plot.04 / Step response</span><span class="sr__zeta">&#950; = 0.30</span></figcaption>
+          <svg class="sr__plot" viewBox="0 0 480 214" role="img" aria-label="Plot of an underdamped second-order step response: damping ratio 0.30, 37 percent overshoot, inside 5 percent after about ten time units"><defs><pattern id="sr-hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="5" class="sr__hatch"/></pattern></defs><path class="sr__axis" d="M34 35V178H468"/><path class="sr__axis" d="M34 178v4M88.25 178v4M142.5 178v4M196.75 178v4M251 178v4M305.25 178v4M359.5 178v4M413.75 178v4M468 178v4M34 86h-4M34 132h-4"/><text class="sr__lab" x="26" y="89" text-anchor="end">1.0</text><text class="sr__lab" x="26" y="181" text-anchor="end">0</text><text class="sr__lab" x="142.5" y="194" text-anchor="middle">4</text><text class="sr__lab" x="251" y="194" text-anchor="middle">8</text><text class="sr__lab" x="359.5" y="194" text-anchor="middle">12</text><text class="sr__lab" x="468" y="194" text-anchor="middle">16</text><text class="sr__lab" x="34" y="194" text-anchor="middle">0</text><text class="sr__lab" x="468" y="209" text-anchor="end">&#969;n t</text><rect class="sr__band" x="34" y="81.4" width="434" height="9.2"/><text class="sr__lab" x="468" y="103" text-anchor="end">&#177;5%</text><path class="sr__step" d="M34 178V86H468"/><text class="sr__lab" x="40" y="79">u(t)</text><path class="sr__set" d="M309.0 81.4V178"/><path class="sr__x" d="M305.5 174.5l7 7m0-7l-7 7"/><text class="sr__lab sr__lab--acc" x="316.0" y="171">t&#8347; 10.1</text><path class="sr__curve" pathLength="1" d="M34.0 178.0 36.7 177.5 39.4 176.2 42.1 174.1 44.9 171.3 47.6 167.8 50.3 163.7 53.0 159.1 55.7 154.0 58.4 148.6 61.1 142.9 63.8 137.0 66.6 130.9 69.3 124.8 72.0 118.6 74.7 112.4 77.4 106.4 80.1 100.5 82.8 94.9 85.5 89.4 88.2 84.3 91.0 79.5 93.7 75.0 96.4 70.8 99.1 67.1 101.8 63.8 104.5 60.9 107.2 58.4 110.0 56.3 112.7 54.6 115.4 53.3 118.1 52.4 120.8 51.9 123.5 51.7 126.2 51.9 128.9 52.4 131.7 53.3 134.4 54.3 137.1 55.6 139.8 57.2 142.5 58.9 145.2 60.8 147.9 62.8 150.6 65.0 153.4 67.2 156.1 69.4 158.8 71.7 161.5 74.0 164.2 76.3 166.9 78.5 169.6 80.7 172.3 82.8 175.1 84.9 177.8 86.8 180.5 88.6 183.2 90.2 185.9 91.7 188.6 93.1 191.3 94.3 194.0 95.4 196.8 96.3 199.5 97.1 202.2 97.7 204.9 98.2 207.6 98.5 210.3 98.7 213.0 98.8 215.7 98.7 218.5 98.5 221.2 98.2 223.9 97.8 226.6 97.3 229.3 96.7 232.0 96.0 234.7 95.3 237.4 94.6 240.2 93.8 242.9 93.0 245.6 92.1 248.3 91.3 251.0 90.4 253.7 89.6 256.4 88.7 259.1 87.9 261.9 87.1 264.6 86.4 267.3 85.7 270.0 85.0 272.7 84.4 275.4 83.8 278.1 83.3 280.8 82.9 283.6 82.5 286.3 82.1 289.0 81.8 291.7 81.6 294.4 81.4 297.1 81.3 299.8 81.3 302.5 81.3 305.2 81.3 308.0 81.4 310.7 81.5 313.4 81.6 316.1 81.8 318.8 82.0 321.5 82.3 324.2 82.5 327.0 82.8 329.7 83.1 332.4 83.4 335.1 83.7 337.8 84.1 340.5 84.4 343.2 84.7 345.9 85.0 348.7 85.3 351.4 85.6 354.1 85.9 356.8 86.1 359.5 86.4 362.2 86.6 364.9 86.8 367.6 87.0 370.4 87.2 373.1 87.3 375.8 87.5 378.5 87.6 381.2 87.6 383.9 87.7 386.6 87.7 389.3 87.8 392.1 87.8 394.8 87.8 397.5 87.7 400.2 87.7 402.9 87.6 405.6 87.6 408.3 87.5 411.0 87.4 413.8 87.3 416.5 87.2 419.2 87.1 421.9 86.9 424.6 86.8 427.3 86.7 430.0 86.6 432.7 86.5 435.5 86.4 438.2 86.2 440.9 86.1 443.6 86.0 446.3 85.9 449.0 85.9 451.7 85.8 454.4 85.7 457.2 85.6 459.9 85.6 462.6 85.5 465.3 85.5 468.0 85.4"/><rect class="sr__node sr__node--hot" x="119.8" y="48.2" width="7" height="7"/><rect class="sr__node" x="209.2" y="95.3" width="7" height="7"/><rect class="sr__node" x="298.5" y="77.8" width="7" height="7"/><path class="sr__lead" d="M127.3 47.7L143.3 31.7H185.3"/><text class="sr__lab sr__lab--acc" x="189.3" y="34.7">M&#8346; 37.2%</text><text class="sr__lab" x="468" y="77" text-anchor="end">y(t)</text></svg>
+        </figure>
+      </div>
+      <div class="strip-wrap">
       <div class="strip" data-gallery data-drag>
         <figure class="strip__item">
           <a data-cursor="Enlarge" href="assets/img/lab-step-response.jpg" data-lb data-caption="Step response of a second-order circuit on the oscilloscope: overshoot and ringing settling to the final value.">
@@ -553,52 +594,64 @@
 
   <!-- CONTACT -->
   <section data-hud="Contact" class="contact" id="contact" data-tone="accent">
+    <div class="topo topo--contact" data-reveal data-speed="0.94" aria-hidden="true"><i class="topo__lines"></i></div>
     <div class="container"><div class="sec-rule" data-reveal aria-hidden="true"><span class="sec-rule__idx">06</span><span class="sec-rule__line"></span><span class="sec-rule__meta">Open to co-op</span></div></div>
-    <div class="container">
-      <h2 class="contact__title" data-reveal>Get in touch</h2>
-      <p class="contact__sub" data-reveal>Open to internships and co-op roles in embedded systems, FPGA, and hardware/software integration.</p>
+    <div class="container contact__grid">
+      <div class="contact__main">
+        <h2 class="contact__title" data-reveal>Get in touch</h2>
+        <p class="contact__sub" data-reveal>Open to internships and co-op roles in embedded systems, FPGA, and hardware/software integration.</p>
 
-      <div class="contact__actions" data-reveal>
-        <a class="btn btn--primary btn--lg" href="mailto:Daniel.Wang5421@gmail.com" data-magnetic>
-          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-envelope-simple"/></svg>
-          <span>Email me</span>
-        </a>
-        <button class="btn btn--ghost btn--lg copy-btn" id="copy-email" type="button" data-email="Daniel.Wang5421@gmail.com" data-magnetic>
-          <span class="copy-btn__face copy-btn__face--idle">
-            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-copy"/></svg>
-            <span>Copy address</span>
-          </span>
-          <span class="copy-btn__face copy-btn__face--done" aria-hidden="true">
-            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg>
-            <span>Copied</span>
-          </span>
-        </button>
+        <div class="contact__actions" data-reveal>
+          <a class="btn btn--primary btn--lg" href="mailto:Daniel.Wang5421@gmail.com" data-magnetic>
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-envelope-simple"/></svg>
+            <span>Email me</span>
+          </a>
+          <button class="btn btn--ghost btn--lg copy-btn" id="copy-email" type="button" data-email="Daniel.Wang5421@gmail.com" data-magnetic>
+            <span class="copy-btn__face copy-btn__face--idle">
+              <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-copy"/></svg>
+              <span>Copy address</span>
+            </span>
+            <span class="copy-btn__face copy-btn__face--done" aria-hidden="true">
+              <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-check"/></svg>
+              <span>Copied</span>
+            </span>
+          </button>
+        </div>
+
+        <ul class="socials" data-reveal>
+          <li>
+            <a class="social" href="https://github.com/DanielWang5421" target="_blank" rel="noopener">
+              <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-github-logo"/></svg>
+              <span>GitHub</span>
+              <svg class="icon icon--ext" aria-hidden="true"><use href="assets/icons.svg#i-arrow-up-right"/></svg>
+            </a>
+          </li>
+          <li>
+            <a class="social" href="https://www.linkedin.com/in/daniel-wang-296387235/" target="_blank" rel="noopener">
+              <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-linkedin-logo"/></svg>
+              <span>LinkedIn</span>
+              <svg class="icon icon--ext" aria-hidden="true"><use href="assets/icons.svg#i-arrow-up-right"/></svg>
+            </a>
+          </li>
+        </ul>
       </div>
-
-      <ul class="socials" data-reveal>
-        <li>
-          <a class="social" href="https://github.com/DanielWang5421" target="_blank" rel="noopener">
-            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-github-logo"/></svg>
-            <span>GitHub</span>
-            <svg class="icon icon--ext" aria-hidden="true"><use href="assets/icons.svg#i-arrow-up-right"/></svg>
-          </a>
-        </li>
-        <li>
-          <a class="social" href="https://www.linkedin.com/in/daniel-wang-296387235/" target="_blank" rel="noopener">
-            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-linkedin-logo"/></svg>
-            <span>LinkedIn</span>
-            <svg class="icon icon--ext" aria-hidden="true"><use href="assets/icons.svg#i-arrow-up-right"/></svg>
-          </a>
-        </li>
-      </ul>
+      <aside class="readout" aria-label="Status">
+        <p class="readout__head"><span>Status //</span><span>[ 03 ]</span></p>
+        <ol class="readout__list">
+          <li><span class="readout__n">-01</span><i class="readout__sq is-on"></i><span class="readout__k">Co-op and internships</span><b class="readout__v">Open</b></li>
+          <li><span class="readout__n">-02</span><i class="readout__sq"></i><span class="readout__k">OSD32MP15x carrier</span><b class="readout__v">Routed</b></li>
+          <li><span class="readout__n">-03</span><i class="readout__sq is-on"></i><span class="readout__k">Toboggan tech display</span><b class="readout__v">Active</b></li>
+        </ol>
+      </aside>
     </div>
   </section>
+  <span class="curtain-sentinel" aria-hidden="true"></span>
 </main>
 
 <footer class="footer">
   <div class="container footer__grid">
     <div class="footer__brand">
-      <a class="nav__brand" href="index.html" aria-label="Daniel Wang, home">DW</a>
+      <a class="nav__brand" href="index.html" aria-label="Daniel Wang, home"><svg class="nav__mark" viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 36 C24 40 31 50 32 70"/><path d="M25 29 C34 29 41 34 45 42"/><path d="M22 76 C32 74 44 67 58 53 L64 67 L87 22"/></g></svg></a>
       <p class="footer__name">Daniel Wang</p>
       <p class="footer__line">Computer Engineering student, Toronto Metropolitan University. Markham, Ontario.</p>
     </div>
@@ -622,12 +675,12 @@
     <p>&copy; <span id="year">2026</span> Daniel Wang</p>
     <p>Built by me, no tracking.</p>
   </div>
+  <div class="footer__mark" aria-hidden="true"><span>Daniel Wang</span></div>
 </footer>
 
 <script src="assets/vendor/lenis.min.js" defer></script>
 <script src="assets/vendor/gsap.min.js" defer></script>
 <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
-<script src="assets/vendor/SplitText.min.js" defer></script>
 <script src="main.js" defer></script>
 </body>
 </html>
